@@ -1,0 +1,173 @@
+.lanternContainner {
+  position: absolute;
+  top: 0px;
+}
+.lantern {
+  position: relative;
+  top: 0px;
+  height: 200px;
+  transition: 0.6s ease-in-out;
+  cursor: pointer;
+  z-index: 1;
+}
+.lanternLight {
+  height: 500px;
+  width: 500px;
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  z-index: -1;
+  top: -10%;
+  left: -100%;
+  background: rgba(0, 0, 0, 0.658);
+  background: radial-gradient(
+    circle,
+    rgba(126, 210, 255, 0.247) 0%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  transition: 0.6s ease-in-out;
+  transform-origin: center;
+}
+.lightsON {
+  height: 500px;
+  width: 500px;
+  background: rgb(126, 209, 255);
+  background: radial-gradient(
+    circle,
+    rgba(126, 209, 255, 0.8504901960784313) 0%,
+    rgba(27, 52, 66, 0) 89%
+  );
+  transition: 0.6s ease-in-out;
+}
+.lanternDark {
+  filter: brightness(0.4);
+  transition: 0.6s ease-in-out;
+}
+.guideMainContainner {
+  height: calc(100vh - 70px);
+  width: 100%;
+  display: flex;
+}
+.etableContainner {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  animation: etableAnimate 3s infinite ease-in-out;
+  transition: 0.5s;
+}
+@keyframes etableAnimate {
+  0% {
+    margin-top: 0px;
+  }
+  50% {
+    margin-top: 50px;
+  }
+  100% {
+    margin-top: 0px;
+  }
+}
+.etable {
+  height: 50%;
+}
+.darkEtable {
+  filter: brightness(0.1);
+  transition: 0.5s;
+}
+.particles {
+  margin-bottom: -50px;
+  margin-left: -30px;
+}
+.guideLinkContainner {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.guideLinkList {
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.guideLink {
+  height: 100px;
+  width: 100px;
+  background-color: rgba(217, 217, 217, 0.08);
+  box-shadow: rgba(0, 0, 0, 0.11) 0px 0px 30px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.guideLink:hover {
+  background-color: rgba(217, 217, 217, 0.123);
+  box-shadow: rgba(0, 0, 0, 0.11) 0px 0px 30px;
+  transition: 0.2s;
+}
+.guideIcon {
+  height: 70px;
+}
+
+/* ///////////////////////////////////      */
+.guides {
+  width: 100%;
+  border-left-style: solid;
+  border-width: 5px;
+  border-image-source: linear-gradient(
+    180deg,
+    rgb(255, 62, 62) 0%,
+    rgb(79, 96, 255) 100%
+  );
+  border-image-slice: 1;
+}
+.guide {
+  margin-top: 60px;
+}
+.guideHeader {
+  height: 100px;
+  width: 100%;
+  border-radius: 20px;
+  border-bottom-style: solid;
+  border-left: solid;
+  border-width: 3px;
+  border-color: var(--normaltext);
+  border-right: solid 30px;
+  border-right-color: transparent;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.guideHeaderImage {
+  height: 70px;
+  margin-left: -45px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 50%;
+  align-self: flex-start;
+}
+.guideContent {
+  margin-top: 30px;
+  margin-left: 30px;
+  margin-right: 30px;
+  width: auto;
+}
+.guideText {
+  text-align: justify;
+}
+.guideContentImg {
+  max-height: 500px;
+  border-radius: 30px;
+  max-width: 70%;
+}
+.guideHighlight {
+  color: var(--lightred);
+  font-weight: bold;
+  font-size: 18px;
+}

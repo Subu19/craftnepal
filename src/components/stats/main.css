@@ -1,0 +1,123 @@
+.clockImage {
+  width: 50%;
+  margin-top: 100px;
+}
+.statRightMain {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+}
+.statLeftMain {
+  flex: 1;
+}
+.statMainPage {
+  height: 70vh;
+}
+.statSubText {
+  margin-top: 20px;
+}
+.statInput {
+  margin: 60px;
+  height: 40px;
+  width: 70%;
+  border-radius: 8px;
+  box-shadow: rgba(148, 148, 148, 0.473) 0px 0px 40px;
+  outline: none;
+  font-size: 16px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+}
+.playername {
+  border-bottom-style: solid;
+  height: 50px;
+  border-image-source: linear-gradient(
+    90deg,
+    rgb(79, 96, 255) 0%,
+    rgb(255, 62, 62) 100%
+  );
+  border-image-slice: 1;
+}
+.player-containner {
+  width: 100%;
+  gap: 30px;
+  margin-top: 50px;
+}
+.player-details {
+  flex: 3;
+  /* align-items: center; */
+}
+.playtime-box {
+  height: 150px;
+  margin-top: 30px;
+  width: 150px;
+}
+.playtime-containner {
+  margin-top: 20px;
+  gap: 40px;
+}
+.playerImage {
+  height: 400px;
+}
+.playerImage-box {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(0, 0, 0);
+  background: linear-gradient(
+    313deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(7, 98, 150, 1) 100%
+  );
+  padding: 10px;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.329) 0px 0px 30px;
+}
+.wrold {
+  align-items: center;
+  gap: 20px;
+}
+.worldIcon {
+  color: green;
+}
+.playtime {
+  margin-top: 20px;
+}
+.worldImage {
+  height: 100px;
+  width: 100px;
+  margin: 10px;
+}
+.hr {
+  color: aqua;
+  margin-left: 10px;
+}
+.hostileStats {
+  width: 100%;
+  height: 250px;
+  background-color: aliceblue;
+  margin-top: 50px;
+  border-radius: 40px;
+  background-color: rgba(217, 217, 217, 0.08);
+  box-shadow: rgba(0, 0, 0, 0.11) 0px 0px 30px;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.hStat {
+  align-items: center;
+  gap: 20px;
+}
+.bubblesback {
+  position: absolute;
+  width: 100%;
+  left: 0px;
+  top: 60px;
+  height: auto;
+  align-self: center;
+  z-index: -1;
+}
+.pieChart {
+  position: relative;
+  height: 500px;
+}

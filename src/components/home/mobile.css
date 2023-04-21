@@ -1,0 +1,43 @@
+@media screen and (max-width: 800px) {
+  .background {
+    height: 100vh;
+    width: 100vw;
+    background-position: center;
+    background-size: cover;
+    object-fit: cover;
+  }
+  .mainPage {
+    flex-direction: column;
+    gap: 0px;
+    justify-content: space-evenly;
+  }
+
+  .mainComponent {
+    overflow-x: hidden;
+  }
+  .originContainner {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .originTitle {
+    align-self: center;
+  }
+  .contentDesc {
+    text-align: center;
+  }
+  .contactBox {
+    flex-wrap: wrap;
+    gap: 20px;
+    height: auto;
+    padding: 20px;
+    width: 80%;
+  }
+  .mainLogo {
+    width: 70%;
+    margin-bottom: 70px;
+  }
+  .mainImage {
+    min-width: 80vw;
+  }
+}

@@ -1,0 +1,16 @@
+.mybutton {
+  height: 40px;
+  width: fit-content;
+  background: rgb(0, 26, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 26, 255, 1) 0%,
+    rgba(50, 120, 159, 1) 100%
+  );
+  padding-left: 20px;
+  padding-right: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

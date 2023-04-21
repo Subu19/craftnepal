@@ -1,0 +1,16 @@
+@media screen and (max-width: 800px) {
+  .navLinks {
+    display: none;
+  }
+  .navbar {
+    position: fixed;
+    top: 0px;
+    justify-content: space-between;
+  }
+  .logo {
+    margin-left: 30px;
+  }
+  .mybutton {
+    display: none;
+  }
+}
