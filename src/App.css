@@ -45,6 +45,7 @@ hr {
 .rowflex {
   display: flex;
   flex-direction: row;
+  transition: 0.5s;
 }
 .columnflex {
   display: flex;
@@ -84,6 +85,19 @@ a:hover {
 
 a:active {
   text-decoration: none;
+}
+
+.creeperLoading {
+  height: 200px;
+  width: 200px;
+  justify-self: center;
+}
+.loadingContainner {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media screen and (max-width: 800px) {
   .main {

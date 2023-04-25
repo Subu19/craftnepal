@@ -4,24 +4,32 @@ import { Home } from "../pages/home";
 import { Stats } from "../pages/stats";
 import { Feed } from "../pages/feed";
 import { Guide } from "../pages/guide";
-
+import { Leaderboard } from "../pages/leaderboard";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home>root</Home>,
+    element: <Home></Home>,
     // errorElement: <div>error page</div>,
   },
   {
     path: "/stats",
-    element: <Stats>root</Stats>,
+    element: <Stats></Stats>,
+  },
+  {
+    path: "/stats/:username",
+    element: <Stats></Stats>,
+  },
+  {
+    path: "/leaderboard",
+    element: <Leaderboard></Leaderboard>,
   },
   {
     path: "/feed",
-    element: <Feed>root</Feed>,
+    element: <Feed></Feed>,
   },
   {
     path: "/guide",
-    element: <Guide>root</Guide>,
+    element: <Guide></Guide>,
   },
   {},
 ]);

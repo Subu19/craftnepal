@@ -8,6 +8,10 @@ import aos from "aos";
 import "aos/dist/aos.css";
 import Slider from "../extra/Slider";
 import hills from "../../assets/images/hills.png";
+import icon from "../../assets/images/icons/others.png";
+import rank from "../../assets/images/icons/rank.png";
+import market from "../../assets/images/icons/market.png";
+
 const HomeComponent = () => {
   useEffect(() => {
     aos.init({
@@ -19,17 +23,46 @@ const HomeComponent = () => {
       <img src={dharara} className="background"></img>
       <i class="fa fa-angle-double-down icon"></i>
       <div className="mainPage">
-        <div
-          className="title whitetext"
-          data-aos="fade-up"
-          data-aos-anchor-placement="bottom-bottom"
-          data-aos-easing="ease-out-back"
-        >
-          <div className="highlight">For the</div>
-          Crafters <br />
-          <div className="highlight">By the</div>
-          Crafters
+        <div className="flexcolumn mainRightContainner">
+          <div
+            className="title whitetext"
+            data-aos="fade-up"
+            data-aos-anchor-placement="bottom-bottom"
+            data-aos-easing="ease-out-back"
+          >
+            <div className="highlight">For the</div>
+            Crafters
+            <div className="highlight">By the</div>
+            Crafters
+          </div>
+          <div className="normaltext subtitle">
+            A Minecraft SMP server for all nepalese
+            <div class="buttons">
+              <button
+                class="btn"
+                onClick={() => {
+                  navigator.clipboard.writeText("play.craftnepal.tk");
+                  document
+                    .getElementsByClassName("btn")[0]
+                    .classList.toggle("start");
+                  setTimeout(() => {
+                    document
+                      .getElementsByClassName("btn")[0]
+                      .classList.toggle("start");
+                  }, 1000);
+                }}
+              >
+                <span></span>
+                <p
+                  data-start="Copied"
+                  data-text="play.craftnepal.tk"
+                  data-title="JOIN US"
+                ></p>
+              </button>
+            </div>
+          </div>
         </div>
+
         <img
           src={craftnepal}
           className="mainLogo"
@@ -108,7 +141,70 @@ const HomeComponent = () => {
         </div>
 
         <div className="contactBox">
-          <iframe
+          <div className="contentTitle whitetext">Our Features</div>
+          <div className="featuerContainner">
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={icon}></img>
+              <div className="featureName">Timber</div>
+              <div className="featureDesc normaltext textcenter">
+                Tree falls upon cutting it from root by an axe
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={rank}></img>
+              <div className="featureName">Ranks</div>
+              <div className="featureDesc normaltext textcenter">
+                Tree falls upon cutting it from root by an axe
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={market}></img>
+              <div className="featureName">Market Place</div>
+              <div className="featureDesc normaltext textcenter">
+                Tree falls upon cutting it from root by an axe
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={icon}></img>
+              <div className="featureName">Timber</div>
+              <div className="featureDesc normaltext textcenter">
+                Tree falls upon cutting it from root by an axe
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={icon}></img>
+              <div className="featureName">Timber</div>
+              <div className="featureDesc normaltext textcenter">
+                Tree falls upon cutting it from root by an axe
+              </div>
+            </div>
+          </div>
+          {/* <iframe
             src="https://discord.com/widget?id=725033293636042773&theme=dark"
             width="300"
             height="300"
@@ -126,7 +222,7 @@ const HomeComponent = () => {
             style={{ borderRadius: "20px" }}
             allowfullscreen="true"
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          ></iframe>
+          ></iframe> */}
         </div>
       </div>
     </div>

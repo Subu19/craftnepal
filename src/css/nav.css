@@ -43,6 +43,7 @@
   gap: 5px;
   text-decoration: none;
   color: white;
+  position: relative;
 }
 .nav:hover .navImg {
   animation: navhover 0.5s ease-out;
@@ -72,6 +73,9 @@
   border-bottom-width: 5px;
   transition: 0.2s;
 }
+.mobileNavLinks {
+  display: none;
+}
 .dynamicNav .selected {
   border-image-slice: 1;
   border-image-source: linear-gradient(
@@ -83,6 +87,36 @@
   border-bottom-width: 5px;
   transition: 0.5s;
   animation: rgbanimation 1s infinite ease-in;
+}
+
+.menuIcon {
+  display: none;
+}
+.subNav {
+  height: 0px;
+  overflow: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0px;
+  right: 0px;
+  transition: 0.2s;
+  color: white;
+}
+#stats:hover {
+  background-color: black;
+}
+#stats {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.nav:hover .subNav {
+  height: auto;
+  transition: 0.2s;
+  padding: 10px 10px 10px 10px;
+  background-color: black;
+}
+.navDrop {
+  margin-left: 5px;
 }
 @keyframes rgbanimation {
   0% {

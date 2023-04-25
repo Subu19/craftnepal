@@ -1,0 +1,269 @@
+.lMainRight {
+  flex: 1;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.lMainLeft {
+  flex: 1;
+  justify-content: center;
+}
+.LeaderBoardMain {
+  height: 600px;
+}
+.floatingImg {
+  left: -30%;
+  top: -10%;
+  position: absolute;
+  animation: allayAnimation 3s infinite ease-in-out;
+}
+.staticImg {
+  width: 50%;
+  height: fit-content;
+}
+@keyframes allayAnimation {
+  0% {
+    margin-top: 0px;
+  }
+  50% {
+    margin-top: 50px;
+  }
+  100% {
+    margin-top: 0px;
+  }
+}
+
+/* --------- main leader board  */
+.mainLeaderBoardContainner {
+  min-height: 600px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 100px;
+  margin-top: 100px;
+}
+.mainLeaderBoard {
+  width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.lbanner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: rgb(234, 174, 21);
+  background: linear-gradient(
+    0deg,
+    rgba(234, 174, 21, 1) 0%,
+    rgba(255, 243, 181, 1) 100%
+  );
+  height: fit-content;
+  position: relative;
+  height: 150px;
+  border-radius: 15px;
+  width: 100%;
+  box-shadow: rgba(0, 0, 0, 0.356) 0px 10px 20px;
+}
+.bannerImage {
+  top: -25%;
+  height: 100px;
+  position: absolute;
+}
+.lListContainner {
+  height: auto;
+  width: 350px;
+  background-color: white;
+  padding: 20px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #ffba04;
+  margin-top: -10px;
+  z-index: -1;
+  padding-top: 30px;
+}
+.leaderboardTitles {
+  display: flex;
+  font-weight: bold;
+  color: var(--normaltext);
+}
+.rank {
+  flex: 1;
+}
+.name {
+  flex: 3;
+}
+.value {
+  flex: 1;
+}
+.endvalue {
+  display: flex;
+  justify-content: flex-end;
+}
+.lPlayerContainner {
+  width: auto;
+  height: auto;
+  margin-top: 20px;
+  min-height: 300px;
+}
+.leaderboardPlayer {
+  display: flex;
+  margin-top: 10px;
+}
+.leaderboardPlayer .rank,
+.leaderboardPlayer .value {
+  color: rgb(155, 155, 155);
+  font-weight: bold;
+}
+.leaderboardPlayer .name {
+  color: rgb(85, 85, 85);
+  font-weight: bold;
+}
+.blockParticles {
+  position: absolute;
+  top: -50%;
+  scale: 1.5;
+  opacity: 0.5;
+}
+
+/* ------------ leader board containner ----------  */
+.leaderboardContainnerBox {
+  height: auto;
+  width: auto;
+  background-color: #b7b7b713;
+  border-radius: 30px;
+  display: flex;
+  padding: 10px;
+  transition: 0.5s;
+}
+.lselectionContainner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.lselectionLists {
+  margin-top: 30px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  border-image-source: linear-gradient(
+    180deg,
+    rgb(255, 62, 62) 0%,
+    rgb(79, 96, 255) 100%
+  );
+  border-image-slice: 1;
+  border-right: solid;
+  padding: 10px;
+}
+.llist {
+  width: auto;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-radius: 10px;
+  color: white;
+  gap: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.llist:hover {
+  background-color: rgba(0, 0, 0, 0.144);
+}
+.leaderboardContainner {
+  flex: 3;
+  display: flex;
+  flex-direction: column;
+  transition: 0.5s;
+}
+.llistIcon {
+  height: 40px;
+  width: auto;
+}
+.selectionTitle {
+  margin-top: 40px;
+}
+.lcontainner {
+  display: flex;
+  flex-direction: column;
+  margin: 30px;
+  gap: 0px;
+  transition: 0.5s;
+}
+.lcontainner .leaderboardPlayer .name {
+  color: rgb(187, 174, 159);
+}
+.lselected {
+  background-color: rgba(0, 0, 0, 0.295);
+}
+.lhighlight {
+  background-color: rgba(255, 255, 255, 0.068);
+  height: 40px;
+  align-items: center;
+}
+@media screen and (max-width: 800px) {
+  .LeaderBoardMain {
+    flex-direction: column;
+  }
+  .lMainRight {
+    align-items: center;
+  }
+  .staticImg {
+    margin-left: 30px;
+  }
+  .floatingImg {
+    height: 200px;
+    left: -10%;
+    top: -10%;
+  }
+  .mainLeaderBoardContainner {
+    margin-top: 200px;
+    width: 100%;
+    justify-content: center;
+  }
+  .mainLeaderBoard {
+    width: 98%;
+  }
+  .lListContainner {
+    width: 85%;
+    padding: 8px;
+    padding-top: 30px;
+    padding-bottom: 20px;
+  }
+  .leaderboardContainnerBox {
+    flex-direction: column;
+    width: auto;
+    overflow-x: hidden;
+  }
+  .lselectionContainner {
+    width: 100%;
+  }
+  .lselectionLists {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    overflow: hidden;
+    justify-content: flex-start;
+    align-items: flex-start;
+    overflow-x: scroll;
+    padding: 0px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: none;
+  }
+  .llist {
+    background-color: rgba(82, 82, 82, 0.178);
+    width: fit-content;
+    flex-wrap: nowrap;
+    font-weight: normal;
+    height: 40px;
+    padding: 10px;
+    word-wrap: unset;
+  }
+}

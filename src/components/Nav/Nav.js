@@ -7,14 +7,18 @@ import home from "../../assets/images/home.png";
 import guide from "../../assets/images/guide.png";
 import stats from "../../assets/images/stats.png";
 import feed from "../../assets/images/feed.png";
-import Button from "../extra/Button";
+import Button from "../extra/UserComponent";
 import { Link } from "react-router-dom";
 import { clearScrollHistory } from "../extra/Clearscroll";
+import UserComponent from "../extra/UserComponent";
 
 const Nav = (props) => {
   const { selected } = props;
+  const [mobilenav, setmobilenav] = useState(false);
+
   var dynamic = false;
   const handleScroll = (e) => {
+    if (mobilenav == true) return;
     var element = document.getElementsByClassName("navbar")[0];
     if (window.scrollY > 10 && dynamic == false) {
       element.classList.add("dynamicNav");
@@ -29,6 +33,12 @@ const Nav = (props) => {
     document.addEventListener("scroll", (e) => handleScroll(e));
   }, []);
 
+  const handleMenu = () => {
+    document
+      .getElementsByClassName("mobileNavLinks")[0]
+      .classList.toggle("openMobileNav");
+    document.getElementsByClassName("navbar")[0].classList.toggle("solidNav");
+  };
   return (
     <>
       <div className="navSpace"></div>
@@ -46,11 +56,82 @@ const Nav = (props) => {
           <Link
             onClick={clearScrollHistory()}
             to={"/stats"}
+            id="stats"
             className={"nav " + (selected == "stats" ? "selected" : "")}
           >
             <img className="navImg" src={stats}></img>
             <div>Stats</div>
+            <i class="fa fa-chevron-down navDrop"></i>
+
+            <Link
+              onClick={clearScrollHistory()}
+              to={"/leaderboard"}
+              className="subNav"
+            >
+              <div>Leaderboard</div>
+            </Link>
           </Link>
+          <Link
+            to={"/feed"}
+            className={"nav " + (selected == "feed" ? "selected" : "")}
+            onClick={() => clearScrollHistory()}
+          >
+            <img className="navImg" src={feed}></img>
+            <div>Feed</div>
+          </Link>
+          <Link
+            to={"/guide"}
+            className={"nav " + (selected == "guide" ? "selected" : "")}
+            onClick={() => clearScrollHistory()}
+          >
+            <img className="navImg" src={guide}></img>
+            <div>Guide</div>
+          </Link>
+        </div>
+        <UserComponent></UserComponent>
+        <i
+          class="material-icons menuIcon"
+          onClick={() => {
+            handleMenu();
+          }}
+        >
+          menu
+        </i>
+        <div className="mobileNavLinks">
+          <Link
+            to={"/"}
+            className={"nav " + (selected == "home" ? "selected" : "")}
+            onClick={() => clearScrollHistory()}
+          >
+            <img className="navImg" src={home}></img>
+            <div>Home</div>
+          </Link>
+          <div
+            // onClick={() => clearScrollHistory()}
+            // to={"/stats"}
+            id="statsmob"
+            className={
+              "subnavParent nav " + (selected == "stats" ? "selected" : "")
+            }
+          >
+            <img className="navImg" src={stats}></img>
+            <div className="subNavContainnerMob">
+              <Link
+                className="mobsubNav"
+                onClick={() => clearScrollHistory()}
+                to={"/stats"}
+              >
+                Stats
+              </Link>
+              <Link
+                onClick={clearScrollHistory()}
+                to={"/leaderboard"}
+                className="mobsubNav"
+              >
+                Leaderboard
+              </Link>
+            </div>
+          </div>
           <Link
             to={"/feed"}
             className={"nav " + (selected == "feed" ? "selected" : "")}
@@ -68,7 +149,6 @@ const Nav = (props) => {
             <div>Guide</div>
           </Link>
         </div>
-        <Button></Button>
       </div>
     </>
   );

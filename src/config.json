@@ -1,0 +1,6 @@
+{
+  "baseUrl": "http://localhost:5000/",
+  "api": "api/",
+  "login": "auth/login",
+  "checkAuth": "auth/verify"
+}

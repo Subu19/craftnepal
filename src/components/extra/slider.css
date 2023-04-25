@@ -11,7 +11,6 @@
   background-color: white;
   overflow: hidden;
   display: flex;
-  margin: 20px;
 }
 
 .slide {
@@ -46,6 +45,11 @@
 }
 @media screen and (max-width: 800px) {
   .sliderBox {
-    width: 80vw;
+    width: 90vw;
+    margin-top: 20px;
+  }
+  .slider {
+    width: 90vw;
+    margin: 0px;
   }
 }

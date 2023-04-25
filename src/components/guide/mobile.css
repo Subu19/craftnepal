@@ -1,0 +1,48 @@
+@media screen and (max-width: 800px) {
+  .guideMainContainner {
+    flex-direction: column;
+    height: fit-content;
+  }
+  .particles {
+    height: 100px;
+  }
+  .etable {
+    height: 300px;
+    animation: none;
+    margin-top: 70px;
+  }
+  .etableContainner {
+    height: 100%;
+  }
+  .guideLinkContainner {
+    flex: 1;
+  }
+  .guides {
+    width: 90%;
+    margin-left: 5%;
+  }
+  .guideContentImg {
+    max-width: 100%;
+  }
+  .guideLinkList {
+    gap: 10px;
+  }
+  .guideLink {
+    height: calc(70vw / 3);
+    width: calc(70vw / 3);
+    padding: 5px;
+  }
+  .guideIcon {
+    height: 50px;
+    /* width: 50px; */
+  }
+  .guideContent {
+    margin-top: 30px;
+    margin-left: 10px;
+    margin-right: 0px;
+    width: auto;
+  }
+  .guideText {
+    text-align: left;
+  }
+}

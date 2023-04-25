@@ -1,0 +1,37 @@
+@media screen and (max-width: 800px) {
+  .statMainPage {
+    flex-direction: column;
+    gap: 50px;
+    height: fit-content;
+  }
+  .statLeftMain {
+    display: flex;
+  }
+  .clockImage {
+    width: 50%;
+    margin-left: 15%;
+  }
+  .player-containner {
+    flex-direction: column;
+  }
+  .playtime-containner {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .playtime-box {
+    height: fit-content;
+    justify-content: center;
+    align-items: center;
+  }
+  .hostileStats {
+    flex-wrap: wrap;
+    gap: 20px;
+    height: fit-content;
+    width: calc(100% - 60px);
+    padding: 30px;
+  }
+  .hStat {
+    flex-direction: column;
+  }
+}

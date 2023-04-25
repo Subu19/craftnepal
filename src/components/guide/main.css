@@ -54,7 +54,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  animation: etableAnimate 3s infinite ease-in-out;
   transition: 0.5s;
 }
 @keyframes etableAnimate {
@@ -70,6 +69,9 @@
 }
 .etable {
   height: 50%;
+  transition: 0.5s;
+
+  animation: etableAnimate 3s infinite ease-in-out;
 }
 .darkEtable {
   filter: brightness(0.1);

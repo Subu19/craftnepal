@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import lantern from "../../assets/images/lantern.png";
 import etable from "../../assets/images/etable.png";
 
@@ -8,12 +8,18 @@ import faq from "../../assets/images/icons/faq.png";
 import market from "../../assets/images/icons/market.png";
 import others from "../../assets/images/icons/others.png";
 import rules from "../../assets/images/icons/rules.png";
+import aos from "aos";
 
 import "./main.css";
+import "./mobile.css";
+import "aos/dist/aos.css";
 import Guides from "./Guides";
 import { Link } from "react-router-dom";
 import Particle from "./particle";
 const GuideComponent = () => {
+  useEffect(() => {
+    aos.init({ duration: 1000 });
+  }, []);
   return (
     <>
       <div className="lanternContainner">
@@ -41,7 +47,12 @@ const GuideComponent = () => {
         </div>
         <div className="guideLinkContainner">
           <div className="columnflex">
-            <div className="contentTitle whitetext textcenter">
+            <div
+              className="contentTitle whitetext textcenter"
+              data-aos="fade-up"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
               Lost?
               <br />
               Help your self
@@ -58,11 +69,22 @@ const GuideComponent = () => {
 
 const GuideLinks = () => {
   const showGuide = (id) => {
-    document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    var element = document.getElementById(id);
+    var headerOffset = 105;
+    var elementPosition = element.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
   };
   return (
     <div className="guideLinkList">
       <div
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
         className="guideLink"
         onClick={() => {
           showGuide("ranks");
@@ -79,6 +101,9 @@ const GuideLinks = () => {
         onClick={() => {
           showGuide("market");
         }}
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
       >
         <img src={market} className="guideIcon"></img>
         <div className="normaltext" style={{ color: "#EB5569" }}>
@@ -91,6 +116,9 @@ const GuideLinks = () => {
         onClick={() => {
           showGuide("ranks");
         }}
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
       >
         <img src={command} className="guideIcon"></img>
         <div className="normaltext" style={{ color: "#B7B7B7" }}>
@@ -103,6 +131,9 @@ const GuideLinks = () => {
         onClick={() => {
           showGuide("ranks");
         }}
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
       >
         <img src={rules} className="guideIcon"></img>
         <div className="normaltext" style={{ color: "#80B523" }}>
@@ -115,6 +146,9 @@ const GuideLinks = () => {
         onClick={() => {
           showGuide("ranks");
         }}
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
       >
         <img src={others} className="guideIcon"></img>
         <div className="normaltext" style={{ color: "#FFC850" }}>
@@ -127,6 +161,9 @@ const GuideLinks = () => {
         onClick={() => {
           showGuide("ranks");
         }}
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
       >
         <img src={faq} className="guideIcon"></img>
         <div className="normaltext" style={{ color: "#369DFF" }}>
