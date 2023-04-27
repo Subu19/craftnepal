@@ -16,6 +16,9 @@
 .statSubText {
   margin-top: 20px;
 }
+.statForm {
+  width: 100%;
+}
 .statInput {
   margin: 60px;
   height: 40px;
@@ -52,7 +55,7 @@
   flex: 1;
 }
 .playtime-box {
-  height: 150px;
+  min-height: 150px;
   margin-top: 30px;
   width: 150px;
 }
@@ -86,8 +89,31 @@
 .worldIcon {
   color: green;
 }
+.netherIcon {
+  color: rgb(172, 63, 1);
+}
+.killIcon {
+  color: rgb(0, 217, 255);
+}
+.deathIcon {
+  color: black;
+}
+.mobIcon {
+  color: rgb(18, 141, 7);
+}
+.endIcon {
+  color: rgb(188, 228, 214);
+}
 .playtime {
   margin-top: 20px;
+}
+.totalplaytime {
+  margin-top: 40px;
+  border-top: solid rgba(255, 255, 255, 0.132);
+  padding-top: 20px;
+  /* background-color: black; */
+  /* border-radius: 5px; */
+  display: flex;
 }
 .worldImage {
   height: 100px;

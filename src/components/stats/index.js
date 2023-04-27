@@ -65,7 +65,7 @@ const StatsComponent = () => {
             We provide all stats of players in game including kills, playtime,
             death..etc.
           </div>
-          <form style={{ width: "100%" }} onSubmit={(e) => handleSubmit(e)}>
+          <form className="statForm" onSubmit={(e) => handleSubmit(e)}>
             <input
               required="true"
               id="userInput"
@@ -100,8 +100,26 @@ const StatsComponent = () => {
               </div>
 
               <Playtime playtime={statz.data.playtime}></Playtime>
+              <ScrollTrigger
+                onEnter={() => setCount(true)}
+                onExit={() => setCount(false)}
+              >
+                <div className="contentTitle whitetext totalplaytime">
+                  Total:
+                  {count ? (
+                    <CountUp end={statz.data.totalPlaytime / 60}></CountUp>
+                  ) : (
+                    0
+                  )}
+                  <div className="hr contentTitle">hr</div>
+                </div>
+                <i className="normaltext">
+                  {
+                    "(Note: It also includes other world playtime such as HUB, PvP and so on)"
+                  }
+                </i>
+              </ScrollTrigger>
             </div>
-
             <div className="playerImage-box">
               <img
                 className="playerImage"
@@ -243,7 +261,7 @@ const Playtime = ({ playtime }) => {
         data-aos-easing="ease-out-back"
       >
         <div className="rowflex wrold">
-          <i class={"fa fa-circle worldIcon"}></i>
+          <i class={"fa fa-circle netherIcon"}></i>
           <div className="normaltext worldtext">Nether</div>
         </div>
         <img className="worldImage" src={netherpng}></img>
@@ -272,7 +290,7 @@ const Playtime = ({ playtime }) => {
         data-aos-easing="ease-out-back"
       >
         <div className="rowflex wrold">
-          <i class={"fa fa-circle worldIcon"}></i>
+          <i class={"fa fa-circle endIcon"}></i>
           <div className="normaltext worldtext">End</div>
         </div>
         <img className="worldImage" src={endpng}></img>
@@ -306,7 +324,7 @@ const HostileStat = ({ kills }) => {
         <div className="rowflex hStat">
           <div className="columnflex">
             <div className="rowflex wrold">
-              <i class={"fa fa-circle worldIcon"}></i>
+              <i class={"fa fa-circle killIcon"}></i>
               <div className="normaltext">Player Kills</div>
             </div>
             <img className="worldImage" src={swordpng}></img>
@@ -323,7 +341,7 @@ const HostileStat = ({ kills }) => {
         <div className="rowflex hStat">
           <div className="columnflex">
             <div className="rowflex wrold">
-              <i class={"fa fa-circle worldIcon"}></i>
+              <i class={"fa fa-circle deathIcon"}></i>
               <div className="normaltext">Death</div>
             </div>
             <img className="worldImage" src={deathpng}></img>
@@ -341,7 +359,7 @@ const HostileStat = ({ kills }) => {
         <div className="rowflex hStat">
           <div className="columnflex">
             <div className="rowflex wrold">
-              <i class={"fa fa-circle worldIcon"}></i>
+              <i class={"fa fa-circle mobIcon"}></i>
               <div className="normaltext">Mob Kills</div>
             </div>
             <img className="worldImage" src={mobpng}></img>

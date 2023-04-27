@@ -1,0 +1,61 @@
+.CoffeeContainner {
+  position: fixed;
+  background-color: white;
+  left: -300px;
+  top: 70px;
+  width: 300px;
+  z-index: 1000;
+  transition: 0.5s;
+  padding-bottom: 0px;
+}
+.coffeeShow {
+  right: auto;
+  left: 0px;
+  transition: 0.5s;
+  box-shadow: black 0px 0px 50px;
+}
+.coffee {
+  color: var(--lightred);
+  font-size: 30px;
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  cursor: pointer;
+  left: 100%;
+  top: 0px;
+  transition: 0.2s;
+}
+.coffeeShow .coffee {
+  color: black;
+  transition: 0.2s;
+}
+.coffeeText {
+  color: black;
+}
+
+.coffee:hover {
+  transition: 0.2s;
+  color: rgb(16, 90, 175);
+}
+.coffeeHeader {
+  position: relative;
+  width: 100%;
+  transition: 0.5s;
+  color: white;
+  display: flex;
+  overflow: hidden;
+  user-select: none;
+  padding-left: 10px;
+}
+.coffContent {
+  height: fit-content;
+  padding: 0px;
+}
+.supportImage {
+  height: auto;
+  width: 100%;
+  transition: 0.5s;
+  margin: 0px;
+}

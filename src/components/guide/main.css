@@ -147,7 +147,9 @@
   align-items: center;
 }
 .guideHeaderImage {
+  background-size: cover;
   height: 70px;
+  width: 70px;
   margin-left: -45px;
   padding: 10px;
   background-color: white;
@@ -167,6 +169,7 @@
   max-height: 500px;
   border-radius: 30px;
   max-width: 70%;
+  cursor: pointer;
 }
 .guideHighlight {
   color: var(--lightred);

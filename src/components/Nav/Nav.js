@@ -17,7 +17,20 @@ const Nav = (props) => {
   const [mobilenav, setmobilenav] = useState(false);
 
   var dynamic = false;
+  var STT = false;
   const handleScroll = (e) => {
+    const scrollToTop = document.getElementById("scrollToTop");
+    if (window.scrollY > 500) {
+      if (scrollToTop && !STT) {
+        scrollToTop.classList.add("showScrollToTop");
+        STT = true;
+      }
+    } else {
+      if (scrollToTop && STT) {
+        scrollToTop.classList.remove("showScrollToTop");
+        STT = false;
+      }
+    }
     if (mobilenav == true) return;
     var element = document.getElementsByClassName("navbar")[0];
     if (window.scrollY > 10 && dynamic == false) {
@@ -38,21 +51,17 @@ const Nav = (props) => {
       .getElementsByClassName("mobileNavLinks")[0]
       .classList.toggle("openMobileNav");
     document.getElementsByClassName("navbar")[0].classList.toggle("solidNav");
+    const button = document.getElementsByClassName("mybutton")[0];
+    if (button) button.classList.toggle("showButton");
   };
   return (
     <>
       <div className="navSpace"></div>
       <div className="navbar">
-        <img src={logo} className="logo"></img>
+        <Link className="navLogo" to={"/"} onClick={clearScrollHistory()}>
+          <img src={logo} className="logo"></img>
+        </Link>
         <div className="navLinks">
-          <Link
-            to={"/"}
-            className={"nav " + (selected == "home" ? "selected" : "")}
-            onClick={clearScrollHistory()}
-          >
-            <img className="navImg" src={home}></img>
-            <div>Home</div>
-          </Link>
           <Link
             onClick={clearScrollHistory()}
             to={"/stats"}

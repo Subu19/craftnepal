@@ -16,7 +16,6 @@ export const useFetchLeaderboard = (board) => {
       .then((res) => {
         setLBdata(res.data);
         setLoading(false);
-        console.log(res.data);
       })
       .catch((err) => {
         setLBdata({ err: "Something went wrong", data: null });
@@ -39,7 +38,6 @@ export const useFetchTop10 = () => {
       .then((res) => {
         setLBdata(res.data);
         setLoading(false);
-        console.log(res.data);
       })
       .catch((err) => {
         setLBdata({ err: "Something went wrong", data: null });

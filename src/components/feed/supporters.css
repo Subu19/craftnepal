@@ -1,0 +1,17 @@
+.supporterContainner {
+  display: flex;
+  flex-direction: column;
+}
+.supporter {
+  background-color: #b7b7b724;
+  color: var(--normaltext);
+  margin: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8px;
+}

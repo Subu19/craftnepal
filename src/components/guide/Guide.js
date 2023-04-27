@@ -16,12 +16,15 @@ import "aos/dist/aos.css";
 import Guides from "./Guides";
 import { Link } from "react-router-dom";
 import Particle from "./particle";
+import ScrollToTop from "../extra/ScrollToTop";
 const GuideComponent = () => {
   useEffect(() => {
     aos.init({ duration: 1000 });
   }, []);
   return (
     <>
+      <ScrollToTop></ScrollToTop>
+
       <div className="lanternContainner">
         <img
           className="lantern "
@@ -114,7 +117,7 @@ const GuideLinks = () => {
       <div
         className="guideLink"
         onClick={() => {
-          showGuide("ranks");
+          showGuide("commands");
         }}
         data-aos="zoom-in"
         data-aos-anchor-placement="bottom-bottom"

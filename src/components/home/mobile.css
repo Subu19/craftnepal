@@ -7,9 +7,7 @@
     object-fit: cover;
     opacity: 0.1;
   }
-  .mybutton {
-    visibility: hidden;
-  }
+
   .mainPage {
     flex-direction: column;
     gap: 0px;
@@ -24,6 +22,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  .goal {
+    font-size: 16px;
   }
   .mainComponent {
     overflow-x: hidden;
@@ -62,5 +63,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .featureBox {
+    background: none;
+    width: 100%;
+    box-shadow: none;
+  }
+  .featuerContainner {
+    justify-content: center;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+  .feature {
+    margin: 0px;
+    margin-bottom: 20px;
+    min-width: 150px;
+    max-width: none;
+    flex: 1;
+  }
+  .featureImage {
+    filter: none;
   }
 }

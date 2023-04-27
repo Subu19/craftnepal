@@ -20,6 +20,7 @@ import {
 import CreeperLoading from "../extra/CreeperLoading";
 import aos from "aos";
 import "aos/dist/aos.css";
+import ScrollToTop from "../extra/ScrollToTop";
 
 const LeaderboardComponent = () => {
   const [leaderboard, setLeaderboard] = useState("playtime");
@@ -28,8 +29,10 @@ const LeaderboardComponent = () => {
   useEffect(() => {
     aos.init({ duration: 1000 });
   }, []);
+
   return (
     <>
+      <ScrollToTop></ScrollToTop>
       <div className="rowflex LeaderBoardMain">
         <div className="lMainLeft columnflex">
           <div
@@ -67,7 +70,7 @@ const LeaderboardComponent = () => {
             <BlockParticles></BlockParticles>
             <img src={clockPng} className="bannerImage"></img>
             <div className="contentTitle whitetext centertext">
-              Top 10 Players
+              Top <font style={{ color: "var(--lightred)" }}>10</font> Players
             </div>
           </div>
           <div className="lListContainner">
@@ -172,67 +175,83 @@ const LeaderboardComponent = () => {
   );
 };
 const Selections = ({ setLeaderboard, leaderboard }) => {
+  const handleClick = (board) => {
+    setLeaderboard(board);
+    var element = document.getElementsByClassName(
+      "leaderboardContainnerBox"
+    )[0];
+    var headerOffset = 100;
+    var elementPosition = element.getBoundingClientRect().top;
+    var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+    window.scrollTo({
+      top: offsetPosition,
+      behavior: "smooth",
+    });
+  };
   return (
     <div className="lselectionLists">
       <div
         className={leaderboard == "playtime" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("playtime")}
+        onClick={() => {
+          handleClick("playtime");
+        }}
       >
         <img className="llistIcon" src={clockPng}></img>
         Playtime
       </div>
       <div
         className={leaderboard == "balance" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("balance")}
+        onClick={() => handleClick("balance")}
       >
         <img className="llistIcon" src={goldIcon}></img>
         Balance
       </div>
       <div
         className={leaderboard == "mobkills" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("mobkills")}
+        onClick={() => handleClick("mobkills")}
       >
         <img className="llistIcon" src={mobicon}></img>
         Mob Kills
       </div>
       <div
         className={leaderboard == "playerkills" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("playerkills")}
+        onClick={() => handleClick("playerkills")}
       >
         <img className="llistIcon" src={killicon}></img>
         Player Kills
       </div>
       <div
         className={leaderboard == "deaths" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("deaths")}
+        onClick={() => handleClick("deaths")}
       >
         <img className="llistIcon" src={deathicon}></img>
         Deaths
       </div>
       <div
         className={leaderboard == "slept" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("slept")}
+        onClick={() => handleClick("slept")}
       >
         <img className="llistIcon" src={bedicon}></img>
         Sleepers
       </div>
       <div
         className={leaderboard == "hungry" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("hungry")}
+        onClick={() => handleClick("hungry")}
       >
         <img className="llistIcon" src={foodicon}></img>
         Hungry Players
       </div>
       <div
         className={leaderboard == "damage" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("damage")}
+        onClick={() => handleClick("damage")}
       >
         <img className="llistIcon" src={damageicon}></img>
         Damage Taken
       </div>
       <div
         className={leaderboard == "trades" ? "lselected llist" : "llist"}
-        onClick={() => setLeaderboard("trades")}
+        onClick={() => handleClick("trades")}
       >
         <img className="llistIcon" src={tradeicon}></img>
         Traders

@@ -16,6 +16,9 @@ body {
   );
   overflow-x: hidden;
 }
+* {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 #root {
   display: flex;
   justify-content: center;
@@ -35,6 +38,31 @@ hr {
   margin-bottom: 100px;
   width: 100%;
   border-color: #d8d8d825;
+}
+.scrollToTop {
+  background-color: var(--lightred);
+  padding: 10px;
+  border-radius: 50%;
+  box-shadow: rgba(50, 50, 50, 0.744) 0px 0px 20px;
+  color: white;
+  display: flex;
+  position: fixed;
+  right: 25px;
+  bottom: 0px;
+  cursor: pointer;
+  transition: 0.3s;
+  visibility: hidden;
+  z-index: 100;
+}
+.showScrollToTop {
+  bottom: 20px;
+  visibility: visible;
+  transition: 0.3s;
+}
+.scrollToTop:hover {
+  scale: 1.8;
+  padding-top: 0px;
+  transition: 0.3s;
 }
 .textjustify {
   text-align: justify;

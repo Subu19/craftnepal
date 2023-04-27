@@ -1,0 +1,18 @@
+@media screen and (max-width: 1230px) {
+  .leftFeedSection {
+    display: none;
+  }
+}
+@media screen and (max-width: 800px) {
+  .leftFeedSection {
+    display: none;
+  }
+  .rightFeedSection {
+    position: absolute;
+    display: none;
+  }
+  .commentBox {
+    justify-self: flex-end;
+    align-self: flex-end;
+  }
+}

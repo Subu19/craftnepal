@@ -14,6 +14,19 @@
   .player-containner {
     flex-direction: column;
   }
+  .statRightMain {
+    display: flex;
+    flex-direction: column;
+  }
+  .statInput {
+    margin: 0px;
+    margin-top: 60px;
+    flex: 1;
+  }
+  .statForm {
+    width: 100%;
+    display: flex;
+  }
   .playtime-containner {
     justify-content: center;
     align-items: center;
@@ -33,5 +46,12 @@
   }
   .hStat {
     flex-direction: column;
+    border-bottom: solid;
+    border-color: rgba(255, 255, 255, 0.163);
+    display: flex;
+    padding-bottom: 5px;
+  }
+  .hStat:last-child {
+    border: none;
   }
 }

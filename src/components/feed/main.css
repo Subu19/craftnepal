@@ -1,0 +1,302 @@
+.feedMainContainner {
+  display: flex;
+  gap: 30px;
+  min-height: 100vh;
+}
+
+.rightFeedSection {
+  border-left-style: solid;
+  border-image-source: linear-gradient(
+    180deg,
+    rgb(255, 62, 62) 0%,
+    rgb(79, 96, 255) 100%
+  );
+  border-image-slice: 1;
+  width: 15rem;
+  height: fit-content;
+}
+.leftFeedSection {
+  border-right-style: solid;
+  border-image-source: linear-gradient(
+    180deg,
+    rgb(255, 62, 62) 0%,
+    rgb(79, 96, 255) 100%
+  );
+  border-image-slice: 1;
+  width: 15rem;
+  height: fit-content;
+}
+.midFeedSection {
+  flex: 1;
+}
+.createPost {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: 50px;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.createPost .userImage {
+  height: 40px;
+  width: 40px;
+}
+.createPost .caption {
+  width: auto;
+  height: 30px;
+  padding: 5px;
+  flex: 1;
+  border-radius: 10px;
+  margin: 0px;
+  outline: none;
+  font-size: 16px;
+}
+
+.postButton {
+  height: 40px;
+  width: 100px;
+  background: linear-gradient(
+    90deg,
+    rgb(255, 62, 62) 0%,
+    rgb(79, 96, 255) 100%
+  );
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.imgSelector {
+  height: 40px;
+  cursor: pointer;
+}
+.midFeedSection hr {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.postButton:hover {
+}
+.loadingCircle {
+  color: white;
+  font-size: 40px;
+}
+.file {
+  display: none;
+}
+.previewContainner {
+  flex-basis: 100%;
+}
+.imagePreview {
+  display: none;
+  border-radius: 10px;
+  width: 200px;
+  box-shadow: rgba(0, 0, 0, 0.165) 4px 4px 10px;
+  background-color: rgb(0, 0, 0);
+}
+.showImage {
+  display: block;
+}
+
+/* /////////////// post ...................  */
+
+.postContainner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  gap: 20px;
+  transition: 0.5s;
+  align-items: center;
+}
+.post {
+  height: fit-content;
+  min-height: 300px;
+  width: 100%;
+  max-width: 500px;
+  background-color: #101010;
+  border-radius: 10px;
+  transition: 0.5s;
+}
+.postHeader {
+  margin: 10px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.username {
+  color: white;
+  font-size: 20px;
+}
+.postCaption {
+  color: var(--normaltext);
+  margin: 10px;
+  width: auto;
+}
+.postImage {
+  margin: 10px;
+  width: calc(100% - 20px);
+  border-radius: 5px;
+}
+.footerIcons {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  gap: 20px;
+}
+.footerTitle {
+  color: white;
+  font-size: 18px;
+}
+.likes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.heartIcon {
+  height: 40px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+.unheartIcon {
+  height: 40px;
+  cursor: pointer;
+  filter: grayscale(1);
+  transition: 0.4s;
+}
+.commentIcon {
+  color: white;
+}
+.comments {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.comment {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+  margin: 10px;
+}
+.commentInput {
+  width: auto;
+  flex: 1;
+  background-color: #272d39;
+  color: white;
+  outline: none;
+  border: none;
+  padding: 5px;
+  font-size: 18px;
+  height: 50px;
+  padding-left: 10px;
+  border-radius: 8px;
+  outline: none;
+  resize: none;
+}
+.post .sendButton {
+  background: none;
+  border: none;
+  padding: 0px;
+  width: 50px;
+}
+.sendIcon {
+  color: rgb(12, 213, 216);
+  cursor: pointer;
+}
+
+/* ----------------- comment --------------------  */
+
+.commentContainner {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  background-color: rgba(0, 0, 0, 0.604);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.closeComment {
+  display: none;
+  top: 100%;
+}
+.commentBox {
+  height: 500px;
+  width: 400px;
+  background-color: rgb(0, 0, 0);
+  box-shadow: rgba(0, 0, 0, 0.648) 0px 0px 50px;
+  display: flex;
+  flex-direction: column;
+}
+.commentHeaders {
+  position: relative;
+  color: white;
+  display: flex;
+  gap: 10px;
+  margin: 10px;
+  height: 30px;
+  justify-content: center;
+}
+.commentHeader {
+  height: 20px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.commentHeader:hover {
+  transition: 0.2s;
+  border-bottom-style: solid;
+  border-color: var(--lightred);
+}
+.userCommentContainner {
+  display: flex;
+  color: white;
+  margin: 10px;
+  width: auto;
+  gap: 10px;
+}
+.commentBox .userImage {
+  height: 40px;
+  width: 40px;
+}
+.userComment {
+  margin-top: 5px;
+  color: var(--normaltext);
+}
+.commentBox .comment {
+  flex: none;
+}
+.userComments {
+  background-color: #0e0e0e;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow-anchor: auto;
+  overflow-y: scroll;
+}
+.commentBox .creeperLoading {
+  height: 60px;
+}
+.commentexitIcon {
+  position: absolute;
+  justify-self: right;
+  cursor: pointer;
+  width: 30px;
+  right: 10px;
+}
+.commentBox .commentInput {
+  background-color: #212121;
+  color: var(--normaltext);
+}
+.sendButton {
+  background-color: none;
+  background: none;
+  border: none;
+}
+.sendIcon {
+  font-size: 35px;
+}

@@ -5,16 +5,25 @@
   .navbar {
     position: fixed;
     top: 0px;
-    justify-content: space-between;
     height: auto;
     flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .mybutton {
+    visibility: hidden;
+  }
+  .showButton {
+    visibility: visible;
   }
   .solidNav {
     background-color: black;
   }
-  .logo {
+  .navLogo {
     margin-left: 30px;
     height: 70px;
+  }
+  .logo {
+    max-height: 70px;
   }
   .menuIcon {
     display: block;

@@ -132,16 +132,21 @@ const HomeComponent = () => {
           <div className="redtext contentTitle textcenter">Goal?</div>
           <br />
           <div
-            className="contentTitle whitetext textcenter"
+            className="contentTitle whitetext textcenter goal"
             data-aos="fade-up"
             data-aos-anchor-placement="bottom-bottom"
           >
             "We just want to play minecraft :)"{" "}
           </div>
         </div>
-
-        <div className="contactBox">
-          <div className="contentTitle whitetext">Our Features</div>
+        <div className="featureBox">
+          <div
+            className="contentTitle whitetext"
+            data-aos="fade-up"
+            data-aos-anchor-placement="bottom-bottom"
+          >
+            Our Features
+          </div>
           <div className="featuerContainner">
             <div
               className="feature"
