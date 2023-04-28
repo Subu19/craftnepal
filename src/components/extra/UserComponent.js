@@ -6,7 +6,7 @@ import config from "../../config.json";
 const UserComponent = () => {
   const [user, gettingUser] = useContext(UserContext);
   return (
-    <>
+    <div className="userComponent">
       {user == null || gettingUser || user.err ? (
         <div
           className="mybutton"
@@ -21,7 +21,7 @@ const UserComponent = () => {
           src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`}
         ></img>
       )}
-    </>
+    </div>
   );
 };
 

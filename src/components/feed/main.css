@@ -1,7 +1,7 @@
 .feedMainContainner {
   display: flex;
   gap: 30px;
-  min-height: 100vh;
+  max-width: 1200px;
 }
 
 .rightFeedSection {
@@ -14,6 +14,7 @@
   border-image-slice: 1;
   width: 15rem;
   height: fit-content;
+  margin-top: 20px;
 }
 .leftFeedSection {
   border-right-style: solid;
@@ -39,8 +40,8 @@
   flex-wrap: wrap;
 }
 .createPost .userImage {
-  height: 40px;
-  width: 40px;
+  min-height: 40px;
+  min-width: 40px;
 }
 .createPost .caption {
   width: auto;
@@ -110,6 +111,22 @@
   transition: 0.5s;
   align-items: center;
 }
+.showMore {
+  height: 40px;
+  width: 50px;
+  margin: 10px;
+  background-color: var(--lightred);
+  border: none;
+  border-radius: 10px;
+  width: 100px;
+  color: white;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.showMore:hover {
+  background-color: rgb(233, 134, 134);
+  transition: 0.2s;
+}
 .post {
   height: fit-content;
   min-height: 300px;
@@ -118,6 +135,60 @@
   background-color: #101010;
   border-radius: 10px;
   transition: 0.5s;
+  position: relative;
+}
+.optionIcon {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 0px;
+  top: 10px;
+  color: var(--lightred);
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  transition: 0.2s;
+  border-radius: 50%;
+}
+.optionIcon:hover {
+  background-color: rgb(49, 49, 49);
+  transition: 0.2s;
+}
+.optionContainner {
+  position: absolute;
+  right: 0px;
+  top: 50px;
+  z-index: 1;
+  width: fit-content;
+}
+.optionPointer {
+  position: absolute;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+  top: -10px;
+  right: 10px;
+  font-size: 28px;
+}
+.options {
+  position: relative;
+}
+.option {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  gap: 10px;
+  cursor: pointer;
+  background-color: white;
+  border-radius: 10px;
+}
+.option:hover {
+  background-color: rgb(197, 197, 197);
 }
 .postHeader {
   margin: 10px;
@@ -191,7 +262,7 @@
   border: none;
   padding: 5px;
   font-size: 18px;
-  height: 50px;
+  height: 40px;
   padding-left: 10px;
   border-radius: 8px;
   outline: none;
@@ -226,7 +297,7 @@
   top: 100%;
 }
 .commentBox {
-  height: 500px;
+  height: 70%;
   width: 400px;
   background-color: rgb(0, 0, 0);
   box-shadow: rgba(0, 0, 0, 0.648) 0px 0px 50px;
@@ -248,6 +319,11 @@
   cursor: pointer;
 }
 .commentHeader:hover {
+  transition: 0.2s;
+  border-bottom-style: solid;
+  border-color: white;
+}
+.headerSelected {
   transition: 0.2s;
   border-bottom-style: solid;
   border-color: var(--lightred);
@@ -299,4 +375,20 @@
 }
 .sendIcon {
   font-size: 35px;
+}
+.commentBox .username {
+  font-size: 18px;
+}
+.userLikeContainner {
+  flex: 1;
+}
+.userLikes .userImage {
+  height: 30px;
+  width: 30px;
+}
+.userLikes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 20px;
 }

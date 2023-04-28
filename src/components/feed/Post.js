@@ -83,6 +83,15 @@ const Post = ({ mainPost, setOpenComment, setPostId }) => {
 
   return (
     <div className="post">
+      {post.author.id == user.id || user.isAdmin ? (
+        <>
+          <i class="fa fa-ellipsis-v optionIcon"></i>
+          <Options postId={post._id}></Options>
+        </>
+      ) : (
+        ""
+      )}
+
       <div className="postHeader">
         <img
           className="userImage"
@@ -131,8 +140,44 @@ const Post = ({ mainPost, setOpenComment, setPostId }) => {
     </div>
   );
 };
+
+const Options = ({ postId }) => {
+  const [show, setShow] = useState(false);
+  const deletePost = () => {
+    const c = confirm("Are you sure you want to delete this post?");
+    if (c) {
+      axios
+        .post(config.baseUrl + config.api + "post/delete/" + postId)
+        .then((res) => {
+          alert("deleted!");
+        })
+        .catch((err) => {
+          alert("Error while deleting!");
+        });
+    }
+    setShow(false);
+  };
+  return (
+    <>
+      <i class="fa fa-ellipsis-v optionIcon" onClick={() => setShow(!show)}></i>
+      {show ? (
+        <div className="optionContainner">
+          <div className="options">
+            <div className="option" onClick={() => deletePost()}>
+              <i class="material-icons">delete_sweep</i> Delete
+            </div>
+
+            <i class="fa fa-sort-up optionPointer"></i>
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+    </>
+  );
+};
 export const Posts = ({ posting }) => {
-  const { feed, loading } = useFetchFeed(posting);
+  const { feed, loading, limit, setLimit, loadingMore } = useFetchFeed(posting);
   const [openComment, setOpenComment] = useState(false);
   const [postId, setPostId] = useState();
 
@@ -155,6 +200,21 @@ export const Posts = ({ posting }) => {
       ) : (
         ""
       )}
+      {!loadingMore ? (
+        <button
+          className="showMore"
+          onClick={() => {
+            setLimit(limit + 10);
+          }}
+        >
+          Show More
+        </button>
+      ) : !loading ? (
+        <i class="fa fa-circle-o-notch fa-spin loadingCircle"></i>
+      ) : (
+        ""
+      )}
+
       {openComment ? (
         <Comment
           setOpenComment={setOpenComment}

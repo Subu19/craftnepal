@@ -20,7 +20,9 @@ const DropDown = ({ show, toggle, data }) => {
         }
       >
         {show == data.title ? (
-          <CustomMarkDown content={data.text}></CustomMarkDown>
+          <div className="dropDownText">
+            <CustomMarkDown content={data.text}></CustomMarkDown>
+          </div>
         ) : null}
       </div>
     </div>

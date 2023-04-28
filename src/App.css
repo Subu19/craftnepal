@@ -31,7 +31,17 @@ body {
   width: 80%;
   max-width: 1200px;
   height: auto;
-  min-height: 250vh;
+  min-height: 100vh;
+}
+.main2 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: scroll;
+  overflow-x: hidden;
+  height: calc(100vh - 70px);
+  margin-top: 70px;
 }
 hr {
   margin-top: 100px;
@@ -130,5 +140,8 @@ a:active {
 @media screen and (max-width: 800px) {
   .main {
     width: 90%;
+  }
+  .main2 {
+    width: 95%;
   }
 }

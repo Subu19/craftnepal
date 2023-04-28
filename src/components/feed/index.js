@@ -14,7 +14,6 @@ const FeedContainner = () => {
   const fileref = useRef();
   const previewRef = useRef();
   const captionRef = useRef();
-
   const [user, loading] = useContext(UserContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [posting, setPosting] = useState(false);

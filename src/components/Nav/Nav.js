@@ -13,7 +13,7 @@ import { clearScrollHistory } from "../extra/Clearscroll";
 import UserComponent from "../extra/UserComponent";
 
 const Nav = (props) => {
-  const { selected } = props;
+  const { selected, focused } = props;
   const [mobilenav, setmobilenav] = useState(false);
 
   var dynamic = false;
@@ -33,16 +33,26 @@ const Nav = (props) => {
     }
     if (mobilenav == true) return;
     var element = document.getElementsByClassName("navbar")[0];
-    if (window.scrollY > 10 && dynamic == false) {
-      element.classList.add("dynamicNav");
-      dynamic = true;
-    }
-    if (window.scrollY < 5 && dynamic == true) {
-      element.classList.remove("dynamicNav");
-      dynamic = false;
+    if (focused == false) {
+      if (window.scrollY > 10 && dynamic == false) {
+        element.classList.add("dynamicNav");
+        dynamic = true;
+      }
+      if (window.scrollY < 5 && dynamic == true && !focused) {
+        element.classList.remove("dynamicNav");
+        dynamic = false;
+      }
+    } else {
+      if (dynamic == false) {
+        element.classList.add("dynamicNav");
+        dynamic = true;
+      }
     }
   };
   useEffect(() => {
+    if (focused) {
+      handleScroll();
+    }
     document.addEventListener("scroll", (e) => handleScroll(e));
   }, []);
 
@@ -116,8 +126,6 @@ const Nav = (props) => {
             <div>Home</div>
           </Link>
           <div
-            // onClick={() => clearScrollHistory()}
-            // to={"/stats"}
             id="statsmob"
             className={
               "subnavParent nav " + (selected == "stats" ? "selected" : "")

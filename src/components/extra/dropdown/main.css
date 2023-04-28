@@ -20,15 +20,23 @@
   font-weight: normal;
 }
 .dropdownContent {
+  margin-top: 10px;
   height: 0px;
   width: auto;
   background-color: rgb(7, 20, 32);
   color: var(--normaltext);
+  text-size-adjust: none;
+  opacity: 0;
   transition: 0.5s;
 }
 
 .dropdownShow {
+  margin-top: 0px;
   height: fit-content;
-  padding: 10px;
+  text-size-adjust: none;
+  opacity: 1;
   transition: 0.5s;
+}
+.dropDownText {
+  padding: 10px;
 }

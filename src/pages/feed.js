@@ -5,9 +5,9 @@ import FeedContainner from "../components/feed";
 import Coffee from "../components/extra/Coffee/Coffee";
 export const Feed = () => {
   return (
-    <div className="main" id="main">
+    <div className="main2" id="main">
       <Coffee></Coffee>
-      <Nav selected="feed"></Nav>
+      <Nav selected="feed" focused={true}></Nav>
       <FeedContainner></FeedContainner>
     </div>
   );

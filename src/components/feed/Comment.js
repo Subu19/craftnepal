@@ -8,13 +8,13 @@ const Comment = ({ setOpenComment, openComment, postId }) => {
   const [post, setPost] = useState();
   const [loading, setLoading] = useState(true);
   const socket = useSocket();
-
+  const [showLikes, setShowLikes] = useState(false);
   const commentRef = useRef();
+
   useEffect(() => {
     if (socket) {
       socket.on("updateComments:" + postId, (data) => {
         setPost(data.post);
-        console.log("hello0");
       });
     }
   }, [socket]);
@@ -73,10 +73,29 @@ const Comment = ({ setOpenComment, openComment, postId }) => {
         openComment ? "commentContainner" : "commentContainner closeComment"
       }
     >
-      <div className="commentBox">
+      <div
+        className="commentBox"
+        data-aos="fade-up"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
+      >
         <div className="commentHeaders">
-          <div className="commentHeader">Comments</div>
-          <div className="commentHeader">Likes</div>
+          <div
+            className={
+              showLikes ? "commentHeader" : "commentHeader headerSelected"
+            }
+            onClick={() => setShowLikes(false)}
+          >
+            Comments
+          </div>
+          <div
+            className={
+              showLikes ? "commentHeader headerSelected" : "commentHeader"
+            }
+            onClick={() => setShowLikes(true)}
+          >
+            Likes
+          </div>
           <i
             class="material-icons commentexitIcon"
             onClick={() => {
@@ -86,49 +105,72 @@ const Comment = ({ setOpenComment, openComment, postId }) => {
             close
           </i>
         </div>
-        <div className="userComments">
-          {loading ? (
-            <div className="loadingContainner">
-              <CreeperLoading></CreeperLoading>
-            </div>
-          ) : post ? (
-            post.comments.map((comment) => (
-              <>
-                <div className="userCommentContainner">
-                  <img
-                    className="userImage"
-                    src={
-                      config.avatar +
-                      comment.discordId +
-                      "/" +
-                      comment.profilePic
-                    }
-                  ></img>
-                  <div className="userCommentDetails">
-                    <div className="username">{comment.username}</div>
-                    <div className="userComment">{comment.comment}</div>
-                  </div>
-                  <div className="commentIcons">
-                    <div className="likeIcon"></div>
-                  </div>
+        {showLikes ? (
+          <div className="userLikeContainner">
+            {post.likes
+              ? post.likes.map((like) => {
+                  return (
+                    <div className="userLikes">
+                      <img
+                        className="userImage"
+                        src={
+                          config.avatar + like.userId + "/" + like.profilePic
+                        }
+                      ></img>
+                      <div className="username">{like.username}</div>
+                    </div>
+                  );
+                })
+              : ""}
+          </div>
+        ) : (
+          <>
+            {" "}
+            <div className="userComments">
+              {loading ? (
+                <div className="loadingContainner">
+                  <CreeperLoading></CreeperLoading>
                 </div>
-              </>
-            ))
-          ) : (
-            ""
-          )}
-        </div>
-        <form className="comment" onSubmit={(e) => submitComment(e)}>
-          <input
-            className="commentInput"
-            aria-autocomplete="false"
-            placeholder="Reply with something.."
-            ref={commentRef}
-          ></input>
-          <button type="submit" className="sendButton">
-            <i class="material-icons sendIcon">send</i>
-          </button>
-        </form>
+              ) : post ? (
+                post.comments.map((comment) => (
+                  <>
+                    <div className="userCommentContainner">
+                      <img
+                        className="userImage"
+                        src={
+                          config.avatar +
+                          comment.discordId +
+                          "/" +
+                          comment.profilePic
+                        }
+                      ></img>
+                      <div className="userCommentDetails">
+                        <div className="username">{comment.username}</div>
+                        <div className="userComment">{comment.comment}</div>
+                      </div>
+                      <div className="commentIcons">
+                        <div className="likeIcon"></div>
+                      </div>
+                    </div>
+                  </>
+                ))
+              ) : (
+                ""
+              )}
+            </div>
+            <form className="comment" onSubmit={(e) => submitComment(e)}>
+              <input
+                className="commentInput"
+                aria-autocomplete="false"
+                placeholder="Reply with something.."
+                ref={commentRef}
+              ></input>
+              <button type="submit" className="sendButton">
+                <i class="material-icons sendIcon">send</i>
+              </button>
+            </form>
+          </>
+        )}
       </div>
     </div>
   );
