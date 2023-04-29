@@ -7,6 +7,9 @@ import Commands from "./commands/commands";
 import CustomMarkDown from "../extra/CustomMarkDown";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import "react-photo-view/dist/react-photo-view.css";
+import Rules from "./rules/Rules";
+import Market from "./market/market";
+import Others from "./others/Others";
 
 const rawText = {
   text: `Finally we have \`\`\`completed\`\`\` the implementation of the market in Minecraft Server. Use /market to teleport to market and use return place to return back to the last position. Players can buy/sell their items by making their own market stalls. Current market has about 30 plots and the first plot claim is free for everyone. Single plot is 16x16 and y level 10-80 which is good enough to make a shop. Feel free to make underground shops. If anyone really wants to increase their plot, they will have to buy a new plot from the server. Price hasn't been fixed yet. But you will be able to buy them soon. 
@@ -23,7 +26,9 @@ Left click the chest shop and enter the amount you wanna buy in chat. If you hav
 const Guides = () => {
   return (
     <div className="guides">
+      <Rules></Rules>
       <Commands></Commands>
+
       <div className="guide">
         <div className="guideHeader">
           <img src={rank} className="guideHeaderImage"></img>
@@ -49,21 +54,8 @@ const Guides = () => {
           </PhotoProvider>
         </div>
       </div>
-
-      <div className="guide">
-        <div className="guideHeader">
-          <img src={market} className="guideHeaderImage"></img>
-          <div className="whitetext contentTitle" id="market">
-            Market
-          </div>
-        </div>
-
-        <div className="guideContent">
-          <p className="guideText normaltext">
-            <CustomMarkDown content={rawText.text}></CustomMarkDown>
-          </p>
-        </div>
-      </div>
+      <Market></Market>
+      <Others></Others>
     </div>
   );
 };

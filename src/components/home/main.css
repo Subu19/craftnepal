@@ -23,6 +23,7 @@
   justify-content: center;
   /* align-items: center; */
 }
+
 .subtitle {
   margin-top: 10px;
   padding: 20px;
@@ -95,6 +96,17 @@
   margin-left: 20px;
   margin-right: 20px;
 }
+.originSlide {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.originContainner {
+  display: flex;
+  flex-direction: column;
+}
 
 .mainImage {
   margin-top: 50px;
@@ -136,10 +148,11 @@
 .feature {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   max-width: 30%;
   width: 20%;
+  height: auto;
   transition: 0.5s;
 }
 .feature:hover .featureImage {

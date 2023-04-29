@@ -7,7 +7,7 @@ import axios from "axios";
 import { UserContext } from "../../providers/UserProvider";
 import { useSocket } from "../../providers/SocketProvider";
 import Comment from "./Comment";
-const Post = ({ mainPost, setOpenComment, setPostId }) => {
+const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
   const [post, setPost] = useState(mainPost);
   const socket = useSocket();
   const commentRef = useRef();
@@ -80,13 +80,31 @@ const Post = ({ mainPost, setOpenComment, setPostId }) => {
         });
     }
   };
+  const getTime = (postTime) => {
+    var time = Date.now() - postTime;
+    let seconds = Math.floor(time / 1000);
+    let minutes = Math.floor(seconds / 60);
+    let hours = Math.floor(minutes / 60);
+    let days = Math.floor(hours / 24);
+    seconds = seconds % 60;
+    minutes = minutes % 60;
+    if (minutes < 1) {
+      return seconds + " sec ago";
+    } else if (hours < 1) {
+      return minutes + " min ago";
+    } else if (days < 1) {
+      return hours + " hr ago";
+    } else {
+      return days + " days ago";
+    }
+  };
 
   return (
     <div className="post">
       {post.author.id == user.id || user.isAdmin ? (
         <>
           <i class="fa fa-ellipsis-v optionIcon"></i>
-          <Options postId={post._id}></Options>
+          <Options setPosting={setPosting} postId={post._id}></Options>
         </>
       ) : (
         ""
@@ -98,6 +116,7 @@ const Post = ({ mainPost, setOpenComment, setPostId }) => {
           src={config.avatar + post.author.id + "/" + post.author.profilePic}
         ></img>
         <b className="username">{post.author.username}</b>
+        <i className="postDate">{getTime(post.id)}</i>
       </div>
       <div className="postCaption">{post.caption}</div>
       <img
@@ -141,15 +160,16 @@ const Post = ({ mainPost, setOpenComment, setPostId }) => {
   );
 };
 
-const Options = ({ postId }) => {
+const Options = ({ postId, setPosting }) => {
   const [show, setShow] = useState(false);
   const deletePost = () => {
     const c = confirm("Are you sure you want to delete this post?");
     if (c) {
+      setPosting(true);
       axios
         .post(config.baseUrl + config.api + "post/delete/" + postId)
         .then((res) => {
-          alert("deleted!");
+          setPosting(false);
         })
         .catch((err) => {
           alert("Error while deleting!");
@@ -176,7 +196,7 @@ const Options = ({ postId }) => {
     </>
   );
 };
-export const Posts = ({ posting }) => {
+export const Posts = ({ posting, setPosting }) => {
   const { feed, loading, limit, setLimit, loadingMore } = useFetchFeed(posting);
   const [openComment, setOpenComment] = useState(false);
   const [postId, setPostId] = useState();
@@ -192,6 +212,7 @@ export const Posts = ({ posting }) => {
       ) : feed ? (
         feed.map((post) => (
           <Post
+            setPosting={setPosting}
             mainPost={post}
             setOpenComment={setOpenComment}
             setPostId={setPostId}

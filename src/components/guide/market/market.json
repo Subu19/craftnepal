@@ -1,0 +1,29 @@
+{
+  "header": "In our community, we use a virtual currency called '$' which is used for buying and selling items in the game. One diamond on our server is worth $200, making it a valuable asset for players to obtain. It's worth noting that when players sell diamonds or other items in the Market, they are taxed at a rate of 5%. This helps to maintain a healthy economy on our server and prevent excessive inflation.",
+  "data": [
+    {
+      "title": "Where can I build my shop?",
+      "text": "\n1. Go to the designated Market place and claim a part of the land where you want to build your shop using a wooden shovel.\n2. You must build a structure for your shop before selling any items. \n3. You can signpost your shop as 'under construction' if you are not ready to sell yet.\n\n*By creating a shop or using a shop in the Market, you are agreeing to follow and abide by the <a href='#rules'> Market Rules.</a>*"
+    },
+    {
+      "title": "How do I sell items in my own shop in the Market?",
+      "text": "\n1. Place a chest in your shop's build.\n2. Left-click this chest with the item on your right hand that you want to sell.\n3. A message in chat pops up instructing you to enter the price you want to set for that item. \n4. Once you have input the amount you want to sell the item for, the chest will automatically have a sign saying 'Selling'.\n5. At this point, you will need to add the items into the chest you've just created so other players can buy from it.\n\n_Note: every price change has a fee so think carefully before setting your prices._"
+    },
+    {
+      "title": "How do I buy items from a shop in the Market?",
+      "text": "\n1. Look for the chest with the item you want to buy. \n2. Once you have found what you are looking for, make sure the sign on the chest says 'Selling'.\n3. Left-click the chest shop.\n4. Shop information pops up in chat with instructions for you to enter the number of items you want to buy in the chat. \n5. Once you have entered the number of items you want to buy, the shop will automatically take money from your balance and the item will be in your inventory.\n\n_Note: Always make sure you have enough money in your balance to purchase the item and you have enough space in your inventory._"
+    },
+    {
+      "title": "How do I delete my shop from the Market?",
+      "text": "\n1. Go to the chest and right-click on the sign.\n2. In the chat, you will see 'RemoveShop'. Click on it.\n3. This will remove the shop from the Market, and it will be only a plain old chest.\n\n_Note: There is no fee for this change._"
+    },
+    {
+      "title": "How do I change the price of an item in my shop?",
+      "text": "\n1. Go to the chest and right-click on the sign of the item you want to change the price.\n2. In the chat, you will see 'Change' next to the price. Click on it.\n3. Type the new price in the chat.\n4. The new prices will take effect immediately, and players will be able to buy and sell items at the new rates.\n\n_Note: every price change has a fee so think carefully before setting your prices._"
+    },
+    {
+      "title": "How do I change from selling to buying or vice versa?",
+      "text": "\n1. Go to the chest and right-click on the sign of the item you want to change.\n2. Shop Control Panel will pop up in the chat.\n3. Click on the 'Change' next to the Shop Mode to change your shop into buying or selling mode.\n\n_Note: There is no fee for this change._"
+    }
+  ]
+}

@@ -2,26 +2,32 @@ import React, { useEffect, useState } from "react";
 import "./slider.css";
 import dharara from "../../assets/images/dharara.png";
 import home from "../../assets/images/home.png";
+import slider1 from "../../assets/images/slider1.png";
+import slider2 from "../../assets/images/slider2.png";
+import slider3 from "../../assets/images/slider3.png";
+import slider4 from "../../assets/images/slider4.png";
+import slider5 from "../../assets/images/slider5.png";
+
 const gallery = [
   {
     id: 1,
-    url: dharara,
+    url: slider1,
   },
   {
     id: 2,
-    url: home,
+    url: slider2,
   },
   {
     id: 3,
-    url: dharara,
+    url: slider3,
   },
   {
     id: 4,
-    url: dharara,
+    url: slider4,
   },
   {
     id: 5,
-    url: dharara,
+    url: slider5,
   },
 ];
 

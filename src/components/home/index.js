@@ -11,7 +11,8 @@ import hills from "../../assets/images/hills.png";
 import icon from "../../assets/images/icons/others.png";
 import rank from "../../assets/images/icons/rank.png";
 import market from "../../assets/images/icons/market.png";
-
+import discord from "../../assets/images/icons/discord2.png";
+import enchant from "../../assets/images/icons/enchant.png";
 const HomeComponent = () => {
   useEffect(() => {
     aos.init({
@@ -55,7 +56,7 @@ const HomeComponent = () => {
                 <span></span>
                 <p
                   data-start="Copied"
-                  data-text="play.craftnepal.tk"
+                  data-text="play.craftnepal.net"
                   data-title="JOIN US"
                 ></p>
               </button>
@@ -87,16 +88,16 @@ const HomeComponent = () => {
           data-aos-anchor-placement="bottom-bottom"
           data-aos-duration="500"
         >
-          But I must explain to you how all this mistaken idea of denouncing
-          pleasure and praising pain was born and I will give you a complete
-          account of the system, and expound the actual teachings of the great
-          explorer of the truth, the master-builder of human happiness. No one
-          rejects, dislikes, or avoids pleasure itself, because it is pleasure,
-          but because those who do not know how to pursue pleasure rationally
-          encounter consequences that are extremely painful. Nor again is there
-          anyone who loves or pursues or desires to obtain pain of itself,
-          because it is pain, but because occasionally circumstances occur in
-          which toil and pain can procure him some great pleasure.
+          Welcome to CraftNepal, our Minecraft server that has been serving the
+          Minecraft community for over six years with a friendly and welcoming
+          community. With vanilla tweaking plugins, we strive to provide a fun
+          and engaging gaming experience for all players, whether they're
+          Minecraft veterans or new to the game. We're proud to say that over
+          2000 players have joined our server, and we're excited to welcome even
+          more to explore the vast world of Minecraft, build amazing structures,
+          and make new friends along the way. If you're looking for a
+          well-established and enjoyable Minecraft server, look no further than
+          CraftNepal.
         </div>
         <img src={hills} className="mainImage"></img>
         <hr></hr>
@@ -112,19 +113,42 @@ const HomeComponent = () => {
               What's the origin?
             </div>
             <div
-              className="contentDesc"
-              data-aos="fade-right"
-              data-aos-anchor-placement="bottom-bottom"
+              className="contentDesc textjustify"
+              data-aos="fade-up"
+              data-aos-anchor-placement="top-bottom"
             >
-              On the other hand, we denounce with righteous indignation and
-              dislike men who are so beguiled and demoralized by the charms of
-              pleasure of the moment, so blinded by desire, that they cannot
-              foresee the pain and trouble that are bound to ensue; and equal
-              blame belongs to those who fail in their duty through weakness of
-              will
+              CraftNepal has a unique origin story that began with a small group
+              of friends who wanted to play games together back in 2014 - 2015.
+              As the Minecraft hype grew, they decided to create a vanilla
+              survival server called myktmcraft, owned by Cnobi and his friends.
+              The server quickly gained popularity, and players from all over
+              joined to make great memories together. However, as time passed,
+              the hype waned, and the server became less active.
+              <br></br>
+              <br></br>
+              In 2019, when Minecraft became popular again, players started to
+              flood in, but Cnobi was too busy to moderate the server.
+              Meanwhile, a new Minecraft community in Nepal had formed:
+              NepaliCrafters, owned by Subu and Code. Subu, who was a moderator
+              in myktm, and the owner of NepaliCrafters and myktmcraft decided
+              to merge their servers and create a bigger server located in
+              Nepal, which they named CraftNepal.
+              <br></br>
+              <br></br>
+              Since then, CraftNepal has continued to grow and evolve, and in
+              2021, they introduced Seasons of Minecraft Survival. This meant
+              the world resets every year, allowing Minecraft players to start a
+              new adventure at every season. Today, in 2023, CraftNepal is still
+              serving Minecraft players, and the community continues to thrive.
+              From its humble beginnings as a group of friends playing games
+              together, to a thriving Minecraft community in Nepal, CraftNepal's
+              journey is a testament to the power of friendship, creativity, and
+              the joy of gaming.
             </div>
           </div>
-          <Slider></Slider>
+          <div className="originSlide">
+            <Slider></Slider>
+          </div>
         </div>
 
         <hr></hr>
@@ -169,7 +193,8 @@ const HomeComponent = () => {
               <img className="featureImage" src={rank}></img>
               <div className="featureName">Ranks</div>
               <div className="featureDesc normaltext textcenter">
-                Tree falls upon cutting it from root by an axe
+                Automated ranking system that promotes players depending on
+                their gameplay
               </div>
             </div>
             <div
@@ -181,7 +206,7 @@ const HomeComponent = () => {
               <img className="featureImage" src={market}></img>
               <div className="featureName">Market Place</div>
               <div className="featureDesc normaltext textcenter">
-                Tree falls upon cutting it from root by an axe
+                A market place where you can open your shop or buy
               </div>
             </div>
             <div
@@ -190,10 +215,11 @@ const HomeComponent = () => {
               data-aos-anchor-placement="bottom-bottom"
               data-aos-easing="ease-out-back"
             >
-              <img className="featureImage" src={icon}></img>
-              <div className="featureName">Timber</div>
+              <img className="featureImage" src={discord}></img>
+              <div className="featureName">Sync Discord</div>
               <div className="featureDesc normaltext textcenter">
-                Tree falls upon cutting it from root by an axe
+                Get your roles from ingame to discord. A fully automated rank
+                sync.
               </div>
             </div>
             <div
@@ -202,10 +228,10 @@ const HomeComponent = () => {
               data-aos-anchor-placement="bottom-bottom"
               data-aos-easing="ease-out-back"
             >
-              <img className="featureImage" src={icon}></img>
-              <div className="featureName">Timber</div>
+              <img className="featureImage" src={enchant}></img>
+              <div className="featureName">Vanilla Tweaks</div>
               <div className="featureDesc normaltext textcenter">
-                Tree falls upon cutting it from root by an axe
+                Datapacks such as Dragon drop elytra, armoured elytra and soon
               </div>
             </div>
           </div>

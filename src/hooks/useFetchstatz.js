@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import config from "../config.json";
 
 export const useFetchstatz = (username) => {
   const [loading, setLoading] = useState(true);
@@ -12,7 +13,7 @@ export const useFetchstatz = (username) => {
   }, [username]);
   const getData = () => {
     axios
-      .get("https://backend.subasacharya.com.np/api/statz/" + username)
+      .get(config.baseUrl + config.api + "statz/" + username)
       .then((res) => {
         setStatz(res.data);
         setLoading(false);

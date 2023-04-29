@@ -8,6 +8,7 @@ export const useFetchFeed = (posting) => {
   const [feed, setFeed] = useState(null);
   useEffect(() => {
     if (!posting) {
+      setLoading(true);
       getData();
     }
   }, [posting]);

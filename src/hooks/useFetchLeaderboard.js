@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-
+import config from "../config.json";
 export const useFetchLeaderboard = (board) => {
   const [loading, setLoading] = useState(true);
   const [LBdata, setLBdata] = useState(null);
@@ -12,7 +12,7 @@ export const useFetchLeaderboard = (board) => {
   }, [board]);
   const getData = () => {
     axios
-      .get("https://backend.subasacharya.com.np/api/leaderboard/" + board)
+      .get(config.baseUrl + config.api + "leaderboard/" + board)
       .then((res) => {
         setLBdata(res.data);
         setLoading(false);
@@ -34,7 +34,7 @@ export const useFetchTop10 = () => {
   }, []);
   const getData = () => {
     axios
-      .get("https://backend.subasacharya.com.np/api/leaderboard/top")
+      .get(config.baseUrl + config.api + "leaderboard/top")
       .then((res) => {
         setLBdata(res.data);
         setLoading(false);

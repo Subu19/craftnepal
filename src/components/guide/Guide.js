@@ -132,7 +132,7 @@ const GuideLinks = () => {
       <div
         className="guideLink"
         onClick={() => {
-          showGuide("ranks");
+          showGuide("rules");
         }}
         data-aos="zoom-in"
         data-aos-anchor-placement="bottom-bottom"
@@ -147,7 +147,7 @@ const GuideLinks = () => {
       <div
         className="guideLink"
         onClick={() => {
-          showGuide("ranks");
+          showGuide("others");
         }}
         data-aos="zoom-in"
         data-aos-anchor-placement="bottom-bottom"
@@ -161,9 +161,9 @@ const GuideLinks = () => {
 
       <div
         className="guideLink"
-        onClick={() => {
-          showGuide("ranks");
-        }}
+        // onClick={() => {
+        //   showGuide("ranks");
+        // }}
         data-aos="zoom-in"
         data-aos-anchor-placement="bottom-bottom"
         data-aos-easing="ease-out-back"

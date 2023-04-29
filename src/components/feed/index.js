@@ -43,11 +43,10 @@ const FeedContainner = () => {
         previewRef.current.src = null;
         previewRef.current.classList.remove("showImage");
         captionRef.current.value = "";
+        setPosting(false);
       })
       .catch((err) => {
         alert("Posting failed.. Please try again!");
-      })
-      .finally(() => {
         setPosting(false);
       });
   };
@@ -60,7 +59,9 @@ const FeedContainner = () => {
           <CreeperLoading></CreeperLoading>
         </div>
       ) : user.err ? (
-        <div className="contentTitle">Something went wrong</div>
+        <div className="contentTitle whitetext">
+          User needs to be logged in!
+        </div>
       ) : user == null ? (
         ""
       ) : (
@@ -80,7 +81,8 @@ const FeedContainner = () => {
                 className="caption"
                 name="caption"
                 ref={captionRef}
-                required
+                required="true"
+                placeholder="Say something.."
               ></input>
               <img
                 className="imgSelector"
@@ -95,7 +97,7 @@ const FeedContainner = () => {
                 accept="image/*"
                 name="image"
                 id="imageSelector"
-                required
+                required="true"
               ></input>
               {posting ? (
                 <i class="fa fa-circle-o-notch fa-spin loadingCircle"></i>
@@ -111,7 +113,7 @@ const FeedContainner = () => {
             </form>
             <hr></hr>
             <div className="postContainner">
-              <Posts posting={posting}></Posts>
+              <Posts posting={posting} setPosting={setPosting}></Posts>
             </div>
           </div>
 

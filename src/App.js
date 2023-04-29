@@ -4,6 +4,7 @@ import "./App.css";
 import Path from "./routes/path";
 import { UserProvider } from "./providers/UserProvider";
 import { SocketProvider } from "./providers/SocketProvider";
+import Footer from "./components/extra/footer/Footer";
 
 function App() {
   return (

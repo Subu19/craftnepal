@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:5000/",
+  "baseUrl": "https://cnbackend.gauravranjit.com.np/",
   "api": "api/",
   "login": "auth/login",
   "checkAuth": "auth/verify",

@@ -1,9 +1,11 @@
 .sliderBox {
   position: relative;
-  width: 400px;
+  width: 600px;
+  max-width: 70%;
   aspect-ratio: 16/ 9;
   overflow: hidden;
   flex: 1;
+  background-color: black;
 }
 .slider {
   height: 100%;
@@ -47,6 +49,7 @@
   .sliderBox {
     width: 90vw;
     margin-top: 20px;
+    max-width: none;
   }
   .slider {
     width: 90vw;

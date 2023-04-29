@@ -1,0 +1,63 @@
+.Footer {
+  height: fit-content;
+  width: 100%;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  margin-top: 300px;
+  border-top-right-radius: 30px;
+  border-top-left-radius: 30px;
+}
+.footerContainner {
+  width: 80%;
+  padding: 20px;
+  color: white;
+  gap: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.contactUs {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.footerLogo {
+  height: 100px;
+  width: 100px;
+}
+.contactTitle {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+.footerMain .normaltext {
+  font-size: 16px;
+}
+.usefulLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.usefulLink {
+  display: flex;
+  flex-direction: column;
+}
+@media screen and (max-width: 800px) {
+  .footerContainner {
+    flex-direction: column;
+    margin: 0px;
+  }
+  .Footer {
+    margin: 0px;
+    width: auto;
+    margin-top: 200px;
+  }
+  .footerMain {
+    border-bottom: solid rgba(255, 255, 255, 0.233);
+    padding-bottom: 20px;
+  }
+  .usefulLinks {
+    border-bottom: solid rgba(255, 255, 255, 0.233);
+    padding-bottom: 20px;
+  }
+}
