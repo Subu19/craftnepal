@@ -37,7 +37,7 @@ const HomeComponent = () => {
             Crafters
           </div>
           <div className="normaltext subtitle">
-            A Minecraft SMP server for all nepalese
+            ULTIMATE NEPALESE MINECRAFT SERVER
             <div class="buttons">
               <button
                 class="btn"
@@ -206,7 +206,7 @@ const HomeComponent = () => {
               <img className="featureImage" src={market}></img>
               <div className="featureName">Market Place</div>
               <div className="featureDesc normaltext textcenter">
-                A market place where you can open your shop or buy
+                A market place where you can open your shop to buy/sell
               </div>
             </div>
             <div
@@ -231,7 +231,7 @@ const HomeComponent = () => {
               <img className="featureImage" src={enchant}></img>
               <div className="featureName">Vanilla Tweaks</div>
               <div className="featureDesc normaltext textcenter">
-                Datapacks such as Dragon drop elytra, armoured elytra and soon
+                Datapacks such as Dragon drop elytra, armoured elytra and so on
               </div>
             </div>
           </div>

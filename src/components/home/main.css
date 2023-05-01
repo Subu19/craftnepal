@@ -107,7 +107,9 @@
   display: flex;
   flex-direction: column;
 }
-
+.originTitle {
+  text-align: center;
+}
 .mainImage {
   margin-top: 50px;
   border-radius: 30px;

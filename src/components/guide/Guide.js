@@ -58,7 +58,7 @@ const GuideComponent = () => {
             >
               Lost?
               <br />
-              Help your self
+              Help yourself
             </div>
             <GuideLinks></GuideLinks>
           </div>
@@ -84,6 +84,20 @@ const GuideLinks = () => {
   };
   return (
     <div className="guideLinkList">
+      <div
+        className="guideLink"
+        onClick={() => {
+          showGuide("rules");
+        }}
+        data-aos="zoom-in"
+        data-aos-anchor-placement="bottom-bottom"
+        data-aos-easing="ease-out-back"
+      >
+        <img src={rules} className="guideIcon"></img>
+        <div className="normaltext" style={{ color: "#80B523" }}>
+          Rules
+        </div>
+      </div>
       <div
         data-aos="zoom-in"
         data-aos-anchor-placement="bottom-bottom"
@@ -114,6 +128,7 @@ const GuideLinks = () => {
         </div>
       </div>
 
+      <div className="break"></div>
       <div
         className="guideLink"
         onClick={() => {
@@ -128,22 +143,6 @@ const GuideLinks = () => {
           Commands
         </div>
       </div>
-      <div className="break"></div>
-      <div
-        className="guideLink"
-        onClick={() => {
-          showGuide("rules");
-        }}
-        data-aos="zoom-in"
-        data-aos-anchor-placement="bottom-bottom"
-        data-aos-easing="ease-out-back"
-      >
-        <img src={rules} className="guideIcon"></img>
-        <div className="normaltext" style={{ color: "#80B523" }}>
-          Rules
-        </div>
-      </div>
-
       <div
         className="guideLink"
         onClick={() => {

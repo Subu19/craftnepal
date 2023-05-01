@@ -5,6 +5,7 @@ import { Stats } from "../pages/stats";
 import { Feed } from "../pages/feed";
 import { Guide } from "../pages/guide";
 import { Leaderboard } from "../pages/leaderboard";
+import Map from "../pages/map";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -31,7 +32,10 @@ const router = createBrowserRouter([
     path: "/guide",
     element: <Guide></Guide>,
   },
-  {},
+  {
+    path: "/map",
+    element: <Map></Map>,
+  },
 ]);
 
 const Path = () => {
