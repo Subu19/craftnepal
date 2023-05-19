@@ -20,6 +20,12 @@
   transition: 0.2s;
   box-shadow: rgba(0, 0, 0, 0.623) 0px 5px 30px;
 }
+.dynamicNav2 {
+  background-color: black;
+  position: fixed;
+  transition: 0.2s;
+  box-shadow: rgba(0, 0, 0, 0.623) 0px 5px 30px;
+}
 .navLogo {
   height: 70px;
 }

@@ -136,7 +136,7 @@
 }
 .post {
   height: fit-content;
-  min-height: 300px;
+
   width: 100%;
   max-width: 500px;
   background-color: #101010;
@@ -237,6 +237,13 @@
   height: 40px;
   cursor: pointer;
   transition: 0.4s;
+}
+.disableUser {
+  cursor: crosshair;
+  pointer-events: none;
+}
+.blockSign {
+  cursor: not-allowed;
 }
 .unheartIcon {
   height: 40px;

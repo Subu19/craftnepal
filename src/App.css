@@ -44,16 +44,35 @@ body {
   height: calc(100vh - 70px);
   margin-top: 70px;
 }
+.main3 {
+  width: 100%;
+  height: auto;
+  min-height: 100vh;
+  max-width: 1400px;
+}
+
 .map {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.mapContainner {
+  flex: 1;
+  border: none;
+  margin-top: -10px;
 }
 hr {
   margin-top: 100px;
   margin-bottom: 100px;
   width: 100%;
   border-color: #d8d8d825;
+}
+.main3 hr {
+  width: 80%;
+  margin-top: 0px;
+  margin-bottom: 100px;
 }
 .scrollToTop {
   background-color: var(--lightred);
@@ -143,6 +162,16 @@ a:active {
   justify-content: center;
   align-items: center;
 }
+
+.errorContainner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  /* height: 100vh; */
+  width: 100%;
+}
 @media screen and (max-width: 800px) {
   .main {
     width: 90%;
@@ -150,4 +179,53 @@ a:active {
   .main2 {
     width: 95%;
   }
+}
+.ggallery {
+  background-color: transparent;
+  font-size: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 90%;
+  min-width: 90%;
+}
+
+.SeasonTitleContainner {
+  min-height: 100vh;
+  min-width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.growContainner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  gap: 10px;
+}
+.g_row {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: fit-content;
+  gap: 10px;
+}
+.rowImage {
+  min-height: 250px;
+  max-height: 250px;
+  object-fit: cover;
+  flex: 1;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.adminPage {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }

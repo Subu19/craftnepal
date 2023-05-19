@@ -1,5 +1,5 @@
 {
-  "baseUrl": "http://localhost:3006/",
+  "baseUrl": "https://backend.craftnepal.net/",
   "api": "api/",
   "login": "auth/login",
   "checkAuth": "auth/verify",

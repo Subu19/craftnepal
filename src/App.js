@@ -1,11 +1,12 @@
 import logo from "./logo.svg";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
 import Path from "./routes/path";
 import { UserProvider } from "./providers/UserProvider";
 import { SocketProvider } from "./providers/SocketProvider";
 import Footer from "./components/extra/footer/Footer";
 import { Helmet, HelmetProvider } from "react-helmet-async";
+import { ParallaxProvider } from "react-scroll-parallax";
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
         </Helmet>
         <UserProvider>
           <SocketProvider>
-            <Path></Path>
+            <ParallaxProvider>
+              <Path></Path>
+            </ParallaxProvider>
           </SocketProvider>
         </UserProvider>
       </HelmetProvider>

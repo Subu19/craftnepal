@@ -1,12 +1,28 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import Coffee from "../components/extra/Coffee/Coffee";
+import Nav from "../components/Nav/Nav";
 
 const Map = () => {
+  const [maperror, setmaperror] = useState(false);
   return (
     <div className="map">
-      <iframe
-        style={{ height: "100vh", width: "100vw", border: "none" }}
-        src="http://play.craftnepal.tk:8169/"
-      ></iframe>
+      <Coffee></Coffee>
+      <Nav selected="map" focused={true}></Nav>
+      {maperror == false ? (
+        <iframe
+          className="mapContainner"
+          src="https://mapproxy.craftnepal.net"
+          onError={() => setmaperror(true)}
+        ></iframe>
+      ) : (
+        <div className="contentTitle whitetext">
+          Error showing map
+          <div className="normaltext">
+            please fall back to
+            <a href="http://play.craftnepal.net:8169/">Original MAP</a>{" "}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

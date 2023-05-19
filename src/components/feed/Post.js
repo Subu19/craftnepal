@@ -124,17 +124,20 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
         src={config.baseUrl + "uploads/" + post.postImage}
       ></img>
       <div className="postFooter">
-        <div className="footerIcons">
+        <div className={user.id ? "footerIcons" : "footerIcons blockSign"}>
           <div className="likes">
             <img
-              className={liked ? "heartIcon" : "unheartIcon"}
+              className={
+                (liked ? "heartIcon" : "unheartIcon") +
+                (user.id ? "" : " disableUser")
+              }
               src={heartIcon}
               onClick={() => likePost()}
             ></img>
             <b className="footerTitle">{post.likes.length}</b>
           </div>
           <div
-            className="comments "
+            className={user.id ? "comments " : "disableUser comments"}
             onClick={() => {
               setOpenComment(true);
               setPostId(post._id);
@@ -144,17 +147,21 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
             <b className="footerTitle">{post.comments.length}</b>
           </div>
         </div>
-        <form className="comment" onSubmit={(e) => submitComment(e)}>
-          <input
-            className="commentInput"
-            aria-autocomplete="false"
-            placeholder="Reply with something.."
-            ref={commentRef}
-          ></input>
-          <button type="submit" className="sendButton">
-            <i class="material-icons sendIcon">send</i>
-          </button>
-        </form>
+        {user.id ? (
+          <form className="comment" onSubmit={(e) => submitComment(e)}>
+            <input
+              className="commentInput"
+              aria-autocomplete="false"
+              placeholder="Reply with something.."
+              ref={commentRef}
+            ></input>
+            <button type="submit" className="sendButton">
+              <i class="material-icons sendIcon">send</i>
+            </button>
+          </form>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

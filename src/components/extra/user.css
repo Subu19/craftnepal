@@ -35,3 +35,35 @@
   width: 50px;
   border-radius: 50%;
 }
+
+/* //dialog  */
+.userDialog {
+  background-color: black;
+  border-radius: 20px;
+}
+.dialog-close {
+  align-self: flex-end;
+  color: var(--lightred);
+  font-size: 30px;
+  cursor: pointer;
+}
+.dialogHeader {
+  display: flex;
+  color: white;
+  gap: 20px;
+}
+.dialogContainner {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.dialogOptions {
+  color: var(--normaltext);
+  padding: 10px;
+  background-color: rgb(10, 40, 68);
+  border-radius: 5px;
+}
+.dialogOptions:hover {
+  background-color: rgb(15, 72, 126);
+  transition: 0.2s;
+}

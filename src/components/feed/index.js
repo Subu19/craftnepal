@@ -54,63 +54,70 @@ const FeedContainner = () => {
   return (
     <>
       <ScrollToTop></ScrollToTop>
+
       {loading ? (
         <div className="loadingContainner">
           <CreeperLoading></CreeperLoading>
         </div>
-      ) : user.err ? (
-        <div className="contentTitle whitetext">
-          User needs to be logged in!
-        </div>
-      ) : user == null ? (
-        ""
       ) : (
         <div className="feedMainContainner">
           <div className="leftFeedSection"></div>
-          <div className="midFeedSection">
-            <form
-              id="postForm"
-              className="createPost"
-              onSubmit={(e) => handleSubmit(e)}
-            >
-              <img
-                className="userImage"
-                src={config.avatar + user.id + "/" + user.avatar}
-              ></img>
-              <input
-                className="caption"
-                name="caption"
-                ref={captionRef}
-                required="true"
-                placeholder="Say something.."
-              ></input>
-              <img
-                className="imgSelector"
-                src={imagePng}
-                onClick={() => fileref.current.click()}
-              ></img>
-              <input
-                ref={fileref}
-                className="file"
-                type="file"
-                onChange={(e) => checkImage(e)}
-                accept="image/*"
-                name="image"
-                id="imageSelector"
-                required="true"
-              ></input>
-              {posting ? (
-                <i class="fa fa-circle-o-notch fa-spin loadingCircle"></i>
-              ) : (
-                <button className="postButton" type="submit">
-                  Post
-                </button>
-              )}
 
-              <div className="previewContainner">
-                <img className="imagePreview" src="" ref={previewRef}></img>
+          <div className="midFeedSection">
+            {loading ? (
+              <div className="loadingContainner">
+                <CreeperLoading></CreeperLoading>
               </div>
-            </form>
+            ) : user.err ? (
+              <div className="redtext" style={{ marginTop: "30px" }}>
+                You are not logged in. Please login to start posting.
+              </div>
+            ) : (
+              <form
+                id="postForm"
+                className="createPost"
+                onSubmit={(e) => handleSubmit(e)}
+              >
+                <img
+                  className="userImage"
+                  src={config.avatar + user.id + "/" + user.avatar}
+                ></img>
+                <input
+                  className="caption"
+                  name="caption"
+                  ref={captionRef}
+                  required="true"
+                  placeholder="Say something.."
+                ></input>
+                <img
+                  className="imgSelector"
+                  src={imagePng}
+                  onClick={() => fileref.current.click()}
+                ></img>
+                <input
+                  ref={fileref}
+                  className="file"
+                  type="file"
+                  onChange={(e) => checkImage(e)}
+                  accept="image/*"
+                  name="image"
+                  id="imageSelector"
+                  required="true"
+                ></input>
+                {posting ? (
+                  <i class="fa fa-circle-o-notch fa-spin loadingCircle"></i>
+                ) : (
+                  <button className="postButton" type="submit">
+                    Post
+                  </button>
+                )}
+
+                <div className="previewContainner">
+                  <img className="imagePreview" src="" ref={previewRef}></img>
+                </div>
+              </form>
+            )}
+
             <hr></hr>
             <div className="postContainner">
               <Posts posting={posting} setPosting={setPosting}></Posts>

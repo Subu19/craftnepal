@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import "../../css/nav.css";
 import "../../css/mobile.css";
 
+import gallery from "../../assets/images/icons/gallery.png";
 import logo from "../../assets/svg/CN.svg";
 import home from "../../assets/images/home.png";
 import guide from "../../assets/images/guide.png";
 import stats from "../../assets/images/stats.png";
+import pin from "../../assets/images/pin.png";
+
 import feed from "../../assets/images/feed.png";
 import Button from "../extra/UserComponent";
 import { Link } from "react-router-dom";
@@ -50,9 +53,6 @@ const Nav = (props) => {
     }
   };
   useEffect(() => {
-    if (focused) {
-      handleScroll();
-    }
     document.addEventListener("scroll", (e) => handleScroll(e));
   }, []);
 
@@ -67,7 +67,7 @@ const Nav = (props) => {
   return (
     <>
       <div className="navSpace"></div>
-      <div className="navbar">
+      <div className={focused ? "navbar dynamicNav2" : "navbar"}>
         <Link className="navLogo" to={"/"} onClick={clearScrollHistory()}>
           <img src={logo} className="logo"></img>
         </Link>
@@ -105,6 +105,22 @@ const Nav = (props) => {
           >
             <img className="navImg" src={guide}></img>
             <div>Guide</div>
+          </Link>
+          <Link
+            to={"/gallery"}
+            className={"nav " + (selected == "gallery" ? "selected" : "")}
+            onClick={() => clearScrollHistory()}
+          >
+            <img className="navImg" src={gallery}></img>
+            <div>Fotos</div>
+          </Link>
+          <Link
+            to={"/map"}
+            className={"nav " + (selected == "map" ? "selected" : "")}
+            onClick={() => clearScrollHistory()}
+          >
+            <img className="navImg" src={pin}></img>
+            <div>Map</div>
           </Link>
         </div>
         <UserComponent></UserComponent>
