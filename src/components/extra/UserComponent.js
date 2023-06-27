@@ -23,8 +23,8 @@ const UserComponent = () => {
           <Link to={"/manage-gallery"} className="dialogOptions">
             Manage Gallery
           </Link>
-          <Link to={"/soon"} className="dialogOptions">
-            Soon
+          <Link to={"/guidecms"} className="dialogOptions">
+            GuideCMS
           </Link>
           <Link to={"/soon"} className="dialogOptions">
             Soon

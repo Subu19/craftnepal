@@ -59,8 +59,8 @@ const AdminGalleryComponent = () => {
       {loading ? (
         ""
       ) : user.isAdmin ? (
-        <div className="a-galleryContainner">
-          <div className="a-gallerySelection">
+        <div className="a-Containner">
+          <div className="a-Selection">
             <Link to={"/"} className="adminheader">
               <img src={logo} className="adminLogo"></img>
               Admin-Gallery
@@ -88,7 +88,7 @@ const AdminGalleryComponent = () => {
             </div>
           </div>
 
-          <div className="a-galleryCollection">
+          <div className="a-Collection">
             {showGallery != null && gallery != null ? (
               gallery[showGallery].photos.map((photo) => {
                 return (

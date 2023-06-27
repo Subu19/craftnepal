@@ -13,6 +13,10 @@ import rank from "../../assets/images/icons/rank.png";
 import market from "../../assets/images/icons/market.png";
 import discord from "../../assets/images/icons/discord2.png";
 import enchant from "../../assets/images/icons/enchant.png";
+import skills from "../../assets/images/icons/skills.png";
+import voicemod from "../../assets/images/icons/voicemod.png";
+import waypoints from "../../assets/images/icons/waypoints.png";
+import worldmap from "../../assets/images/icons/worldmap.png";
 const HomeComponent = () => {
   useEffect(() => {
     aos.init({
@@ -172,6 +176,56 @@ const HomeComponent = () => {
             Our Features
           </div>
           <div className="featuerContainner">
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={skills}></img>
+              <div className="featureName">Skills and Abilities</div>
+              <div className="featureDesc normaltext textcenter">
+                Level up your skills in mining, farming etc. to gain extra
+                Abilities
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={worldmap}></img>
+              <div className="featureName">World Map</div>
+              <div className="featureDesc normaltext textcenter">
+                Find your way back home with this live map
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={voicemod}></img>
+              <div className="featureName">Voice Mod</div>
+              <div className="featureDesc normaltext textcenter">
+                Talk to your friends within the game in 3d environment.
+              </div>
+            </div>
+            <div
+              className="feature"
+              data-aos="zoom-in"
+              data-aos-anchor-placement="bottom-bottom"
+              data-aos-easing="ease-out-back"
+            >
+              <img className="featureImage" src={waypoints}></img>
+              <div className="featureName">WayPoints</div>
+              <div className="featureDesc normaltext textcenter">
+                Need to travel far? No, worries. Teleport to different location
+                in the world in seconds.
+              </div>
+            </div>
             <div
               className="feature"
               data-aos="zoom-in"

@@ -1,0 +1,168 @@
+.a-guideRaw {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  background-color: black;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.a-guideRaw::-webkit-scrollbar {
+  width: 5px;
+}
+.a-guideRaw::-webkit-scrollbar-track {
+  background-color: rgb(0, 0, 0);
+}
+.a-guideRaw::-webkit-scrollbar-thumb {
+  background-color: rgb(75, 147, 158);
+  border-radius: 10px;
+}
+.a-guidePreview {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(31, 62, 71, 1) 0%,
+    rgba(9, 5, 21, 1) 100%
+  );
+  padding: 10px;
+  overflow-y: scroll;
+}
+.a-guideUpdate {
+  flex-basis: 100%;
+  height: 50px;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  position: fixed;
+  background-color: black;
+  padding: 5px;
+  top: 0px;
+}
+.purple {
+  background-color: purple;
+}
+.GuideCMS .a-Collection {
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  align-items: normal;
+  justify-content: start;
+  gap: 0px;
+  overflow-y: hidden;
+}
+.GuideCMS .btn {
+  height: 35px;
+  width: 100px;
+  background-color: rgb(39, 161, 116);
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  color: white;
+  font-weight: bold;
+
+  cursor: pointer;
+  width: 200px;
+}
+
+.GuideCMS .btn:hover {
+  background-color: white;
+  color: green;
+  transition: 0.5s;
+}
+.rawFormatTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  margin: 20px;
+}
+.rawFormatContainner {
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  padding-right: 20px;
+  position: relative;
+}
+.rawFormatHeaderContainner {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  padding: 10px;
+  padding-right: 15px;
+
+  display: flex;
+  background-color: rgb(32, 32, 32);
+
+  flex-direction: column;
+}
+.textarea {
+  width: auto;
+  min-height: fit-content;
+  border-radius: 5px;
+  background-color: rgb(71, 71, 71);
+  resize: vertical;
+  outline: none;
+  border: none;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 5px;
+  min-height: fit-content;
+  resize: vertical;
+  min-height: 200px;
+}
+.textarea:focus {
+  border: solid green 1px;
+}
+.textarea::-webkit-scrollbar {
+  width: 10px;
+}
+.textarea::-webkit-scrollbar-track {
+  background-color: rgb(0, 0, 0);
+}
+.textarea::-webkit-scrollbar-thumb {
+  background-color: rgb(158, 158, 158);
+}
+
+.rawDropDown {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background-color: rgb(32, 32, 32);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+}
+.rawDropDownTitle {
+  height: 30px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  background-color: rgb(200, 202, 201);
+  outline: none;
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 5px;
+}
+.addDropdown {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  justify-self: center;
+  font-size: 30px;
+  margin: 20px;
+  cursor: pointer;
+}
+.dropdowndelete {
+  margin: 10px;
+  margin-left: 0px;
+  border-radius: 5px;
+  width: 100px;
+  background-color: rgb(114, 30, 114);
+  border: none;
+  height: 25px;
+  color: white;
+}

@@ -4,11 +4,13 @@ import { Home } from "../pages/home";
 import { Stats } from "../pages/stats";
 import { Feed } from "../pages/feed";
 import { Guide } from "../pages/guide";
+
 import { Leaderboard } from "../pages/leaderboard";
 import Map from "../pages/map";
 import ErrorComponent from "../pages/Error";
 import Gallery from "../pages/Gallery";
 import AdminGallery from "../pages/admin/AdminGallery";
+import GuideCms from "../pages/guidecms";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -54,6 +56,11 @@ const router = createBrowserRouter([
   {
     path: "/manage-gallery",
     element: <AdminGallery></AdminGallery>,
+    // errorElement: <ErrorComponent>error page</ErrorComponent>,
+  },
+  {
+    path: "/guidecms",
+    element: <GuideCms></GuideCms>,
     // errorElement: <ErrorComponent>error page</ErrorComponent>,
   },
   {

@@ -8,5 +8,6 @@
     "**/Thumbs.db": true
   },
   "hide-files.files": [],
-  "vscord.enabled": false
+  "vscord.enabled": true,
+  "discord.enabled": true
 }

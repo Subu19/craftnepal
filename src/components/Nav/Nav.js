@@ -181,6 +181,22 @@ const Nav = (props) => {
             <img className="navImg" src={guide}></img>
             <div>Guide</div>
           </Link>
+          <Link
+            to={"/gallery"}
+            className={"nav " + (selected == "guide" ? "selected" : "")}
+            onClick={clearScrollHistory()}
+          >
+            <img className="navImg" src={gallery}></img>
+            <div>Fotos</div>
+          </Link>
+          <Link
+            to={"/map"}
+            className={"nav " + (selected == "guide" ? "selected" : "")}
+            onClick={clearScrollHistory()}
+          >
+            <img className="navImg" src={pin}></img>
+            <div>Map</div>
+          </Link>
         </div>
       </div>
     </>
