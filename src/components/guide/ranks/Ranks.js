@@ -1,35 +1,35 @@
 import React, { useEffect, useState } from "react";
-import rulesimage from "../../../assets/images/icons/rank.png";
+import ranksimage from "../../../assets/images/icons/rank.png";
 import DropDown from "../../extra/dropdown/DropDown";
 import DropDowns from "../../extra/dropdown/DropDown";
 import axios from "axios";
-// import ruless from "./ruless.json";
+// import rankss from "./rankss.json";
 import config from "../../../config.json";
 import { PhotoProvider, PhotoView } from "react-photo-view";
-const Rules = () => {
-  const [rules, setrules] = useState(null);
+const Ranks = () => {
+  const [ranks, setranks] = useState(null);
   useEffect(() => {
-    axios.get(config.baseUrl + config.api + "guide/Rules").then((res) => {
-      setrules(res.data);
+    axios.get(config.baseUrl + config.api + "guide/Ranks").then((res) => {
+      setranks(res.data);
     });
   });
   return (
     <div className="guide">
       <div className="guideHeader">
-        <img src={rulesimage} className="guideHeaderImage"></img>
-        <div className="whitetext contentTitle" id="rules">
-          rules
+        <img src={ranksimage} className="guideHeaderImage"></img>
+        <div className="whitetext contentTitle" id="ranks">
+          ranks
         </div>
       </div>
-      {rules && rules.header ? (
+      {ranks && ranks.header ? (
         <div className="guideContent">
-          <p className="normaltext guideText">{rules.header}</p>
-          <DropDowns data={rules.data}></DropDowns>
-          {rules.image ? (
+          <p className="normaltext guideText">{ranks.header}</p>
+          <DropDowns data={ranks.data}></DropDowns>
+          {ranks.image ? (
             <PhotoProvider>
-              <PhotoView src={config.baseUrl + "/uploads/" + rules.image}>
+              <PhotoView src={config.baseUrl + "/uploads/" + ranks.image}>
                 <img
-                  src={config.baseUrl + "/uploads/" + rules.image}
+                  src={config.baseUrl + "/uploads/" + ranks.image}
                   className="guideContentImg"
                 ></img>
               </PhotoView>
@@ -45,4 +45,4 @@ const Rules = () => {
   );
 };
 
-export default Rules;
+export default Ranks;

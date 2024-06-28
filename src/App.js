@@ -7,7 +7,6 @@ import { SocketProvider } from "./providers/SocketProvider";
 import Footer from "./components/extra/footer/Footer";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { ParallaxProvider } from "react-scroll-parallax";
-import Events from "./Events";
 
 function App() {
   return (
@@ -22,7 +21,6 @@ function App() {
         <UserProvider>
           <SocketProvider>
             <ParallaxProvider>
-              <Events></Events>
               <Path></Path>
             </ParallaxProvider>
           </SocketProvider>

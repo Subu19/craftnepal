@@ -160,9 +160,9 @@ const GuideLinks = () => {
 
       <div
         className="guideLink"
-        // onClick={() => {
-        //   showGuide("ranks");
-        // }}
+        onClick={() => {
+          showGuide("faq");
+        }}
         data-aos="zoom-in"
         data-aos-anchor-placement="bottom-bottom"
         data-aos-easing="ease-out-back"

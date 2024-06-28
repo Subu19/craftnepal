@@ -10,6 +10,8 @@ import "react-photo-view/dist/react-photo-view.css";
 import Rules from "./rules/Rules";
 import Market from "./market/market";
 import Others from "./others/Others";
+import Ranks from "./ranks/Ranks";
+import FAQ from "./faq/FAQ";
 
 const rawText = {
   text: `Finally we have \`\`\`completed\`\`\` the implementation of the market in Minecraft Server. Use /market to teleport to market and use return place to return back to the last position. Players can buy/sell their items by making their own market stalls. Current market has about 30 plots and the first plot claim is free for everyone. Single plot is 16x16 and y level 10-80 which is good enough to make a shop. Feel free to make underground shops. If anyone really wants to increase their plot, they will have to buy a new plot from the server. Price hasn't been fixed yet. But you will be able to buy them soon. 
@@ -29,7 +31,7 @@ const Guides = () => {
       <Rules></Rules>
       <Commands></Commands>
 
-      <div className="guide">
+      {/* <div className="guide">
         <div className="guideHeader">
           <img src={rank} className="guideHeaderImage"></img>
           <div className="whitetext contentTitle" id="ranks">
@@ -53,9 +55,11 @@ const Guides = () => {
             </PhotoView>
           </PhotoProvider>
         </div>
-      </div>
+      </div> */}
+      <Ranks></Ranks>
       <Market></Market>
       <Others></Others>
+      <FAQ></FAQ>
     </div>
   );
 };

@@ -7,6 +7,7 @@ const RawFormat = ({ data, setNewData }) => {
   const [dropdowns, setDropdowns] = useState([]);
   const [uploading, setUploading] = useState(false);
   const fileref = useRef();
+  const previewImageRef = useRef();
   useEffect(() => {
     setDropdowns(data.data);
   }, [data]);
@@ -30,15 +31,33 @@ const RawFormat = ({ data, setNewData }) => {
     updateData().then((res) => {
       setNewData(res);
       setUploading(true);
+      const imageform = new FormData(document.getElementById("guideimageform"));
+      imageform.append("header", res.header.toString());
+      imageform.append("data", JSON.stringify(res.data));
       axios
-        .post(config.baseUrl + "api/guide/" + data.id, res)
+        .post(config.baseUrl + "api/guide/" + data.id, imageform, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
         .then((res) => {
           setUploading(false);
         })
         .catch((err) => {
           setUploading(false);
-          alert("Failed uploading...");
+          alert("failed uploading!");
         });
+
+      // axios
+      //   .post(config.baseUrl + "api/guide/" + data.id, res)
+      //   .then((res) => {
+      //     //upload image
+
+      //   })
+      //   .catch((err) => {
+      //     setUploading(false);
+      //     alert("Failed uploading...");
+      //   });
     });
   };
   const updateData = () => {
@@ -58,6 +77,14 @@ const RawFormat = ({ data, setNewData }) => {
       }
     });
   };
+  const checkImage = (e) => {
+    const imgfiles = e.target.files;
+    if (imgfiles.length > 0) {
+      const src = URL.createObjectURL(imgfiles[0]);
+      previewImageRef.current.src = src;
+    }
+  };
+
   return (
     <div className="rawFormatContainner" id="rawFormatContainner">
       <div className="a-guideUpdate">
@@ -113,25 +140,31 @@ const RawFormat = ({ data, setNewData }) => {
         </center>
       </div>
       <hr></hr>
-
-      <div className="rawFormatTitle normaltext whitetext">Image</div>
-      <input
-        ref={fileref}
-        className="file"
-        type="file"
-        onChange={(e) => checkImage(e)}
-        accept="image/*"
-        name="image"
-        id="imageSelector"
-        required="true"
-      ></input>
-      <center>
+      <form className="guideimageform" id="guideimageform">
+        <div className="rawFormatTitle normaltext whitetext">Image</div>
+        <input
+          ref={fileref}
+          className="file"
+          type="file"
+          onChange={(e) => checkImage(e)}
+          accept="image/*"
+          name="image"
+          id="imageSelector"
+          required="true"
+        ></input>
+        <center>
+          <img
+            className="imgSelector"
+            src={imagePng}
+            onClick={() => fileref.current.click()}
+          ></img>
+        </center>
         <img
-          className="imgSelector"
-          src={imagePng}
-          onClick={() => fileref.current.click()}
+          ref={previewImageRef}
+          className="guideimagePreview"
+          src={config.baseUrl + "/uploads/" + data.image}
         ></img>
-      </center>
+      </form>
     </div>
   );
 };

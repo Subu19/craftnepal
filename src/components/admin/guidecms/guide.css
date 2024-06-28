@@ -166,3 +166,7 @@
   height: 25px;
   color: white;
 }
+.guideimagePreview {
+  height: 200px;
+  border: white solid 1px;
+}

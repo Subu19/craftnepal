@@ -46,7 +46,7 @@ const HomeComponent = () => {
               <button
                 class="btn"
                 onClick={() => {
-                  navigator.clipboard.writeText("play.craftnepal.tk");
+                  navigator.clipboard.writeText("play.craftnepal.net");
                   document
                     .getElementsByClassName("btn")[0]
                     .classList.toggle("start");

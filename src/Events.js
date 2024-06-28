@@ -3,13 +3,13 @@ import endportal from "./assets/images/endframe.png";
 import Countdown from "react-countdown";
 
 const Events = () => {
-  const [open, setopen] = useState(true);
+  const [open, setopen] = useState(false);
   return (
     <>
       {open ? (
         <div className="events-box">
           <div className="event-header">
-            <div className="event-title">END DIMENTION</div>
+            <div className="event-title">END DIMENSION</div>
             <i
               class="fa fa-close event-close"
               onClick={() => setopen(false)}
