@@ -3,7 +3,7 @@ import endportal from "./assets/images/endframe.png";
 import Countdown from "react-countdown";
 
 const Events = () => {
-    const [open, setopen] = useState(false);
+    const [open, setopen] = useState(true);
     return (
         <>
             {open ? (
@@ -17,7 +17,7 @@ const Events = () => {
                             <img src={endportal} className="event-img"></img>
                         </div>
                         <div className="countdown-containner">
-                            <Countdown className="countdown" date={1688616900000} autoStart={true} daysInHours={false}></Countdown>
+                            <Countdown className="countdown" date={1723702500000} autoStart={true} daysInHours={false}></Countdown>
                             <div className="countdown-header">Opens In</div>
                         </div>
                     </div>
