@@ -1,5 +1,5 @@
 {
-    "baseUrl": "https://backend.subasacharya.com.np/",
+    "baseUrl": "https://backend.craftnepal.net/",
     "api": "api/",
     "login": "auth/login",
     "checkAuth": "auth/verify",
