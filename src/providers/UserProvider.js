@@ -1,6 +1,5 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import config from "../config.json";
 export const UserContext = React.createContext();
 
 export const UserProvider = ({ children }) => {

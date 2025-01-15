@@ -4,7 +4,7 @@ import DropDown from "../../extra/dropdown/DropDown";
 import DropDowns from "../../extra/dropdown/DropDown";
 import axios from "axios";
 // import ruless from "./ruless.json";
-import config from "../../../config.json";
+
 import { PhotoProvider, PhotoView } from "react-photo-view";
 const Rules = () => {
     const [rules, setrules] = useState(null);

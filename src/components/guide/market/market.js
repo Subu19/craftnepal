@@ -4,7 +4,7 @@ import DropDown from "../../extra/dropdown/DropDown";
 import DropDowns from "../../extra/dropdown/DropDown";
 import axios from "axios";
 // import commands from "./commands.json";
-import config from "../../../config.json";
+
 import { PhotoProvider, PhotoView } from "react-photo-view";
 const Market = () => {
     const [market, setmarket] = useState(null);

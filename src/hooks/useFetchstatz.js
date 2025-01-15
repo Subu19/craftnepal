@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import config from "../config.json";
 
 export const useFetchstatz = (username) => {
     const [loading, setLoading] = useState(true);

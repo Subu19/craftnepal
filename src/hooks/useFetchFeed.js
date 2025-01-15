@@ -1,6 +1,5 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import config from "../config.json";
 export const useFetchFeed = (posting) => {
     const [limit, setLimit] = useState(10);
     const [loadingMore, setLoadingMore] = useState(false);

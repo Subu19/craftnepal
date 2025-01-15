@@ -4,7 +4,7 @@ import DropDown from "../../extra/dropdown/DropDown";
 import DropDowns from "../../extra/dropdown/DropDown";
 import axios from "axios";
 // import otherss from "./otherss.json";
-import config from "../../../config.json";
+
 import { PhotoProvider, PhotoView } from "react-photo-view";
 const Others = () => {
     const [others, setothers] = useState(null);
