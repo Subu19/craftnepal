@@ -1,7 +1,0 @@
-{
-    "baseUrl": "https://backend.craftnepal.net/",
-    "api": "api/",
-    "login": "auth/login",
-    "checkAuth": "auth/verify",
-    "avatar": "https://cdn.discordapp.com/avatars/"
-}

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import heartIcon from "../../assets/images/icons/heart.png";
 import { useFetchFeed } from "../../hooks/useFetchFeed";
 import CreeperLoading from "../extra/CreeperLoading";
-import config from "../../config.json";
+
 import axios from "axios";
 import { UserContext } from "../../providers/UserProvider";
 import { useSocket } from "../../providers/SocketProvider";
@@ -29,7 +29,7 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
     const likePost = () => {
         if (!liked)
             axios
-                .post(config.baseUrl + config.api + "post/like", { postId: post._id })
+                .post(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "post/like", { postId: post._id })
                 .then((res) => {
                     if (res.data.err) {
                         alert("error while liking!");
@@ -43,7 +43,7 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
                 })
                 .catch((err) => console.log(err));
         else
-            axios.post(config.baseUrl + config.api + "post/unlike", { postId: post._id }).then((res) => {
+            axios.post(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "post/unlike", { postId: post._id }).then((res) => {
                 if (res.data.err) {
                     alert("error while Unliking!");
                 } else {
@@ -59,7 +59,7 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
         e.preventDefault();
         if (commentRef.current.value.trim() !== "") {
             axios
-                .post(config.baseUrl + config.api + "post/comment", {
+                .post(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "post/comment", {
                     postId: post._id,
                     comment: commentRef.current.value.trim(),
                 })
@@ -107,12 +107,12 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
             )}
 
             <div className="postHeader">
-                <img className="userImage" src={config.avatar + post.author.id + "/" + post.author.profilePic}></img>
+                <img className="userImage" src={process.env.REACT_APP_AVATAR + post.author.id + "/" + post.author.profilePic}></img>
                 <b className="username">{post.author.username}</b>
                 <i className="postDate">{getTime(post.id)}</i>
             </div>
             <div className="postCaption">{post.caption}</div>
-            <img className="postImage" src={config.baseUrl + "uploads/" + post.postImage}></img>
+            <img className="postImage" src={process.env.REACT_APP_BASE_URL + "uploads/" + post.postImage}></img>
             <div className="postFooter">
                 <div className={user.id ? "footerIcons" : "footerIcons blockSign"}>
                     <div className="likes">
@@ -157,7 +157,7 @@ const Options = ({ postId, setPosting }) => {
         if (c) {
             setPosting(true);
             axios
-                .post(config.baseUrl + config.api + "post/delete/" + postId)
+                .post(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "post/delete/" + postId)
                 .then((res) => {
                     setPosting(false);
                 })

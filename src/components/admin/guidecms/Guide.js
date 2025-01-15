@@ -4,7 +4,6 @@ import { UserContext } from "../../../providers/UserProvider";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/svg/CN.svg";
 import axios from "axios";
-import config from "../../../config.json";
 import RawFormat from "./RawFormat";
 import DropDowns from "../../extra/dropdown/DropDown";
 const Guide = () => {
@@ -15,7 +14,7 @@ const Guide = () => {
     const [newData, setNewData] = useState(null);
     useEffect(() => {
         axios
-            .get(config.baseUrl + "api/guide")
+            .get(process.env.REACT_APP_BASE_URL + "api/guide")
             .then((res) => {
                 setSelection(res.data);
             })
@@ -25,7 +24,7 @@ const Guide = () => {
         if (selected) {
             setData(null);
             axios
-                .get(config.baseUrl + "api/guide/" + selected)
+                .get(process.env.REACT_APP_BASE_URL + "api/guide/" + selected)
                 .then((res) => {
                     setData(res.data);
                 })
