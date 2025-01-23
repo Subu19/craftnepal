@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./guide.css";
 import { UserContext } from "../../../providers/UserProvider";
 import { Link } from "react-router-dom";

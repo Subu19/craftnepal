@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import "./admin.css";
 import logo from "../../assets/svg/CN.svg";
 import { useGetGallery } from "../../hooks/useGetGallery";

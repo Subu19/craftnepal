@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import imagePng from "../../../assets/images/icons/image.png";
 
 const RawFormat = ({ data, setNewData }) => {
@@ -17,7 +17,7 @@ const RawFormat = ({ data, setNewData }) => {
     const deleteOne = (index) => {
         let newDropDown = [];
         dropdowns.map((dropdown, i) => {
-            if (i != index) newDropDown.push(dropdown);
+            if (i !== index) newDropDown.push(dropdown);
             if (i == dropdowns.length - 1) setDropdowns(newDropDown);
         });
     };

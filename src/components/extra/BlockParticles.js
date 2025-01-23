@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions, no-undef, no-restricted-globals */
 
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 
 const BlockParticles = () => {
     useEffect(() => {

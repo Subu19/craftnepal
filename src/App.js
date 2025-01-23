@@ -1,10 +1,8 @@
-import logo from "./logo.svg";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import "./App.css";
 import Path from "./routes/path";
 import { UserProvider } from "./providers/UserProvider";
 import { SocketProvider } from "./providers/SocketProvider";
-import Footer from "./components/extra/footer/Footer";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { ParallaxProvider } from "react-scroll-parallax";
 
