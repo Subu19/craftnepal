@@ -12,7 +12,7 @@ const BlockParticles = () => {
                 : (((t = "undefined" != typeof globalThis ? globalThis : t || self).__SVGATOR_PLAYER__ = t.__SVGATOR_PLAYER__ || {}),
                   (t.__SVGATOR_PLAYER__["5c7f360c"] = n()));
         })(this, function () {
-            "use strict";
+            
             function t(t, n) {
                 var e = Object.keys(t);
                 if (Object.getOwnPropertySymbols) {
