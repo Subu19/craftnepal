@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./main.css";
+import esewa from "../../../assets/images/esewa.png"
 const Coffee = () => {
     const [show, toggle] = useState(false);
     useEffect(() => {
@@ -16,7 +17,7 @@ const Coffee = () => {
             <div className="coffContent">
                 <img
                     className="supportImage"
-                    src="https://cdn.discordapp.com/attachments/1135250278401187951/1135256475883815062/image.png?ex=678dd93b&is=678c87bb&hm=f83b25afaaa2acad24a31a7dc3ec672c1a34d192019939a8ae8b9afaa2a2bb19&"
+                    src={esewa}
                 ></img>
             </div>
         </div>
