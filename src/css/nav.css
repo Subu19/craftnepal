@@ -1,177 +1,115 @@
 .navbar {
   position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  width: 100%;
-  height: auto;
-  height: 70px;
-  transition: 0.2s;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--nav-height);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  font-size: 17px;
-  color: white;
-  z-index: 100;
+  padding: 0 5%;
+  color: var(--text-white);
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  border: none !important;
+  box-shadow: none !important;
 }
-.dynamicNav {
-  background-color: black;
-  position: fixed;
-  transition: 0.2s;
-  box-shadow: rgba(0, 0, 0, 0.623) 0px 5px 30px;
-}
+
+.dynamicNav,
 .dynamicNav2 {
-  background-color: black;
-  position: fixed;
-  transition: 0.2s;
-  box-shadow: rgba(0, 0, 0, 0.623) 0px 5px 30px;
+  background: rgba(9, 5, 21, 0.85);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border-bottom: none !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
+
 .navLogo {
-  height: 70px;
+  height: 60%;
+  display: flex;
+  align-items: center;
 }
+
 .logo {
   height: 100%;
+  width: auto;
 }
+
 .navLinks {
-  height: 100%;
   display: flex;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  margin-left: 30px;
-  margin-right: 30px;
+  gap: 1.5rem;
 }
+
 .nav {
-  height: 100%;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-left: 10px;
-  margin-right: 10px;
-  gap: 5px;
+  gap: 8px;
   text-decoration: none;
-  color: white;
+  color: var(--text-main);
+  font-weight: 500;
+  padding: 0.5rem;
+  transition: var(--transition);
   position: relative;
 }
-.nav:hover .navImg {
-  animation: navhover 0.5s ease-out;
+
+.nav:hover {
+  color: var(--text-white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
 }
-@keyframes navhover {
-  0% {
-    margin-top: 0px;
-  }
-  30% {
-    margin-top: -10px;
-  }
-  60% {
-    margin-top: 0px;
-  }
-  80% {
-    margin-top: -4px;
-  }
-  100% {
-    margin-top: 0px;
-  }
-}
+
 .navImg {
-  height: 40px;
+  height: 32px;
+  width: auto;
 }
+
 .selected {
-  border-bottom-style: solid;
-  border-bottom-width: 5px;
-  transition: 0.2s;
+  color: var(--primary) !important;
 }
+
 .mobileNavLinks {
   display: none;
-}
-.dynamicNav .selected {
-  border-image-slice: 1;
-  border-image-source: linear-gradient(
-    90deg,
-    rgba(171, 0, 0, 1) 0%,
-    rgba(0, 17, 171, 1) 100%
-  );
-  border-bottom-style: solid;
-  border-bottom-width: 5px;
-  transition: 0.5s;
-  animation: rgbanimation 1s infinite ease-in;
 }
 
 .menuIcon {
   display: none;
 }
+
 .subNav {
-  height: 0px;
+  height: 0;
   overflow: hidden;
   position: absolute;
   top: 100%;
-  left: 0px;
-  right: 0px;
-  transition: 0.2s;
-  color: white;
+  left: 0;
+  min-width: 150px;
+  background: rgba(0, 0, 0, 0.95);
+  transition: var(--transition);
 }
-#stats:hover {
-  background-color: black;
-}
-#stats {
-  padding-left: 10px;
-  padding-right: 10px;
-}
+
 .nav:hover .subNav {
   height: auto;
-  transition: 0.2s;
-  padding: 10px 10px 10px 10px;
-  background-color: black;
+  padding: 1rem;
+  border: 1px solid var(--glass-border);
 }
+
 .navDrop {
-  margin-left: 5px;
+  font-size: 0.8rem;
+  opacity: 0.6;
 }
-@keyframes rgbanimation {
-  0% {
-    border-image-source: linear-gradient(
-      90deg,
-      rgba(171, 0, 0, 1) 0%,
-      rgba(0, 17, 171, 1) 100%
-    );
-    transition: 0.2s;
-  }
-  25% {
-    border-image-source: linear-gradient(
-      90deg,
-      rgba(0, 17, 171, 1) 0%,
-      rgba(171, 0, 0, 1) 50%,
-      rgba(0, 17, 171, 1) 100%
-    );
-    transition: 0.2s;
-  }
-  50% {
-    border-image-source: linear-gradient(
-      90deg,
-      rgba(0, 17, 171, 1) 0%,
-      rgba(171, 0, 0, 1) 100%
-    );
-    transition: 0.2s;
-  }
-  75% {
-    border-image-source: linear-gradient(
-      90deg,
-      rgba(171, 0, 0, 1) 0%,
-      rgba(0, 17, 171, 1) 50%,
-      rgba(171, 0, 0, 1) 100%
-    );
-    transition: 0.2s;
-  }
-  100% {
-    border-image-source: linear-gradient(
-      90deg,
-      rgba(171, 0, 0, 1) 0%,
-      rgba(0, 17, 171, 1) 100%
-    );
-    transition: 0.2s;
-  }
-}
-.navSpace {
-  position: relative;
-  height: 80px;
-  width: 100%;
+
+
+
+.openMobileNav {
+  display: flex !important;
+  flex-direction: column;
+  position: fixed;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  background: rgba(9, 5, 21, 0.98);
+  backdrop-filter: blur(20px);
+  padding: 2rem;
+  gap: 1rem;
+  z-index: 999;
 }

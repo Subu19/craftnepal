@@ -1,57 +1,29 @@
 @media screen and (max-width: 800px) {
   .statMainPage {
+    height: auto;
+    padding: 100px 0 60px 0;
+  }
+
+  .statMainPage .rowflex {
     flex-direction: column;
-    gap: 50px;
-    height: fit-content;
+    gap: 3rem;
   }
-  .statLeftMain {
-    display: flex;
-  }
+
   .clockImage {
-    width: 50%;
-    margin-left: 15%;
+    width: 200px;
+    margin: 0;
   }
-  .player-containner {
-    flex-direction: column;
-  }
+
   .statRightMain {
-    display: flex;
-    flex-direction: column;
-  }
-  .statInput {
-    margin: 0px;
-    margin-top: 60px;
-    flex: 1;
-  }
-  .statForm {
+    padding: 20px;
     width: 100%;
-    display: flex;
   }
-  .playtime-containner {
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+
+  .statInput {
+    max-width: 100% !important;
   }
-  .playtime-box {
-    height: fit-content;
-    justify-content: center;
-    align-items: center;
-  }
-  .hostileStats {
-    flex-wrap: wrap;
-    gap: 20px;
-    height: fit-content;
-    width: calc(100% - 60px);
-    padding: 30px;
-  }
-  .hStat {
-    flex-direction: column;
-    border-bottom: solid;
-    border-color: rgba(255, 255, 255, 0.163);
-    display: flex;
-    padding-bottom: 5px;
-  }
-  .hStat:last-child {
-    border: none;
+
+  .player-containner {
+    margin-top: 2rem;
   }
 }

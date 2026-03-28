@@ -1,48 +1,38 @@
-@media screen and (max-width: 800px) {
-  .guideMainContainner {
+@media screen and (max-width: 900px) {
+  .guide-hero-section-condensed {
     flex-direction: column;
-    height: fit-content;
+    height: auto;
+    padding-top: 6rem;
+    gap: 3rem;
+    text-align: center;
   }
-  .particles {
-    height: 100px;
+
+  .hero-left,
+  .hero-right {
+    justify-content: center;
+    flex: none;
+    width: 100%;
   }
+
   .etable {
-    height: 300px;
-    animation: none;
-    margin-top: 70px;
+    height: 250px;
   }
-  .etableContainner {
-    height: 100%;
+
+  .particle-wrapper-large {
+    top: 50%;
+    transform: translate(-50%, -65%) scale(2.2);
   }
-  .guideLinkContainner {
-    flex: 1;
+
+  .guide-hero-title-small {
+    font-size: 2.8rem;
   }
-  .guides {
-    width: 90%;
-    margin-left: 5%;
+
+  .guide-hero-subtitle-small {
+    font-size: 1rem;
   }
-  .guideContentImg {
-    max-width: 100%;
-  }
-  .guideLinkList {
-    gap: 10px;
-  }
-  .guideLink {
-    height: calc(70vw / 3);
-    width: calc(70vw / 3);
-    padding: 5px;
-  }
-  .guideIcon {
-    height: 50px;
-    /* width: 50px; */
-  }
+
   .guideContent {
-    margin-top: 30px;
-    margin-left: 10px;
-    margin-right: 0px;
-    width: auto;
-  }
-  .guideText {
-    text-align: left;
+    padding: 1.5rem 1rem;
+    border-radius: 24px;
   }
 }

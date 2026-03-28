@@ -1,0 +1,32 @@
+.custom-cursor {
+  position: fixed;
+  top: -16px;
+  left: -16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+  will-change: transform;
+}
+
+.custom-cursor-dot {
+  position: fixed;
+  top: -2px;
+  left: -2px;
+  width: 4px;
+  height: 4px;
+  background-color: white;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  will-change: transform;
+}
+
+@media (max-width: 768px) {
+  .custom-cursor,
+  .custom-cursor-dot {
+    display: none;
+  }
+}
