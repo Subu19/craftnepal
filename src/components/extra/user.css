@@ -1,35 +1,39 @@
 .mybutton {
-  height: 45px;
-  width: fit-content;
-  background: rgb(0, 26, 255);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 26, 255, 1) 0%,
-    rgba(50, 120, 159, 1) 100%
-  );
-  padding-left: 20px;
-  padding-right: 20px;
-  border-radius: 10px;
-  display: flex;
-  justify-content: center;
+  all: unset;
+  display: inline-flex;
   align-items: center;
-  gap: 10px;
+  justify-content: center;
+  height: 40px;
+  width: 130px;
+  background-color: #5865f2; /* Discord blue */
+  color: white;
   cursor: pointer;
-  transition: 0.2s;
+  position: relative;
+  border: 3px solid #454fbf;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.9rem;
+  gap: 8px;
 }
-.mybutton:hover .loginIcon {
-  scale: 1.2;
-  transition: 0.2s;
-}
+
 .mybutton:hover {
-  background: rgb(0, 26, 255);
-  background: linear-gradient(90deg, rgb(5, 19, 142) 0%, rgb(12, 66, 95) 100%);
-  transition: 0.2s;
+  background-color: #4752c4;
+  border-color: #5865f2;
 }
+
+.mybutton .loginIcon {
+  height: 22px;
+}
+
+/* Removed icon scaling for simplicity */
+
 .loginIcon {
   height: 30px;
   transition: 0.2s;
 }
+
 .userImage {
   height: 50px;
   width: 50px;
@@ -39,7 +43,7 @@
 /* //dialog  */
 .userDialog {
   background-color: black;
-  border-radius: 20px;
+  border: 2px solid var(--glass-border);
 }
 .dialog-close {
   align-self: flex-end;

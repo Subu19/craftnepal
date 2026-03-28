@@ -1,54 +1,64 @@
 :root {
-  --backgroundfadeLeft: #1f3e47;
-  --backgroundfadeRight: #090515;
-  --lightred: #eb5569;
-  --lightblue: #32789f;
-  --normaltext: #bcbcbc;
-  --glass: #d9d9d9;
+  --primary: #ed4e4e;
+  --primary-hover: #cf2d2d;
+  --secondary: #32789f;
+  --bg-dark: #020617;
+  --bg-light: #090515;
+  --text-main: #bcbcbc;
+  --text-white: #ffffff;
+  --text-header: #ffffff;
+  --glass: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --nav-height: 80px;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   scroll-behavior: smooth;
-  background: rgb(31, 62, 71);
-  background: linear-gradient(
-    90deg,
-    rgba(31, 62, 71, 1) 0%,
-    rgba(9, 5, 21, 1) 100%
-  );
   overflow-x: hidden;
-}
-* {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  background-color: var(--bg-dark);
+  color: var(--text-main);
+  font-family: "Ubuntu", sans-serif;
 }
 #root {
   display: flex;
-  justify-content: center;
   flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  height: auto;
-}
-.main {
-  width: 80%;
-  max-width: 1200px;
-  height: auto;
   min-height: 100vh;
+  width: 100%;
 }
+
+.main {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
 .main2 {
   width: 100%;
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  overflow: scroll;
-  overflow-x: hidden;
-  height: calc(100vh - 70px);
-  margin-top: 70px;
+  padding-top: var(--nav-height);
+  flex: 1;
 }
+
 .main3 {
   width: 100%;
-  height: auto;
-  min-height: 100vh;
   max-width: 1400px;
+  margin: 0 auto;
 }
 
 .map {
@@ -257,7 +267,8 @@ a:active {
 .event-title {
   flex: 1;
   font-size: 50px;
-  font-weight: bold;
+  font-weight: 500;
+  font-family: inherit;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -310,8 +321,8 @@ a:active {
   -webkit-user-drag: none;
   font-size: 70px;
   color: white;
-  font-weight: bold;
-  font-family: "Lilita One", cursive;
+  font-weight: 500;
+  font-family: inherit;
 }
 .countdown-header {
   position: absolute;
@@ -320,7 +331,7 @@ a:active {
   background-color: rgb(26, 134, 26);
   color: white;
   font-size: 20px;
-  font-weight: bold;
+  font-weight: 500;
   padding: 10px;
   border-radius: 20px;
   display: flex;

@@ -1,0 +1,243 @@
+/* GallerySection.css */
+
+/* --- Page & Layout Fixes --- */
+.gallery-page-container {
+    padding-top: 100px;
+    width: 100%;
+    overflow-x: hidden;
+    /* Prevent horizontal scrollbar */
+}
+
+/* --- Layout Architecture --- */
+.gallery-section-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    box-sizing: border-box;
+    /* Ensure padding is included in width */
+
+    /* Premium Dark Theme variables (assumed or fallback) */
+    --gallery-primary: #ffffff;
+    --gallery-secondary: #aaaaaa;
+    --gallery-accent: #ff4757;
+    /* Standard vibrant accent or Nepal Red */
+    --gallery-bg-card: rgba(255, 255, 255, 0.05);
+    --gallery-blur: 10px;
+    --gallery-transition: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* --- Season Navigation (Tabs) --- */
+/* --- Subtitle Centering --- */
+.gallerysubtitle {
+    text-align: center;
+    width: 100%;
+    margin: 0 auto;
+    font-size: 1.2rem;
+    opacity: 0.8;
+    line-height: 1.6;
+    color: var(--gallery-secondary);
+}
+
+/* --- Season Navigation (Tabs) - Redesigned to match "Join Us" button --- */
+.season-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 10;
+}
+
+.season-tab {
+    all: unset;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2rem;
+    height: 46px;
+    /* slightly smaller than 50px for tabs */
+    color: var(--gallery-primary);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    cursor: pointer;
+    position: relative;
+    text-transform: uppercase;
+    text-align: center;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* "Join Us" button style base */
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    font-family: inherit;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover handled by specific classes below */
+/* Hover Effect */
+.season-tab:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.season-tab:active {
+    transform: translateY(0);
+}
+
+.season-tab.active {
+    /* Minecraft Green Active State */
+    background-color: #2e7d32;
+    border-color: #1b5e20;
+    box-shadow: 0 0 15px rgba(46, 125, 50, 0.5);
+    color: #ffffff;
+    z-index: 1;
+}
+
+/* --- Masonry Grid Layout --- */
+.gallery-masonry {
+    display: flex;
+    width: 100%;
+    gap: 1.5rem;
+}
+
+.gallery-column {
+    flex: 1;
+    /* Distribute space equally */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* --- Image Card --- */
+.gallery-item {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--gallery-bg-card);
+    cursor: zoom-in;
+    transition: transform 0.5s var(--gallery-transition), box-shadow 0.5s var(--gallery-transition);
+    will-change: transform;
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+    z-index: 2;
+}
+
+.gallery-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    transition: opacity 0.5s ease;
+    backface-visibility: hidden;
+}
+
+.gallery-image-loading {
+    opacity: 0;
+    filter: blur(20px);
+    transform: scale(1.1);
+}
+
+.gallery-image-loaded {
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+    transition: filter 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* --- Hover Overlay --- */
+.gallery-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+    pointer-events: none;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+
+.overlay-icon {
+    display: none;
+}
+
+.gallery-item:hover .overlay-icon {
+    transform: translateY(0);
+}
+
+/* --- Load More Button --- */
+.load-more-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+
+
+/* --- Lightbox Customization (React-Photo-View override) --- */
+.PhotoView-Slider__Backdrop {
+    background-color: rgba(5, 5, 5, 0.95) !important;
+    backdrop-filter: blur(10px);
+}
+
+/* --- Skeleton Loading State --- */
+.skeleton-card {
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: 12px;
+    min-height: 200px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* --- Mobile Responsiveness --- */
+@media (max-width: 768px) {
+    .gallery-masonry {
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* --- Loader Animation --- */
+.loading-dots {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 2rem;
+    color: var(--gallery-secondary);
+    animation: pulse 1s infinite alternate;
+}
+
+@keyframes pulse {
+    from {
+        opacity: 0.3;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
