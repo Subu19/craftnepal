@@ -6,7 +6,7 @@ const Footer = () => {
     <div className="Footer">
       <div className="footerContainner">
         <div className="footerMain">
-          <img className="footerLogo" src={logo} alt="logo"></img>
+          <img className="footerLogo" src={logo} alt="logo" loading="lazy"></img>
           <div className="contentTitle">CraftNepal</div>
           <div className="normaltext">A Minecraft SMP</div>
         </div>
@@ -35,6 +35,7 @@ const Footer = () => {
             frameBorder="0"
             sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"
             title="discord"
+            loading="lazy"
           ></iframe>
 
           <iframe
@@ -45,8 +46,10 @@ const Footer = () => {
             allowFullScreen={true}
             allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
             title="facebook"
+            loading="lazy"
           ></iframe>
         </div>
+
       </div>
     </div>
   );

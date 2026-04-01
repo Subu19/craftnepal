@@ -1,199 +1,18 @@
 :root {
-  --prism-deep: rgb(31, 62, 71);
-  --prism-base: #3b82f6;
-  --prism-glow: #60a5fa;
-  --prism-accent: #3b82f6;
-  --prism-highlight: rgba(255, 255, 255, 0.15);
-  --prism-secondary: #4f46e5;
+  --prism-deep: #0b1f38;
 }
 
 .app-background {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background-color: var(--prism-deep);
+  background-color: #0b1f38;
   background-image: linear-gradient(
     to bottom,
-    rgb(31, 62, 71),
-    rgba(9, 5, 21, 1)
+    #133154,
+    #020617
   );
   overflow: hidden;
-  perspective: 1200px;
-}
-
-.bg-perspective {
-  position: absolute;
-  inset: -15%;
-  transform-style: preserve-3d;
-  will-change: transform;
-}
-
-.prism-mesh {
-  position: absolute;
-  inset: 0;
-  filter: blur(60px);
-  opacity: 0.4;
-  z-index: 0;
-}
-
-.mesh-gradient-1 {
-  position: absolute;
-  top: 10%;
-  left: 10%;
-  width: 50%;
-  height: 50%;
-  background: radial-gradient(circle, var(--prism-base) 0%, transparent 70%);
-  animation: mesh-morph-1 20s infinite alternate ease-in-out;
-}
-
-.mesh-gradient-2 {
-  position: absolute;
-  bottom: 10%;
-  right: 10%;
-  width: 40%;
-  height: 40%;
-  background: radial-gradient(
-    circle,
-    var(--prism-secondary) 0%,
-    transparent 70%
-  );
-  animation: mesh-morph-2 25s infinite alternate-reverse ease-in-out;
-}
-
-.mesh-gradient-3 {
-  display: none;
-}
-
-@keyframes mesh-morph-1 {
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  100% {
-    transform: translate(20%, 15%) scale(1.2);
-  }
-}
-
-@keyframes mesh-morph-2 {
-  0% {
-    transform: translate(0, 0) scale(1.1);
-  }
-  100% {
-    transform: translate(-15%, -20%) scale(0.9);
-  }
-}
-
-@keyframes mesh-morph-3 {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-  }
-  100% {
-    transform: translate(-30%, -40%) scale(1.3);
-  }
-}
-
-.prism-layer {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-  pointer-events: none;
-}
-
-.layer-1 {
-  transform: translateZ(-300px);
-  opacity: 0.3;
-}
-.layer-2 {
-  transform: translateZ(-150px);
-  opacity: 0.5;
-}
-.layer-3 {
-  transform: translateZ(0);
-  opacity: 0.7;
-}
-
-.beam {
-  position: absolute;
-  width: 50vw;
-  height: 200vh;
-  top: -50%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--prism-base) 20%,
-    var(--prism-glow) 50%,
-    var(--prism-base) 80%,
-    transparent
-  );
-  filter: blur(120px);
-  transform: rotate(-35deg) skewX(-10deg);
-  mix-blend-mode: screen;
-  will-change: transform;
-}
-
-.beam-1 {
-  left: -20%;
-  animation: beam-slide 60s infinite linear;
-}
-.beam-2 {
-  left: 50%;
-  animation: beam-slide 80s infinite linear reverse;
-}
-.beam-3 {
-  display: none;
-}
-.beam-4 {
-  display: none;
-}
-.beam-5 {
-  left: 30%;
-  width: 5vw;
-  background: white;
-  opacity: 0.01;
-  filter: blur(30px);
-}
-
-@keyframes beam-slide {
-  0% {
-    transform: rotate(-35deg) translateX(-10%) skewX(-5deg);
-  }
-  100% {
-    transform: rotate(-35deg) translateX(10%) skewX(5deg);
-  }
-}
-
-.shimmer-mesh {
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(
-    circle at 50% 50%,
-    var(--prism-highlight) 1px,
-    transparent 1px
-  );
-  background-size: 80px 80px;
-  opacity: 0.1;
-  mask-image: radial-gradient(circle at center, black, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black, transparent 80%);
-}
-
-.texture-noise {
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 250 250' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
-.vignette-overlay {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(
-    circle at center,
-    transparent 20%,
-    var(--prism-deep) 100%
-  );
-  opacity: 0.4;
-  pointer-events: none;
 }
 
 body {
@@ -202,3 +21,4 @@ body {
   margin: 0;
   overflow-x: hidden;
 }
+

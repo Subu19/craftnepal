@@ -1,6 +1,6 @@
 import { useContext, useRef } from "react";
 import "./user.css";
-import discordIcon from "../../assets/images-test/icons/discord.png";
+import discordIcon from "../../assets/images/icons/discord.png";
 import { UserContext } from "../../providers/UserProvider";
 
 import { Link } from "react-router-dom";

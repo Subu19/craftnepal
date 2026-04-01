@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, memo } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -153,7 +153,7 @@ const GallerySection = ({ seasons }: GallerySectionProps) => {
 };
 
 // Sub-component for individual image handling
-const GalleryItem = ({ src, alt }: { src: string, alt: string }) => {
+const GalleryItem = memo(({ src, alt }: { src: string, alt: string }) => {
     const [loaded, setLoaded] = useState(false);
     return (
         <PhotoView src={src}>
@@ -169,6 +169,6 @@ const GalleryItem = ({ src, alt }: { src: string, alt: string }) => {
             </div>
         </PhotoView>
     );
-};
+});
 
 export default GallerySection;

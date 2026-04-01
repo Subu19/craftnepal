@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -41,7 +41,7 @@ interface Feature {
   desc: string;
 }
 
-const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) => {
+const FeatureCard = memo(({ feature, index }: { feature: Feature; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLImageElement>(null);
   const container = useRef<HTMLDivElement>(null);
@@ -134,6 +134,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
             className="featureIcon"
             src={feature.img}
             alt={feature.name}
+            loading="lazy"
           />
         </div>
         <div className="featureInfo">
@@ -143,7 +144,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
       </div>
     </div>
   );
-};
+});
 
 const HomeComponent = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
@@ -360,6 +361,7 @@ const HomeComponent = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5 }}
             viewport={{ once: true }}
+            loading="lazy"
           />
         </motion.div>
 
@@ -416,7 +418,7 @@ const HomeComponent = () => {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
         >
-          <video className="goalVideo" autoPlay loop muted playsInline>
+          <video className="goalVideo" autoPlay loop muted playsInline preload="metadata">
             <source src={trailer} type="video/mp4" />
           </video>
           <div className="goalOverlay"></div>
