@@ -1,9 +1,9 @@
 // @ts-nocheck
-import { useContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./admin.css";
 import logo from "../../assets/svg/CN.svg";
 import { useGetGallery } from "../../hooks/useGetGallery";
-import { UserContext } from "../../providers/UserProvider";
+import { useUserStore } from "../../store/useUserStore";
 import CreeperLoading from "../extra/CreeperLoading";
 import { PhotoProvider, PhotoView } from "react-photo-view";
 import axios from "axios";
@@ -11,9 +11,11 @@ import { Link } from "react-router-dom";
 
 const AdminGalleryComponent = () => {
     const [posting, setPosting] = useState(false);
-    const { gloading, gallery } = useGetGallery(posting);
-    const [user, loading] = useContext(UserContext);
+    const { loading: gloading, gallery } = useGetGallery(posting);
+    const user = useUserStore((state) => state.user);
+    const loading = useUserStore((state) => state.isAuthenticating);
     const [showGallery, setShowGallery] = useState(null);
+
     const addPhotoref = useRef(null);
     const submitButton = useRef(null);
 

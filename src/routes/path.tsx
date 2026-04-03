@@ -1,66 +1,79 @@
+import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "../pages/home";
-import { Stats } from "../pages/stats";
-import { Feed } from "../pages/feed";
-import { Guide } from "../pages/guide";
+import CreeperLoading from "../components/extra/CreeperLoading";
 
-import Map from "../pages/map";
-import ErrorComponent from "../pages/Error";
-import Gallery from "../pages/Gallery";
-import AdminGallery from "../pages/admin/AdminGallery";
-import GuideCms from "../pages/guidecms";
+// Lazy load pages
+const Home = lazy(() => import("../pages/home").then(m => ({ default: m.Home })));
+const Stats = lazy(() => import("../pages/stats").then(m => ({ default: m.Stats })));
+const Feed = lazy(() => import("../pages/feed").then(m => ({ default: m.Feed })));
+const Guide = lazy(() => import("../pages/guide").then(m => ({ default: m.Guide })));
+const Map = lazy(() => import("../pages/map"));
+const ErrorComponent = lazy(() => import("../pages/Error"));
+const Gallery = lazy(() => import("../pages/Gallery"));
+const AdminGallery = lazy(() => import("../pages/admin/AdminGallery"));
+const GuideCms = lazy(() => import("../pages/guidecms"));
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home></Home>,
+    element: <Home />,
     errorElement: <ErrorComponent />,
   },
   {
     path: "/stats",
-    element: <Stats></Stats>,
+    element: <Stats />,
     errorElement: <ErrorComponent />,
   },
   {
     path: "/stats/:username",
-    element: <Stats></Stats>,
+    element: <Stats />,
     errorElement: <ErrorComponent />,
   },
   {
     path: "/feed",
-    element: <Feed></Feed>,
+    element: <Feed />,
     errorElement: <ErrorComponent />,
   },
   {
     path: "/guide",
-    element: <Guide></Guide>,
+    element: <Guide />,
     errorElement: <ErrorComponent />,
   },
   {
     path: "/map",
-    element: <Map></Map>,
+    element: <Map />,
     errorElement: <ErrorComponent />,
   },
   {
     path: "/gallery",
-    element: <Gallery></Gallery>,
+    element: <Gallery />,
   },
   {
     path: "/manage-gallery",
-    element: <AdminGallery></AdminGallery>,
+    element: <AdminGallery />,
   },
   {
     path: "/guidecms",
-    element: <GuideCms></GuideCms>,
+    element: <GuideCms />,
   },
   {
     path: "*",
-    element: <ErrorComponent></ErrorComponent>,
+    element: <ErrorComponent />,
   },
 ]);
 
 const Path = () => {
-  return <RouterProvider router={router}></RouterProvider>;
+  return (
+    <Suspense fallback={
+      <div className="loadingContainner">
+        <CreeperLoading />
+      </div>
+    }>
+      <RouterProvider router={router} />
+    </Suspense>
+  );
 };
 
 export default Path;
+

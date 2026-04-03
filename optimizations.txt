@@ -1,0 +1,31 @@
+# Client-Side Javascript and Logic Optimizations
+
+1. Data Fetching and State Management
+Currently, the codebase uses standard `useState` and `useEffect` combined with `axios` to fetch data (e.g., in `useGetGallery.tsx` and `useFetchFeed.tsx`).
+- Optimization: Use a data-caching library like **React Query (TanStack Query)** or **SWR**. 
+  - Benefits: It avoids redundant network requests, automatically handles caching/deduplication, background refetches, and simplifies pagination. It manages `loading` and `error` states for you without visual changes.
+
+2. DOM Manipulation in React
+In `useFetchFeed.tsx` (the `setDharaharaHero` function), direct DOM manipulation is used (`document.createElement`). In `Gallery.tsx`, direct query selectors (`document.querySelector(".gallerytitle")`) are used to mutate text.
+- Optimization: Migrate these to **React Refs (`useRef`)** or React portals. 
+  - Benefits: React relies on a Virtual DOM. Manually injecting elements or modifying innerHTML can cause synchronization issues. Binding GSAP animations and DOM changes to `useRef` ensures they stick to the specific component instance, speeding up React's reconciliation process.
+
+3. Context Providers and Component Thrashing
+In `App.tsx`, `UserProvider` and `SocketProvider` wrap the entire application tree. 
+- Optimization: Implement **Context Splitting** or use global state managers like Zustand. If the socket connection isn’t needed on every single page, lazy-load the `SocketProvider` only for routes that require it. 
+  - Benefits: Prevents the entire React component tree from checking for re-renders every time the socket parses a message or user state changes.
+
+4. GSAP Animation Memory Leaks
+In `Gallery.tsx`, `useGSAP` sets up timelines based on data fetching.
+- Optimization: While `@gsap/react` is used, double-check that manually created elements or direct DOM mutations are cleaned up properly when the component unmounts. 
+  - Benefits: Prevents memory leaks and slow-downs when an end-user navigates between pages rapidly.
+
+5. Lazy Loading Heavy Dependencies
+While `React.lazy` is already used for route-level components in `path.tsx`:
+- Optimization: Lazy load heavy third-party libraries (e.g. `gsap` or interactive maps). Import them dynamically inside a `useEffect` or button click handler instead of statically at the top of the file.
+  - Benefits: Significantly reduces the initial main chunk payload, yielding a faster Time to Interactive without changing UI.
+
+6. Event Validation for Pagination
+In `useFetchFeed.tsx`, updating the `limit` state directly triggers a new network payload.
+- Optimization: Implement a throttler or simple debounce for incrementing the `limit` on scroll. 
+  - Benefits: Prevents race conditions and stops the client from spamming the server and freezing the browser's main thread during rapid scrolling.

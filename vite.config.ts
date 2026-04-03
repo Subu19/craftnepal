@@ -23,9 +23,21 @@ export default defineConfig({
     host: true, // Allow external access
   },
   build: {
-    outDir: "build", // Keep CRA consistency
+    outDir: "build",
     assetsDir: "static",
-    sourcemap: false, // Production usually doesn't need sourcemaps unless requested
+    sourcemap: false,
     minify: "esbuild",
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ["react", "react-dom", "react-router-dom", "react-helmet-async"],
+          animations: ["gsap", "@gsap/react", "framer-motion"],
+          charts: ["echarts-for-react"],
+          utils: ["axios", "socket.io-client"],
+          ui: ["react-photo-view"]
+        },
+      },
+    },
   },
 });
+

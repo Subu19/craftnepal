@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState, FormEvent } from "react";
-import heartIcon from "../../assets/images/icons/heart.png";
+import { useEffect, useRef, useState, FormEvent, memo } from "react";
+import heartIcon from "../../assets/images/icons/heart.webp";
 import { useFetchFeed } from "../../hooks/useFetchFeed";
 import CreeperLoading from "../extra/CreeperLoading";
 
 import axios from "axios";
-import { UserContext } from "../../providers/UserProvider";
+import { useUserStore } from "../../store/useUserStore";
 import { useSocket } from "../../providers/SocketProvider";
 import Comment from "./Comment";
 import { PostData } from "../../types";
@@ -16,11 +16,12 @@ interface PostProps {
     setPosting: (posting: boolean) => void;
 }
 
-const Post = ({ mainPost, setOpenComment, setPostId, setPosting }: PostProps) => {
+const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProps) => {
     const [post, setPost] = useState<PostData>(mainPost);
     const socket = useSocket();
     const commentRef = useRef<HTMLInputElement>(null);
-    const [user] = useContext(UserContext);
+    const user = useUserStore((state) => state.user);
+
     const [liked, setLiked] = useState(false);
 
     useEffect(() => {
@@ -121,12 +122,12 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }: PostProps) =>
             )}
 
             <div className="postHeader">
-                <img className="userImage" src={import.meta.env.VITE_APP_AVATAR + post.author.id + "/" + post.author.profilePic} alt={post.author.username}></img>
+                <img className="userImage" src={import.meta.env.VITE_APP_AVATAR + post.author.id + "/" + post.author.profilePic} alt={post.author.username} loading="lazy" />
                 <b className="username">{post.author.username}</b>
                 <i className="postDate">{getTime(post.id)}</i>
             </div>
             <div className="postCaption">{post.caption}</div>
-            <img className="postImage" src={import.meta.env.VITE_APP_BASE_URL + "/uploads/" + post.postImage} alt="post"></img>
+            <img className="postImage" src={import.meta.env.VITE_APP_BASE_URL + "/uploads/" + post.postImage} alt="post" loading="lazy" />
             <div className="postFooter">
                 <div className={user.id ? "footerIcons" : "footerIcons blockSign"}>
                     <div className="likes">
@@ -135,6 +136,7 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }: PostProps) =>
                             src={heartIcon}
                             onClick={() => likePost()}
                             alt="like"
+                            loading="lazy"
                         ></img>
                         <b className="footerTitle">{post.likes.length}</b>
                     </div>
@@ -162,7 +164,7 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }: PostProps) =>
             </div>
         </div>
     );
-};
+});
 
 const Options = ({ postId, setPosting }: { postId: string; setPosting: (posting: boolean) => void }) => {
     const [show, setShow] = useState(false);
@@ -201,7 +203,7 @@ const Options = ({ postId, setPosting }: { postId: string; setPosting: (posting:
         </>
     );
 };
-export const Posts = ({ posting, setPosting }: { posting: boolean; setPosting: (posting: boolean) => void }) => {
+export const Posts = memo(({ posting, setPosting }: { posting: boolean; setPosting: (posting: boolean) => void }) => {
     const { feed, loading, limit, setLimit, loadingMore, error } = useFetchFeed(posting);
     const [openComment, setOpenComment] = useState(false);
     const [postId, setPostId] = useState<string>();
@@ -237,6 +239,6 @@ export const Posts = ({ posting, setPosting }: { posting: boolean; setPosting: (
             {openComment && postId ? <Comment setOpenComment={setOpenComment} openComment={openComment} postId={postId}></Comment> : ""}
         </>
     );
-};
+});
 
 export default Post;

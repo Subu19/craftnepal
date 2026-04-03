@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -7,20 +7,20 @@ import "./mobile.css";
 
 import craftnepal from "../../assets/svg/craftnepal.svg";
 import Slider from "../extra/Slider";
-import hills from "../../assets/images/hills.png";
-import timber from "../../assets/images/timber.png";
-import rank from "../../assets/images/icons/rank.png";
-import market from "../../assets/images/icons/market.png";
-import discord from "../../assets/images/icons/discord2.png";
-import enchant from "../../assets/images/icons/enchant.png";
-import skills from "../../assets/images/icons/skills.png";
-import voicemod from "../../assets/images/icons/voicemod.png";
-import waypoints from "../../assets/images/icons/waypoints.png";
-import worldmap from "../../assets/images/icons/worldmap.png";
+import hills from "../../assets/images/hills.webp";
+import timber from "../../assets/images/timber.webp";
+import rank from "../../assets/images/icons/rank.webp";
+import market from "../../assets/images/icons/market.webp";
+import discord from "../../assets/images/icons/discord2.webp";
+import enchant from "../../assets/images/icons/enchant.webp";
+import skills from "../../assets/images/icons/skills.webp";
+import voicemod from "../../assets/images/icons/voicemod.webp";
+import waypoints from "../../assets/images/icons/waypoints.webp";
+import worldmap from "../../assets/images/icons/worldmap.webp";
 
-import heart from "../../assets/images/icons/heart.png";
-import love from "../../assets/images/icons/love.png";
-import trailer from "../../assets/video/trailer.mp4";
+import heart from "../../assets/images/icons/heart.webp";
+import love from "../../assets/images/icons/love.webp";
+import trailer from "../../assets/video/trailer.webm";
 
 import { Reveal, RevealText } from "../animations/Reveal";
 
@@ -41,7 +41,7 @@ interface Feature {
   desc: string;
 }
 
-const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) => {
+const FeatureCard = memo(({ feature, index }: { feature: Feature; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
   const iconRef = useRef<HTMLImageElement>(null);
   const container = useRef<HTMLDivElement>(null);
@@ -134,6 +134,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
             className="featureIcon"
             src={feature.img}
             alt={feature.name}
+            loading="lazy"
           />
         </div>
         <div className="featureInfo">
@@ -143,7 +144,7 @@ const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) =>
       </div>
     </div>
   );
-};
+});
 
 const HomeComponent = () => {
   const [particles, setParticles] = useState<Particle[]>([]);
@@ -360,6 +361,7 @@ const HomeComponent = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.5 }}
             viewport={{ once: true }}
+            loading="lazy"
           />
         </motion.div>
 
@@ -416,8 +418,8 @@ const HomeComponent = () => {
           transition={{ duration: 1 }}
           viewport={{ once: true }}
         >
-          <video className="goalVideo" autoPlay loop muted playsInline>
-            <source src={trailer} type="video/mp4" />
+          <video className="goalVideo" autoPlay loop muted playsInline preload="metadata">
+            <source src={trailer} type="video/webm" />
           </video>
           <div className="goalOverlay"></div>
           <div className="goalContent" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

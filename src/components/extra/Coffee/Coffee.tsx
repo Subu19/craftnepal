@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import "./main.css";
-import esewa from "../../../assets/images/esewa.png";
+import esewa from "../../../assets/images/esewa.webp";
 
 const Coffee = () => {
     const [show, toggle] = useState(false);

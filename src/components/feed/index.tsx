@@ -1,7 +1,7 @@
-import { useContext, useRef, useState, ChangeEvent, FormEvent } from "react";
-import { UserContext } from "../../providers/UserProvider";
+import { useRef, useState, ChangeEvent, FormEvent } from "react";
+import { useUserStore } from "../../store/useUserStore";
 import CreeperLoading from "../extra/CreeperLoading";
-import imagePng from "../../assets/images/icons/image.png";
+import imagePng from "../../assets/images/icons/image.webp";
 import "./main.css";
 import "./mobile.css";
 
@@ -14,7 +14,9 @@ const FeedContainner = () => {
     const fileref = useRef<HTMLInputElement>(null);
     const previewRef = useRef<HTMLImageElement>(null);
     const captionRef = useRef<HTMLInputElement>(null);
-    const [user, loading] = useContext(UserContext);
+    const user = useUserStore((state) => state.user);
+    const loading = useUserStore((state) => state.isAuthenticating);
+
     // const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [posting, setPosting] = useState(false);
 

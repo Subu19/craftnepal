@@ -1,10 +1,10 @@
 import { useState } from "react";
 import "./slider.css";
-import slider1 from "../../assets/images/slider1.png";
-import slider2 from "../../assets/images/slider2.png";
-import slider3 from "../../assets/images/slider3.png";
-import slider4 from "../../assets/images/slider4.png";
-import slider5 from "../../assets/images/slider5.png";
+import slider1 from "../../assets/images/slider1.webp";
+import slider2 from "../../assets/images/slider2.webp";
+import slider3 from "../../assets/images/slider3.webp";
+import slider4 from "../../assets/images/slider4.webp";
+import slider5 from "../../assets/images/slider5.webp";
 
 const gallery = [
     {
