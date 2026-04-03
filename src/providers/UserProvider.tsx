@@ -1,22 +1,17 @@
-import axios from "axios";
-import React, { useEffect, useState, ReactNode } from "react";
+import React from "react";
+import { useUserStore } from "../store/useUserStore";
 
+// Maintaining UserContext for legacy code compatibility during migration
 export const UserContext = React.createContext<[any, boolean]>([{}, false]);
 
-interface UserProviderProps {
-    children: ReactNode;
-}
-
-export const UserProvider = ({ children }: UserProviderProps) => {
-    const [user, setUser] = useState<any>({});
-    const [gettingUser, setloading] = useState<boolean>(false);
-    useEffect(() => {
-        setloading(true);
-        axios.defaults.withCredentials = true;
-        axios.post(import.meta.env.VITE_APP_BASE_URL + import.meta.env.VITE_APP_CHECK_AUTH).then((res) => {
-            setUser(res.data);
-            setloading(false);
-        });
-    }, []);
-    return <UserContext.Provider value={[user, gettingUser]}>{children}</UserContext.Provider>;
+export const UserProvider = ({ children }: { children: React.ReactNode }) => {
+    const user = useUserStore((state) => state.user);
+    const isAuthenticating = useUserStore((state) => state.isAuthenticating);
+    
+    return (
+        <UserContext.Provider value={[user, isAuthenticating]}>
+            {children}
+        </UserContext.Provider>
+    );
 };
+

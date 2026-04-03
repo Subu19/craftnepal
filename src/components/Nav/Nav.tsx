@@ -3,14 +3,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import "../../css/nav.css";
 import "../../css/mobile.css";
 
-import gallery from "../../assets/images/icons/gallery.png";
+import gallery from "../../assets/images/icons/gallery-new.webp";
 import logo from "../../assets/svg/CN.svg";
-import home from "../../assets/images/home.png";
-import guide from "../../assets/images/guide.png";
-import stats from "../../assets/images/stats.png";
-import pin from "../../assets/images/icons/worldmap.png";
+import home from "../../assets/images/home.webp";
+import guide from "../../assets/images/guide-new.webp";
+import stats from "../../assets/images/stats-new.webp";
+import pin from "../../assets/images/icons/worldmap.webp";
 
-import feed from "../../assets/images/feed.png";
+import feed from "../../assets/images/feed-new.webp";
 import { Link } from "react-router-dom";
 import { clearScrollHistory } from "../extra/Clearscroll";
 import UserComponent from "../extra/UserComponent";

@@ -1,10 +1,10 @@
-import { useContext, useEffect, useRef, useState, FormEvent, memo } from "react";
-import heartIcon from "../../assets/images/icons/heart.png";
+import { useEffect, useRef, useState, FormEvent, memo } from "react";
+import heartIcon from "../../assets/images/icons/heart.webp";
 import { useFetchFeed } from "../../hooks/useFetchFeed";
 import CreeperLoading from "../extra/CreeperLoading";
 
 import axios from "axios";
-import { UserContext } from "../../providers/UserProvider";
+import { useUserStore } from "../../store/useUserStore";
 import { useSocket } from "../../providers/SocketProvider";
 import Comment from "./Comment";
 import { PostData } from "../../types";
@@ -20,7 +20,8 @@ const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProp
     const [post, setPost] = useState<PostData>(mainPost);
     const socket = useSocket();
     const commentRef = useRef<HTMLInputElement>(null);
-    const [user] = useContext(UserContext);
+    const user = useUserStore((state) => state.user);
+
     const [liked, setLiked] = useState(false);
 
     useEffect(() => {

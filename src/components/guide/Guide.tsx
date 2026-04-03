@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import etable from "../../assets/images/etable.png";
+import etable from "../../assets/images/etable.webp";
 
 import "./main.css";
 import "./mobile.css";

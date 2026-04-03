@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import marketimage from "../../../assets/images/icons/market.png";
+import marketimage from "../../../assets/images/icons/market.webp";
 import CustomMarkDown from "../../extra/CustomMarkDown";
 import axios from "axios";
 

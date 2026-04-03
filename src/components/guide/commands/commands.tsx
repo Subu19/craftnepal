@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import commandimage from "../../../assets/images/icons/command.png";
+import commandimage from "../../../assets/images/icons/command.webp";
 import CustomMarkDown from "../../extra/CustomMarkDown";
 import axios from "axios";
 

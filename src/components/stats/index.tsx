@@ -1,15 +1,15 @@
 import { useState, useRef } from "react";
-import clock from "../../assets/images/clock.png";
+import clock from "../../assets/images/clock.webp";
 import "./main.css";
 import "./mobile.css";
 
-import player from "../../assets/images/player.png";
-import grasspng from "../../assets/images/grass.png";
-import netherpng from "../../assets/images/nether.png";
-import endpng from "../../assets/images/end.png";
-import swordpng from "../../assets/images/sword.png";
-import deathpng from "../../assets/images/death.png";
-import mobpng from "../../assets/images/mob.png";
+import player from "../../assets/images/player.webp";
+import grasspng from "../../assets/images/grass.webp";
+import netherpng from "../../assets/images/nether.webp";
+import endpng from "../../assets/images/end.webp";
+import swordpng from "../../assets/images/sword.webp";
+import deathpng from "../../assets/images/death.webp";
+import mobpng from "../../assets/images/mob.webp";
 import ReactECharts from "echarts-for-react";
 import LeaderboardComponent from "./leaderboard";
 import { useFetchstatz } from "../../hooks/useFetchstatz";

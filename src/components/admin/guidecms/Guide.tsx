@@ -1,14 +1,16 @@
 // @ts-nocheck
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./guide.css";
-import { UserContext } from "../../../providers/UserProvider";
+import { useUserStore } from "../../../store/useUserStore";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/svg/CN.svg";
 import axios from "axios";
 import RawFormat from "./RawFormat";
 import DropDowns from "../../extra/dropdown/DropDown";
 const Guide = () => {
-    const [user, loading] = useContext(UserContext);
+    const user = useUserStore((state) => state.user);
+    const loading = useUserStore((state) => state.isAuthenticating);
+
     const [selection, setSelection] = useState(null);
     const [selected, setSelected] = useState(null);
     const [data, setData] = useState(null);

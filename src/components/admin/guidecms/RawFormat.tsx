@@ -1,7 +1,7 @@
 // @ts-nocheck
 import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
-import imagePng from "../../../assets/images/icons/image.png";
+import imagePng from "../../../assets/images/icons/image.webp";
 
 const RawFormat = ({ data, setNewData }: { data: any, setNewData: any }) => {
     const [dropdowns, setDropdowns] = useState<any[]>([]);

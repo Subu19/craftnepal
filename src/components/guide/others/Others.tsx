@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useEffect, useState } from "react";
-import othersimage from "../../../assets/images/icons/others.png";
+import othersimage from "../../../assets/images/icons/others.webp";
 import CustomMarkDown from "../../extra/CustomMarkDown";
 import axios from "axios";
 

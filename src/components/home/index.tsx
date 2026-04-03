@@ -7,20 +7,20 @@ import "./mobile.css";
 
 import craftnepal from "../../assets/svg/craftnepal.svg";
 import Slider from "../extra/Slider";
-import hills from "../../assets/images/hills.png";
-import timber from "../../assets/images/timber.png";
-import rank from "../../assets/images/icons/rank.png";
-import market from "../../assets/images/icons/market.png";
-import discord from "../../assets/images/icons/discord2.png";
-import enchant from "../../assets/images/icons/enchant.png";
-import skills from "../../assets/images/icons/skills.png";
-import voicemod from "../../assets/images/icons/voicemod.png";
-import waypoints from "../../assets/images/icons/waypoints.png";
-import worldmap from "../../assets/images/icons/worldmap.png";
+import hills from "../../assets/images/hills.webp";
+import timber from "../../assets/images/timber.webp";
+import rank from "../../assets/images/icons/rank.webp";
+import market from "../../assets/images/icons/market.webp";
+import discord from "../../assets/images/icons/discord2.webp";
+import enchant from "../../assets/images/icons/enchant.webp";
+import skills from "../../assets/images/icons/skills.webp";
+import voicemod from "../../assets/images/icons/voicemod.webp";
+import waypoints from "../../assets/images/icons/waypoints.webp";
+import worldmap from "../../assets/images/icons/worldmap.webp";
 
-import heart from "../../assets/images/icons/heart.png";
-import love from "../../assets/images/icons/love.png";
-import trailer from "../../assets/video/trailer.mp4";
+import heart from "../../assets/images/icons/heart.webp";
+import love from "../../assets/images/icons/love.webp";
+import trailer from "../../assets/video/trailer.webm";
 
 import { Reveal, RevealText } from "../animations/Reveal";
 
@@ -419,7 +419,7 @@ const HomeComponent = () => {
           viewport={{ once: true }}
         >
           <video className="goalVideo" autoPlay loop muted playsInline preload="metadata">
-            <source src={trailer} type="video/mp4" />
+            <source src={trailer} type="video/webm" />
           </video>
           <div className="goalOverlay"></div>
           <div className="goalContent" style={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

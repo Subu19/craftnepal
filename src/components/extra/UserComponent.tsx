@@ -1,13 +1,15 @@
-import { useContext, useRef } from "react";
+import { useRef } from "react";
 import "./user.css";
-import discordIcon from "../../assets/images/icons/discord.png";
-import { UserContext } from "../../providers/UserProvider";
+import discordIcon from "../../assets/images/icons/discord.webp";
+import { useUserStore } from "../../store/useUserStore";
 
 import { Link } from "react-router-dom";
 
 const UserComponent = () => {
-    const [user, gettingUser] = useContext(UserContext);
+    const user = useUserStore((state) => state.user);
+    const gettingUser = useUserStore((state) => state.isAuthenticating);
     const userMenuref = useRef<HTMLDialogElement>(null);
+
 
     const handleLogin = () => {
         window.location.href = import.meta.env.VITE_APP_BASE_URL + import.meta.env.VITE_APP_LOGIN;

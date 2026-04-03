@@ -1,4 +1,4 @@
-import duck from "../assets/images/Duck.png";
+import duck from "../assets/images/Duck.webp";
 import Nav from "../components/Nav/Nav";
 const ErrorComponent = () => {
   return (
