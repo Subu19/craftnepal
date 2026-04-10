@@ -27,9 +27,9 @@ const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProp
     useEffect(() => {
         if (post.likes.length > 0) {
             // eslint-disable-next-line eqeqeq
-            post.likes.find((like) => like.userId == user.id) ? setLiked(true) : setLiked(false);
+            post.likes.find((like) => like.userId == user?.id) ? setLiked(true) : setLiked(false);
         }
-    }, [post.likes, user.id]);
+    }, [post.likes, user?.id]);
 
     useEffect(() => {
         if (socket) {
@@ -112,7 +112,7 @@ const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProp
 
     return (
         <div className="post">
-            {post.author.id === user.id || user.isAdmin ? (
+            {post.author.id === user?.id || user?.isAdmin ? (
                 <>
                     <i className="fa fa-ellipsis-v optionIcon"></i>
                     <Options setPosting={setPosting} postId={post._id}></Options>
@@ -129,10 +129,10 @@ const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProp
             <div className="postCaption">{post.caption}</div>
             <img className="postImage" src={import.meta.env.VITE_APP_BASE_URL + "/uploads/" + post.postImage} alt="post" loading="lazy" />
             <div className="postFooter">
-                <div className={user.id ? "footerIcons" : "footerIcons blockSign"}>
+                <div className={user?.id ? "footerIcons" : "footerIcons blockSign"}>
                     <div className="likes">
                         <img
-                            className={(liked ? "heartIcon" : "unheartIcon") + (user.id ? "" : " disableUser")}
+                            className={(liked ? "heartIcon" : "unheartIcon") + (user?.id ? "" : " disableUser")}
                             src={heartIcon}
                             onClick={() => likePost()}
                             alt="like"
@@ -141,7 +141,7 @@ const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProp
                         <b className="footerTitle">{post.likes.length}</b>
                     </div>
                     <div
-                        className={user.id ? "comments " : "disableUser comments"}
+                        className={user?.id ? "comments " : "disableUser comments"}
                         onClick={() => {
                             setOpenComment(true);
                             setPostId(post._id);
@@ -151,7 +151,7 @@ const Post = memo(({ mainPost, setOpenComment, setPostId, setPosting }: PostProp
                         <b className="footerTitle">{post.comments.length}</b>
                     </div>
                 </div>
-                {user.id ? (
+                {user?.id ? (
                     <form className="comment" onSubmit={(e) => submitComment(e)}>
                         <input className="commentInput" aria-autocomplete="none" placeholder="Reply with something.." ref={commentRef}></input>
                         <button type="submit" className="sendButton">

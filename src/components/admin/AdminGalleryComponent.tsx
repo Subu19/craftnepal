@@ -50,7 +50,7 @@ const AdminGalleryComponent = () => {
         <>
             {loading ? (
                 ""
-            ) : user.isAdmin ? (
+            ) : user?.isAdmin ? (
                 <div className="a-Containner">
                     <div className="a-Selection">
                         <Link to={"/"} className="adminheader">

@@ -39,7 +39,7 @@ const Guide = () => {
         <>
             {loading ? (
                 ""
-            ) : user.isAdmin ? (
+            ) : user?.isAdmin ? (
                 <div className="a-Containner GuideCMS">
                     <div className="a-Selection">
                         <Link to={"/"} className="adminheader">

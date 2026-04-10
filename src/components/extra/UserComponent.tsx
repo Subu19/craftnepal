@@ -41,7 +41,7 @@ const UserComponent = () => {
                     </Link>
                 </div>
             </dialog>
-            {user == null || gettingUser || user.err ? (
+            {!user || gettingUser || user.err ? (
                 <div className="mybutton" onClick={handleLogin}>
                     <img src={discordIcon} className="loginIcon" alt="discord"></img>
                     Login
@@ -49,8 +49,8 @@ const UserComponent = () => {
             ) : (
                 <img
                     className="userImage"
-                    onClick={() => (user.isAdmin ? userMenuref.current?.showModal() : "")}
-                    src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}`}
+                    onClick={() => (user?.isAdmin ? userMenuref.current?.showModal() : "")}
+                    src={`https://cdn.discordapp.com/avatars/${user?.id}/${user?.avatar}`}
                     alt="user"
                 ></img>
             )}

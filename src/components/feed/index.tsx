@@ -70,11 +70,7 @@ const FeedContainner = () => {
                     <div className="leftFeedSection"></div>
 
                     <div className="midFeedSection">
-                        {loading ? (
-                            <div className="loadingContainner">
-                                <CreeperLoading />
-                            </div>
-                        ) : user.err ? (
+                        {!user || user.err ? (
                             <div className="redtext" style={{ marginTop: "30px" }}>
                                 You are not logged in. Please login to start posting.
                             </div>

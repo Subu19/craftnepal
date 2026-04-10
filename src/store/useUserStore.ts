@@ -9,7 +9,7 @@ interface UserState {
 }
 
 export const useUserStore = create<UserState>((set) => ({
-    user: {},
+    user: null,
     isAuthenticating: false,
     checkAuth: async () => {
         set({ isAuthenticating: true });
@@ -21,7 +21,7 @@ export const useUserStore = create<UserState>((set) => ({
             set({ user: res.data, isAuthenticating: false });
         } catch (err) {
             console.error("Auth check failed:", err);
-            set({ user: {}, isAuthenticating: false });
+            set({ user: null, isAuthenticating: false });
         }
     },
     setUser: (user) => set({ user }),
