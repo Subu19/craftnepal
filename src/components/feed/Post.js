@@ -112,7 +112,7 @@ const Post = ({ mainPost, setOpenComment, setPostId, setPosting }) => {
                 <i className="postDate">{getTime(post.id)}</i>
             </div>
             <div className="postCaption">{post.caption}</div>
-            <img className="postImage" src={process.env.REACT_APP_BASE_URL + "uploads/" + post.postImage}></img>
+            {post.postImage && <img className="postImage" src={post.postImage}></img>}
             <div className="postFooter">
                 <div className={user.id ? "footerIcons" : "footerIcons blockSign"}>
                     <div className="likes">
