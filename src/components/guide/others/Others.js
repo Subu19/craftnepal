@@ -10,9 +10,9 @@ const Others = () => {
     const [others, setothers] = useState(null);
     useEffect(() => {
         axios.get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "guide/Others").then((res) => {
-            setothers(res.data);
+            setothers(res.data.data);
         });
-    });
+    }, []);
     return (
         <div className="guide">
             <div className="guideHeader">

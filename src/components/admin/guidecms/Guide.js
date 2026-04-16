@@ -7,75 +7,89 @@ import axios from "axios";
 import RawFormat from "./RawFormat";
 import DropDowns from "../../extra/dropdown/DropDown";
 const Guide = () => {
-    const [user, loading] = useContext(UserContext);
-    const [selection, setSelection] = useState(null);
-    const [selected, setSelected] = useState(null);
-    const [data, setData] = useState(null);
-    const [newData, setNewData] = useState(null);
-    useEffect(() => {
-        axios
-            .get(process.env.REACT_APP_BASE_URL + "api/guide")
-            .then((res) => {
-                setSelection(res.data);
-            })
-            .catch((err) => console.log(err));
-    }, []);
-    useEffect(() => {
-        if (selected) {
-            setData(null);
-            axios
-                .get(process.env.REACT_APP_BASE_URL + "api/guide/" + selected)
-                .then((res) => {
-                    setData(res.data);
-                })
-                .catch((err) => console.log(err));
-        }
-    }, [selected]);
+  const [user, loading] = useContext(UserContext);
+  const [selection, setSelection] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [data, setData] = useState(null);
+  const [newData, setNewData] = useState(null);
+  useEffect(() => {
+    axios
+      .get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "guide")
+      .then((res) => {
+        setSelection(res.data.data);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+   useEffect(() => {
+     if (selected) {
+       setData(null);
+       axios
+         .get(
+           process.env.REACT_APP_BASE_URL +
+             process.env.REACT_APP_API +
+             "guide/" +
+             selected,
+         )
+         .then((res) => {
+           setData(res.data.data);
+         })
+         .catch((err) => console.log(err));
+     }
+   }, [selected]);
 
-    return (
-        <>
-            {loading ? (
+  return (
+    <>
+      {loading ? (
+        ""
+      ) : user.isAdmin ? (
+        <div className="a-Containner GuideCMS">
+          <div className="a-Selection">
+            <Link to={"/"} className="adminheader">
+              <img src={logo} className="adminLogo"></img>
+              GuideCMS
+            </Link>
+
+            <div className="a-selectionContainner">
+              {selection
+                ? selection.map((guide) => {
+                    return (
+                      <div
+                        className="a-selection"
+                        onClick={() => setSelected(guide.id)}
+                      >
+                        {guide.id}
+                      </div>
+                    );
+                  })
+                : ""}
+            </div>
+          </div>
+
+          <div className="a-Collection">
+            <div className="a-guideRaw">
+              {data ? (
+                <RawFormat data={data} setNewData={setNewData}></RawFormat>
+              ) : (
                 ""
-            ) : user.isAdmin ? (
-                <div className="a-Containner GuideCMS">
-                    <div className="a-Selection">
-                        <Link to={"/"} className="adminheader">
-                            <img src={logo} className="adminLogo"></img>
-                            GuideCMS
-                        </Link>
-
-                        <div className="a-selectionContainner">
-                            {selection
-                                ? selection.map((guide) => {
-                                      return (
-                                          <div className="a-selection" onClick={() => setSelected(guide.id)}>
-                                              {guide.id}
-                                          </div>
-                                      );
-                                  })
-                                : ""}
-                        </div>
-                    </div>
-
-                    <div className="a-Collection">
-                        <div className="a-guideRaw">{data ? <RawFormat data={data} setNewData={setNewData}></RawFormat> : ""}</div>
-                        <div className="a-guidePreview">
-                            {newData ? (
-                                <>
-                                    <p className="normaltext guideText">{newData.header}</p>
-                                    <DropDowns data={newData.data}></DropDowns>
-                                </>
-                            ) : (
-                                ""
-                            )}
-                        </div>
-                    </div>
-                </div>
-            ) : (
-                "You are not admin"
-            )}
-        </>
-    );
+              )}
+            </div>
+            <div className="a-guidePreview">
+              {newData ? (
+                <>
+                  <p className="normaltext guideText">{newData.header}</p>
+                  <DropDowns data={newData.data}></DropDowns>
+                </>
+              ) : (
+                ""
+              )}
+            </div>
+          </div>
+        </div>
+      ) : (
+        "You are not admin"
+      )}
+    </>
+  );
 };
 
 export default Guide;

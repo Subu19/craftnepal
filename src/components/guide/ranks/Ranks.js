@@ -10,9 +10,9 @@ const Ranks = () => {
     const [ranks, setranks] = useState(null);
     useEffect(() => {
         axios.get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "guide/Ranks").then((res) => {
-            setranks(res.data);
+            setranks(res.data.data);
         });
-    });
+    }, []);
     return (
         <div className="guide">
             <div className="guideHeader">

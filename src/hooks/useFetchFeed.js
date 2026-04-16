@@ -15,20 +15,20 @@ export const useFetchFeed = (posting) => {
         setLoadingMore(true);
         getData();
     }, [limit]);
-    const getData = () => {
-        axios
-            .get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "feed/" + limit)
-            .then((res) => {
-                setFeed(res.data);
-                setLoading(false);
-                setLoadingMore(false);
-            })
-            .catch((err) => {
-                setFeed({ err: "Something went wrong", data: null });
-                setLoading(false);
-                setLoadingMore(false);
-            });
-    };
+     const getData = () => {
+         axios
+             .get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "feed/" + limit)
+             .then((res) => {
+                 setFeed(res.data.data);
+                 setLoading(false);
+                 setLoadingMore(false);
+             })
+             .catch((err) => {
+                 setFeed(null);
+                 setLoading(false);
+                 setLoadingMore(false);
+             });
+     };
 
     return { loading, feed, limit, setLimit, loadingMore };
 };

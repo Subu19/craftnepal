@@ -10,9 +10,9 @@ const Rules = () => {
     const [rules, setrules] = useState(null);
     useEffect(() => {
         axios.get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "guide/Rules").then((res) => {
-            setrules(res.data);
+            setrules(res.data.data);
         });
-    });
+    }, []);
     return (
         <div className="guide">
             <div className="guideHeader">

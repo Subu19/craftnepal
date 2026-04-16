@@ -191,37 +191,37 @@ export const Posts = ({ posting, setPosting }) => {
     const [openComment, setOpenComment] = useState(false);
     const [postId, setPostId] = useState();
 
-    return (
-        <>
-            {loading ? (
-                <div className="loadingContainner">
-                    <CreeperLoading></CreeperLoading>
-                </div>
-            ) : feed.err ? (
-                <div className="contentTitle">Something went wrong!</div>
-            ) : feed ? (
-                feed.map((post) => <Post setPosting={setPosting} mainPost={post} setOpenComment={setOpenComment} setPostId={setPostId}></Post>)
-            ) : (
-                ""
-            )}
-            {!loadingMore ? (
-                <button
-                    className="showMore"
-                    onClick={() => {
-                        setLimit(limit + 10);
-                    }}
-                >
-                    Show More
-                </button>
-            ) : !loading ? (
-                <i class="fa fa-circle-o-notch fa-spin loadingCircle"></i>
-            ) : (
-                ""
-            )}
+     return (
+         <>
+             {loading ? (
+                 <div className="loadingContainner">
+                     <CreeperLoading></CreeperLoading>
+                 </div>
+             ) : !feed || !Array.isArray(feed) ? (
+                 <div className="contentTitle">Something went wrong!</div>
+             ) : feed.length > 0 ? (
+                 feed.map((post) => <Post setPosting={setPosting} mainPost={post} setOpenComment={setOpenComment} setPostId={setPostId}></Post>)
+             ) : (
+                 <div className="contentTitle">No posts yet!</div>
+             )}
+             {!loadingMore ? (
+                 <button
+                     className="showMore"
+                     onClick={() => {
+                         setLimit(limit + 10);
+                     }}
+                 >
+                     Show More
+                 </button>
+             ) : !loading ? (
+                 <i class="fa fa-circle-o-notch fa-spin loadingCircle"></i>
+             ) : (
+                 ""
+             )}
 
-            {openComment ? <Comment setOpenComment={setOpenComment} openComment={openComment} postId={postId}></Comment> : ""}
-        </>
-    );
+             {openComment ? <Comment setOpenComment={setOpenComment} openComment={openComment} postId={postId}></Comment> : ""}
+         </>
+     );
 };
 
 export default Post;

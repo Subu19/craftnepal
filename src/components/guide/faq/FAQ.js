@@ -10,9 +10,9 @@ const FAQ = () => {
     const [faq, setfaq] = useState(null);
     useEffect(() => {
         axios.get(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "guide/FAQ").then((res) => {
-            setfaq(res.data);
+            setfaq(res.data.data);
         });
-    });
+    }, []);
     return (
         <div className="guide">
             <div className="guideHeader">

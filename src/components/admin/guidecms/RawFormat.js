@@ -3,13 +3,18 @@ import { useEffect, useRef, useState } from "react";
 import imagePng from "../../../assets/images/icons/image.png";
 
 const RawFormat = ({ data, setNewData }) => {
-    const [dropdowns, setDropdowns] = useState([]);
-    const [uploading, setUploading] = useState(false);
-    const fileref = useRef();
-    const previewImageRef = useRef();
-    useEffect(() => {
-        setDropdowns(data.data);
-    }, [data]);
+     const [dropdowns, setDropdowns] = useState([]);
+     const [uploading, setUploading] = useState(false);
+     const fileref = useRef();
+     const previewImageRef = useRef();
+     
+     useEffect(() => {
+         if (data && data.data) {
+             setDropdowns(data.data);
+         }
+     }, [data]);
+     
+     if (!data) return null;
 
     const addMore = () => {
         setDropdowns([...dropdowns, { title: "", text: "" }]);
@@ -33,8 +38,8 @@ const RawFormat = ({ data, setNewData }) => {
             const imageform = new FormData(document.getElementById("guideimageform"));
             imageform.append("header", res.header.toString());
             imageform.append("data", JSON.stringify(res.data));
-            axios
-                .post(process.env.REACT_APP_BASE_URL + "api/guide/" + data.id, imageform, {
+             axios
+                 .post(process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API + "guide/" + (data?.id || ""), imageform, {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
@@ -102,12 +107,12 @@ const RawFormat = ({ data, setNewData }) => {
             <hr></hr>
             <div className="rawFormatTitle normaltext whitetext">Header</div>
             <div className="rawFormatHeaderContainner">
-                <textarea
-                    className="textarea"
-                    placeholder="This is the header of the guide. The main paragraph."
-                    id="a-header"
-                    defaultValue={data.header}
-                ></textarea>
+                 <textarea
+                     className="textarea"
+                     placeholder="This is the header of the guide. The main paragraph."
+                     id="a-header"
+                     defaultValue={data?.header || ""}
+                 ></textarea>
             </div>
             <hr></hr>
             <div className="rawFormatTitle normaltext whitetext">DropDowns</div>
@@ -146,7 +151,7 @@ const RawFormat = ({ data, setNewData }) => {
                 <center>
                     <img className="imgSelector" src={imagePng} onClick={() => fileref.current.click()}></img>
                 </center>
-                <img ref={previewImageRef} className="guideimagePreview" src={process.env.REACT_APP_BASE_URL + "/uploads/" + data.image}></img>
+                <img ref={previewImageRef} className="guideimagePreview" src={process.env.REACT_APP_BASE_URL + "/uploads/" + (data?.image || "")}></img>
             </form>
         </div>
     );
