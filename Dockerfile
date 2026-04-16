@@ -9,10 +9,22 @@ COPY package*.json ./
 # Install dependencies
 RUN npm install --legacy-peer-deps
 
-# Copy source code
+# Copy source code and env file
 COPY . .
 
-# Build the React app
+# Build the React app with environment variables
+ARG REACT_APP_BASE_URL=http://localhost:3006
+ARG REACT_APP_API=/api/
+ARG REACT_APP_LOGIN=/auth/login
+ARG REACT_APP_CHECK_AUTH=/auth/verify
+ARG REACT_APP_AVATAR=https://cdn.discordapp.com/avatars/
+
+ENV REACT_APP_BASE_URL=$REACT_APP_BASE_URL
+ENV REACT_APP_API=$REACT_APP_API
+ENV REACT_APP_LOGIN=$REACT_APP_LOGIN
+ENV REACT_APP_CHECK_AUTH=$REACT_APP_CHECK_AUTH
+ENV REACT_APP_AVATAR=$REACT_APP_AVATAR
+
 RUN npm run build
 
 # Production stage

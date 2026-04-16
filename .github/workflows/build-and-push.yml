@@ -48,15 +48,21 @@ jobs:
             type=sha,prefix={{branch}}-
             type=raw,value=latest,enable={{is_default_branch}}
 
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+       - name: Build and push Docker image
+         uses: docker/build-push-action@v5
+         with:
+           context: .
+           push: ${{ github.event_name != 'pull_request' }}
+           tags: ${{ steps.meta.outputs.tags }}
+           labels: ${{ steps.meta.outputs.labels }}
+           cache-from: type=gha
+           cache-to: type=gha,mode=max
+           build-args: |
+             REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL || 'http://localhost:3006' }}
+             REACT_APP_API=${{ secrets.REACT_APP_API || '/api/' }}
+             REACT_APP_LOGIN=${{ secrets.REACT_APP_LOGIN || '/auth/login' }}
+             REACT_APP_CHECK_AUTH=${{ secrets.REACT_APP_CHECK_AUTH || '/auth/verify' }}
+             REACT_APP_AVATAR=${{ secrets.REACT_APP_AVATAR || 'https://cdn.discordapp.com/avatars/' }}
 
   test:
     runs-on: ubuntu-latest
