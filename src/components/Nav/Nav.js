@@ -16,7 +16,6 @@ import UserComponent from "../extra/UserComponent";
 
 const Nav = (props) => {
     const { selected, focused } = props;
-    const [mobilenav, setmobilenav] = useState(false);
 
     var dynamic = false;
     var STT = false;
@@ -33,19 +32,20 @@ const Nav = (props) => {
                 STT = false;
             }
         }
-        if (mobilenav == true) return;
-        var element = document.getElementsByClassName("navbar")[0];
-        if (focused == false) {
-            if (window.scrollY > 10 && dynamic == false) {
+        const mobileNavElement = document.getElementsByClassName("mobileNavLinks")[0];
+        if (mobileNavElement && mobileNavElement.classList.contains("openMobileNav")) return;
+        const element = document.getElementsByClassName("navbar")[0];
+        if (focused === false) {
+            if (window.scrollY > 10 && dynamic === false) {
                 element.classList.add("dynamicNav");
                 dynamic = true;
             }
-            if (window.scrollY < 5 && dynamic == true && !focused) {
+            if (window.scrollY < 5 && dynamic === true && !focused) {
                 element.classList.remove("dynamicNav");
                 dynamic = false;
             }
         } else {
-            if (dynamic == false) {
+            if (dynamic === false) {
                 element.classList.add("dynamicNav");
                 dynamic = true;
             }
@@ -53,7 +53,10 @@ const Nav = (props) => {
     };
     useEffect(() => {
         document.addEventListener("scroll", (e) => handleScroll(e));
-    }, []);
+        return () => {
+            document.removeEventListener("scroll", handleScroll);
+        };
+    }, [handleScroll]);
 
     const handleMenu = () => {
         document.getElementsByClassName("mobileNavLinks")[0].classList.toggle("openMobileNav");
@@ -66,38 +69,38 @@ const Nav = (props) => {
             <div className="navSpace"></div>
             <div className={focused ? "navbar dynamicNav2" : "navbar"}>
                 <Link className="navLogo" to={"/"} onClick={clearScrollHistory()}>
-                    <img src={logo} className="logo"></img>
+                    <img src={logo} alt="CraftNepal Logo" className="logo"></img>
                 </Link>
                 <div className="navLinks">
-                    <Link onClick={clearScrollHistory()} to={"/stats"} id="stats" className={"nav " + (selected == "stats" ? "selected" : "")}>
-                        <img className="navImg" src={stats}></img>
+                    <Link onClick={clearScrollHistory()} to={"/stats"} id="stats" className={"nav " + (selected === "stats" ? "selected" : "")}>
+                        <img className="navImg" src={stats} alt="Stats"></img>
                         <div>Stats</div>
-                        <i class="fa fa-chevron-down navDrop"></i>
+                        <i className="fa fa-chevron-down navDrop"></i>
 
                         <Link onClick={clearScrollHistory()} to={"/leaderboard"} className="subNav">
                             <div>Leaderboard</div>
                         </Link>
                     </Link>
-                    <Link to={"/feed"} className={"nav " + (selected == "feed" ? "selected" : "")} onClick={() => clearScrollHistory()}>
-                        <img className="navImg" src={feed}></img>
+                    <Link to={"/feed"} className={"nav " + (selected === "feed" ? "selected" : "")} onClick={() => clearScrollHistory()}>
+                        <img className="navImg" src={feed} alt="Feed"></img>
                         <div>Feed</div>
                     </Link>
-                    <Link to={"/guide"} className={"nav " + (selected == "guide" ? "selected" : "")} onClick={() => clearScrollHistory()}>
-                        <img className="navImg" src={guide}></img>
+                    <Link to={"/guide"} className={"nav " + (selected === "guide" ? "selected" : "")} onClick={() => clearScrollHistory()}>
+                        <img className="navImg" src={guide} alt="Guide"></img>
                         <div>Guide</div>
                     </Link>
-                    <Link to={"/gallery"} className={"nav " + (selected == "gallery" ? "selected" : "")} onClick={() => clearScrollHistory()}>
-                        <img className="navImg" src={gallery}></img>
+                    <Link to={"/gallery"} className={"nav " + (selected === "gallery" ? "selected" : "")} onClick={() => clearScrollHistory()}>
+                        <img className="navImg" src={gallery} alt="Gallery"></img>
                         <div>Fotos</div>
                     </Link>
-                    <Link to={"/map"} className={"nav " + (selected == "map" ? "selected" : "")} onClick={() => clearScrollHistory()}>
-                        <img className="navImg" src={pin}></img>
+                    <Link to={"/map"} className={"nav " + (selected === "map" ? "selected" : "")} onClick={() => clearScrollHistory()}>
+                        <img className="navImg" src={pin} alt="Map"></img>
                         <div>Map</div>
                     </Link>
                 </div>
                 <UserComponent></UserComponent>
                 <i
-                    class="material-icons menuIcon"
+                    className="material-icons menuIcon"
                     onClick={() => {
                         handleMenu();
                     }}
@@ -105,12 +108,12 @@ const Nav = (props) => {
                     menu
                 </i>
                 <div className="mobileNavLinks">
-                    <Link to={"/"} className={"nav " + (selected == "home" ? "selected" : "")} onClick={() => clearScrollHistory()}>
-                        <img className="navImg" src={home}></img>
+                    <Link to={"/"} className={"nav " + (selected === "home" ? "selected" : "")} onClick={() => clearScrollHistory()}>
+                        <img className="navImg" src={home} alt="Home"></img>
                         <div>Home</div>
                     </Link>
-                    <div id="statsmob" className={"subnavParent nav " + (selected == "stats" ? "selected" : "")}>
-                        <img className="navImg" src={stats}></img>
+                    <div id="statsmob" className={"subnavParent nav " + (selected === "stats" ? "selected" : "")}>
+                        <img className="navImg" src={stats} alt="Stats"></img>
                         <div className="subNavContainnerMob">
                             <Link className="mobsubNav" onClick={() => clearScrollHistory()} to={"/stats"}>
                                 Stats
@@ -120,20 +123,20 @@ const Nav = (props) => {
                             </Link>
                         </div>
                     </div>
-                    <Link to={"/feed"} className={"nav " + (selected == "feed" ? "selected" : "")} onClick={clearScrollHistory()}>
-                        <img className="navImg" src={feed}></img>
+                    <Link to={"/feed"} className={"nav " + (selected === "feed" ? "selected" : "")} onClick={clearScrollHistory()}>
+                        <img className="navImg" src={feed} alt="Feed"></img>
                         <div>Feed</div>
                     </Link>
-                    <Link to={"/guide"} className={"nav " + (selected == "guide" ? "selected" : "")} onClick={clearScrollHistory()}>
-                        <img className="navImg" src={guide}></img>
+                    <Link to={"/guide"} className={"nav " + (selected === "guide" ? "selected" : "")} onClick={clearScrollHistory()}>
+                        <img className="navImg" src={guide} alt="Guide"></img>
                         <div>Guide</div>
                     </Link>
-                    <Link to={"/gallery"} className={"nav " + (selected == "guide" ? "selected" : "")} onClick={clearScrollHistory()}>
-                        <img className="navImg" src={gallery}></img>
+                    <Link to={"/gallery"} className={"nav " + (selected === "gallery" ? "selected" : "")} onClick={clearScrollHistory()}>
+                        <img className="navImg" src={gallery} alt="Gallery"></img>
                         <div>Fotos</div>
                     </Link>
-                    <Link to={"/map"} className={"nav " + (selected == "guide" ? "selected" : "")} onClick={clearScrollHistory()}>
-                        <img className="navImg" src={pin}></img>
+                    <Link to={"/map"} className={"nav " + (selected === "map" ? "selected" : "")} onClick={clearScrollHistory()}>
+                        <img className="navImg" src={pin} alt="Map"></img>
                         <div>Map</div>
                     </Link>
                 </div>
