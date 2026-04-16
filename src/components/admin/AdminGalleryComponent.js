@@ -77,19 +77,19 @@ const AdminGalleryComponent = () => {
                         {showGallery != null && gallery != null ? (
                             gallery[showGallery].photos.map((photo) => {
                                 return (
-                                    <div className="gPhotoBox">
-                                        <PhotoProvider>
-                                            <PhotoView src={process.env.REACT_APP_BASE_URL + "Gallery/" + gallery[showGallery].title + "/" + photo}>
-                                                <img
-                                                    className="seasonPhoto"
-                                                    src={process.env.REACT_APP_BASE_URL + "Gallery/" + gallery[showGallery].title + "/" + photo}
-                                                ></img>
-                                            </PhotoView>
-                                        </PhotoProvider>
-                                        <i class="material-icons deleteIcon" onClick={() => deleteImage(gallery[showGallery].title, photo)}>
-                                            delete_forever
-                                        </i>
-                                    </div>
+                     <div className="gPhotoBox">
+                                         <PhotoProvider>
+                                             <PhotoView src={photo.url}>
+                                                 <img
+                                                     className="seasonPhoto"
+                                                     src={photo.url}
+                                                 ></img>
+                                             </PhotoView>
+                                         </PhotoProvider>
+                                         <i class="material-icons deleteIcon" onClick={() => deleteImage(gallery[showGallery].title, photo.key)}>
+                                             delete_forever
+                                         </i>
+                                     </div>
                                 );
                             })
                         ) : (

@@ -78,17 +78,17 @@ const Season = ({ season }) => {
                 <div className=" fakeItem"></div>
                 {/* <div className=" fakeItem"></div> */}
                 <PhotoProvider>
-                    {season.photos.map((img) => {
-                        return (
-                            <PhotoView src={process.env.REACT_APP_BASE_URL + "Gallery/" + season.title + "/" + img}>
-                                <img
-                                    className={"sliderItem " + "sliderItem" + season.title}
-                                    src={process.env.REACT_APP_BASE_URL + "Gallery/" + season.title + "/" + img}
-                                ></img>
-                            </PhotoView>
-                        );
-                    })}
-                </PhotoProvider>
+                     {season.photos.map((img) => {
+                         return (
+                             <PhotoView src={img.url}>
+                                 <img
+                                     className={"sliderItem " + "sliderItem" + season.title}
+                                     src={img.url}
+                                 ></img>
+                             </PhotoView>
+                         );
+                     })}
+                 </PhotoProvider>
                 <div className=" fakeItem"></div>
                 {/* <div className=" fakeItem"></div> */}
             </ScrollContainer>
