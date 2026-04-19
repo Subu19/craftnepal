@@ -166,7 +166,7 @@ const LeaderboardComponent = () => {
                                 <Link to={`/stats/${e.name}`} key={e.uuid}
                                     className={`lbRow ${i % 2 === 0 ? "lbRowAlt" : ""}`}>
                                     <span className="lbRank">{e.rank}</span>
-                                    <img className="lbHead" src={`${BASE}/skin/head/${e.uuid}`} alt="" />
+                                    <img className="lbHead" src={`${BASE}skin/head/${e.uuid}`} alt="" />
                                     <span className="lbName">{e.name}</span>
                                     <span className="lbVal">{e.value.toLocaleString()}</span>
                                 </Link>
