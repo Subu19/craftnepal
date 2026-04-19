@@ -196,7 +196,7 @@ const PodiumSlot = ({ entry, unit, place }) => {
     const badge = place === 1 ? "podGold" : place === 2 ? "podSilver" : "podBronze";
     return (
         <Link to={`/stats/${entry.name}`} className={`podSlot ${cls}`}>
-            <img className="podSkin" src={`${BASE}/skin/body/${entry.uuid}`} alt={entry.name} />
+            <img className="podSkin" src={`${BASE}skin/body/${entry.uuid}`} alt={entry.name} />
             <span className={`podBadge ${badge}`}>{place}</span>
             <span className="podName">{entry.name}</span>
             <span className="podVal">{formatValue(entry.value, unit)}</span>

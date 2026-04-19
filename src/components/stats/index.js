@@ -111,7 +111,7 @@ const StatsComponent = () => {
                                     ) : searchResults.length > 0 ? (
                                         searchResults.map((p) => (
                                             <div key={p.uuid} className="ddItem" onClick={() => handleSelectPlayer(p.name)}>
-                                                <img className="ddHead" src={`${BASE}/skin/head/${p.uuid}`} alt="" />
+                                                <img className="ddHead" src={`${BASE}skin/head/${p.uuid}`} alt="" />
                                                 <span>{p.name}</span>
                                             </div>
                                         ))
@@ -138,7 +138,7 @@ const StatsComponent = () => {
                     {/* Profile */}
                     <div className="profile" data-aos="fade-up">
                         <div className="profileSkin">
-                            <img className="bodySkin" src={`${BASE}/skin/body/${playerData.uuid}`} alt={playerData.name} />
+                            <img className="bodySkin" src={`${BASE}skin/body/${playerData.uuid}`} alt={playerData.name} />
                         </div>
                         <div className="profileInfo">
                             <h1 className="profileName">{playerData.name}</h1>
