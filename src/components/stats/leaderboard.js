@@ -1,241 +1,207 @@
 import React, { useEffect, useState } from "react";
 import "./leaderboard.css";
 import "./mobile.css";
+import "aos/dist/aos.css";
 import playerPng from "../../assets/images/leaderboardMain.png";
 import allayPng from "../../assets/images/allay.png";
-import clockPng from "../../assets/images/minecraftclock.png";
-import BlockParticles from "../extra/BlockParticles";
-import goldIcon from "../../assets/images/goldIcon.png";
-import mobicon from "../../assets/images/mobicon.png";
-import killicon from "../../assets/images/killicon.png";
-import deathicon from "../../assets/images/deathicon.png";
-import bedicon from "../../assets/images/bedicon.png";
-import foodicon from "../../assets/images/foodicon.png";
-import damageicon from "../../assets/images/damageicon.png";
-import tradeicon from "../../assets/images/tradeicon.png";
-import { useFetchLeaderboard, useFetchTop10 } from "../../hooks/useFetchLeaderboard";
+import { useFetchOverview, useFetchStatLeaderboard, useFetchStatKeys } from "../../hooks/useStatsApi";
 import CreeperLoading from "../extra/CreeperLoading";
 import aos from "aos";
-import "aos/dist/aos.css";
 import ScrollToTop from "../extra/ScrollToTop";
+import { Link } from "react-router-dom";
+
+const BASE = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API;
+
+const formatMinecraftId = (id) => {
+    if (!id) return "";
+    return id.replace("minecraft:", "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+};
+
+const formatValue = (value, unit) => {
+    if (!value && value !== 0) return "0";
+    if (unit === "ticks") return (value / 72000).toFixed(1) + " hrs";
+    if (unit === "cm") return value >= 100000 ? (value / 100000).toFixed(2) + " km" : (value / 100).toFixed(1) + " m";
+    return value.toLocaleString();
+};
 
 const LeaderboardComponent = () => {
-    const [leaderboard, setLeaderboard] = useState("playtime");
-    const { LBdata, loading } = useFetchLeaderboard(leaderboard);
-    const { loadingtop10, top10 } = useFetchTop10();
-    useEffect(() => {
-        aos.init({ duration: 1000 });
-    }, []);
+    const { loading: ovLoading, overview, error: ovError } = useFetchOverview();
+    const { loading: keysLoading, statKeys } = useFetchStatKeys();
+    const [featuredIdx, setFeaturedIdx] = useState(0);
+    const [selectedStat, setSelectedStat] = useState(null);
+    const [catFilter, setCatFilter] = useState("all");
+    const [search, setSearch] = useState("");
+    const { loading: lbLoading, entries: lbEntries, error: lbError } = useFetchStatLeaderboard(selectedStat);
+
+    useEffect(() => { aos.init({ duration: 1000 }); }, []);
+
+    const categories = ["all", ...new Set(statKeys.map((k) => k.category))];
+    const filtered = statKeys.filter((k) => {
+        if (catFilter !== "all" && k.category !== catFilter) return false;
+        if (search && !formatMinecraftId(k.stat).toLowerCase().includes(search.toLowerCase())) return false;
+        return true;
+    });
+
+    const handlePickStat = (key) => {
+        setSelectedStat(key);
+        setTimeout(() => {
+            const el = document.getElementById("browseTable");
+            if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.pageYOffset - 100, behavior: "smooth" });
+        }, 80);
+    };
+
+    const activeFeatured = overview[featuredIdx] || null;
 
     return (
         <>
-            <ScrollToTop></ScrollToTop>
+            <ScrollToTop />
+
+            {/* ── Hero ── */}
             <div className="rowflex LeaderBoardMain">
                 <div className="lMainLeft columnflex">
-                    <div
-                        className="contentTitle whitetext textcenter"
-                        data-aos="fade-down"
-                        data-aos-anchor-placement="bottom-bottom"
-                        data-aos-easing="ease-out-back"
-                    >
-                        Know<br></br> your position<br></br> in the leaderboard
+                    <div className="contentTitle whitetext textcenter"
+                        data-aos="fade-down" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back">
+                        Know<br /> your position<br /> in the leaderboard
                     </div>
-                    <div
-                        className="normaltext textcenter"
-                        data-aos="zoom-in"
-                        data-aos-anchor-placement="bottom-bottom"
-                        data-aos-easing="ease-out-back"
-                        data-aos-delay="500"
-                    >
-                        Don’t worry, we also have leaderboard for deaths
+                    <div className="normaltext textcenter"
+                        data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back" data-aos-delay="500">
+                        Browse every stat leaderboard from the server
                     </div>
                 </div>
                 <div className="lMainRight">
-                    <img className="floatingImg" src={allayPng}></img>
-                    <img
-                        src={playerPng}
-                        className="staticImg"
-                        data-aos="zoom-in-up"
-                        data-aos-anchor-placement="bottom-bottom"
-                        data-aos-easing="ease-out-back"
-                    ></img>
+                    <img className="floatingImg" src={allayPng} alt="" />
+                    <img src={playerPng} className="staticImg" alt=""
+                        data-aos="zoom-in-up" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back" />
                 </div>
             </div>
-            <div className="mainLeaderBoardContainner">
-                <div className="mainLeaderBoard">
-                    <div className="lbanner">
-                        <BlockParticles></BlockParticles>
-                        <img src={clockPng} className="bannerImage"></img>
-                        <div className="contentTitle whitetext centertext">
-                            Top <font style={{ color: "var(--lightred)" }}>10</font> Players
+
+            {/* ── Featured Leaderboards ── */}
+            <section className="featured">
+                <h2 className="secHeading" data-aos="fade-right">Featured</h2>
+
+                {ovLoading ? (
+                    <div className="loadingContainner"><CreeperLoading /></div>
+                ) : ovError ? (
+                    <p className="normaltext textcenter">{ovError}</p>
+                ) : overview.length > 0 && (
+                    <>
+                        {/* Tabs */}
+                        <div className="fTabs" data-aos="fade-up">
+                            {overview.map((b, i) => (
+                                <button key={b.key}
+                                    className={`fTab ${i === featuredIdx ? "fTabOn" : ""}`}
+                                    onClick={() => setFeaturedIdx(i)}>
+                                    {b.label}
+                                </button>
+                            ))}
                         </div>
-                    </div>
-                    <div className="lListContainner">
-                        <div className="leaderboardTitles">
-                            <div className="rank">Rank</div>
-                            <div className="name">Player name</div>
-                            <div className="value endvalue">Hours</div>
-                        </div>
-                        <div className="lPlayerContainner">
-                            {loadingtop10
-                                ? "loading.."
-                                : top10.data && top10.err == null
-                                ? top10.data.map((data, i) => {
-                                      return (
-                                          <LeaderboardPlayer
-                                              rank={i + 1}
-                                              name={data.playerName}
-                                              value={data.value}
-                                              convert={true}
-                                          ></LeaderboardPlayer>
-                                      );
-                                  })
-                                : "Something went wrong!"}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="leaderboardContainnerBox">
-                <div className="lselectionContainner">
-                    <div className="contentTitle whitetext textcenter selectionTitle">
-                        Top <font style={{ color: "var(--lightred)" }}>100</font>
-                    </div>
-                    <Selections setLeaderboard={setLeaderboard} leaderboard={leaderboard}></Selections>
-                </div>
-                <div className="leaderboardContainner">
-                    <div className="contentTitle whitetext textcenter selectionTitle">
-                        {leaderboard == "playtime"
-                            ? "Playtime"
-                            : leaderboard == "mobkills" || leaderboard == "playerkills"
-                            ? "Player Kills"
-                            : leaderboard == "deaths"
-                            ? "Deaths"
-                            : leaderboard == "slept"
-                            ? "Sleeping"
-                            : leaderboard == "hungry"
-                            ? "Hungry Players"
-                            : leaderboard == "damage"
-                            ? "Damage Taken"
-                            : leaderboard == "traders"
-                            ? "Traders"
-                            : ""}
-                    </div>
-                    <div className="lcontainner">
-                        <div className="leaderboardTitles">
-                            <div className="rank">Rank</div>
-                            <div className="name">Player name</div>
-                            <div className="value endvalue">
-                                {leaderboard == "playtime"
-                                    ? "Hours"
-                                    : leaderboard == "mobkills" || leaderboard == "playerkills"
-                                    ? "Kills"
-                                    : leaderboard == "deaths"
-                                    ? "Deaths"
-                                    : leaderboard == "slept"
-                                    ? "Slept"
-                                    : leaderboard == "hungry"
-                                    ? "Times Eaten"
-                                    : leaderboard == "damage"
-                                    ? "Damage Taken"
-                                    : leaderboard == "trades"
-                                    ? "Trades"
-                                    : ""}
-                            </div>
-                        </div>
-                        {loading ? (
-                            <div className="loadingContainner">
-                                <CreeperLoading></CreeperLoading>
-                            </div>
-                        ) : LBdata.data !== null && LBdata.err == null ? (
-                            LBdata.data.map((data, i) => {
-                                return (
-                                    <LeaderboardPlayer
-                                        rank={i + 1}
-                                        key={i + "lbdata"}
-                                        name={data.playerName}
-                                        value={data.value}
-                                        highlight={i % 2 == 0 ? true : false}
-                                        convert={leaderboard == "playtime" ? true : false}
-                                    ></LeaderboardPlayer>
-                                );
-                            })
-                        ) : (
-                            <div className="normaltext">Something went wrong!</div>
+
+                        {/* Podium */}
+                        {activeFeatured && activeFeatured.entries.length >= 3 && (
+                            <Podium entries={activeFeatured.entries} unit={activeFeatured.unit} />
                         )}
-                    </div>
+
+                        {/* Rest (4–10) */}
+                        {activeFeatured && activeFeatured.entries.length > 3 && (
+                            <div className="restList" data-aos="fade-up">
+                                {activeFeatured.entries.slice(3).map((e) => (
+                                    <Link to={`/stats/${e.name}`} className="restRow" key={e.uuid}>
+                                        <span className="restRank">{e.rank}</span>
+                                        <img className="restHead" src={`${BASE}skin/head/${e.uuid}`} alt="" />
+                                        <span className="restName">{e.name}</span>
+                                        <span className="restVal">{formatValue(e.value, activeFeatured.unit)}</span>
+                                    </Link>
+                                ))}
+                            </div>
+                        )}
+                    </>
+                )}
+            </section>
+
+            {/* ── Browse All ── */}
+            <section className="browse">
+                <h2 className="secHeading" data-aos="fade-right">Browse All</h2>
+                <div className="browseBar" data-aos="fade-up">
+                    <select className="bSelect" value={catFilter} onChange={(e) => setCatFilter(e.target.value)}>
+                        {categories.map((c) => (
+                            <option key={c} value={c}>{c === "all" ? "All Categories" : formatMinecraftId(c.replace("minecraft:", ""))}</option>
+                        ))}
+                    </select>
+                    <input className="bSearch" placeholder="Search stats…" value={search} onChange={(e) => setSearch(e.target.value)} />
                 </div>
-            </div>
+
+                <div className="bKeys" data-aos="fade-up">
+                    {keysLoading ? (
+                        <p className="normaltext textcenter">Loading…</p>
+                    ) : filtered.length === 0 ? (
+                        <p className="normaltext textcenter" style={{ gridColumn: "1/-1" }}>No stats found</p>
+                    ) : (
+                        filtered.map((k) => (
+                            <div key={k.key}
+                                className={`bKey ${selectedStat === k.key ? "bKeyOn" : ""}`}
+                                onClick={() => handlePickStat(k.key)}>
+                                <span className="bKeyCat">{formatMinecraftId(k.category.replace("minecraft:", ""))}</span>
+                                <span className="bKeyName">{formatMinecraftId(k.stat)}</span>
+                            </div>
+                        ))
+                    )}
+                </div>
+            </section>
+
+            {/* ── Selected leaderboard table ── */}
+            {selectedStat && (
+                <section className="browseResult" id="browseTable">
+                    <h2 className="secHeading">
+                        {formatMinecraftId(selectedStat.split("/").pop())}
+                    </h2>
+                    {lbLoading ? (
+                        <div className="loadingContainner"><CreeperLoading /></div>
+                    ) : lbError ? (
+                        <p className="normaltext textcenter">{lbError}</p>
+                    ) : lbEntries.length === 0 ? (
+                        <p className="normaltext textcenter">No entries</p>
+                    ) : (
+                        <div className="lbRows">
+                            {lbEntries.map((e, i) => (
+                                <Link to={`/stats/${e.name}`} key={e.uuid}
+                                    className={`lbRow ${i % 2 === 0 ? "lbRowAlt" : ""}`}>
+                                    <span className="lbRank">{e.rank}</span>
+                                    <img className="lbHead" src={`${BASE}/skin/head/${e.uuid}`} alt="" />
+                                    <span className="lbName">{e.name}</span>
+                                    <span className="lbVal">{e.value.toLocaleString()}</span>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+                </section>
+            )}
         </>
     );
 };
-const Selections = ({ setLeaderboard, leaderboard }) => {
-    const handleClick = (board) => {
-        setLeaderboard(board);
-        var element = document.getElementsByClassName("leaderboardContainnerBox")[0];
-        var headerOffset = 100;
-        var elementPosition = element.getBoundingClientRect().top;
-        var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: "smooth",
-        });
-    };
+/* ─── Podium ─── */
+const Podium = ({ entries, unit }) => {
+    const [first, second, third] = entries;
     return (
-        <div className="lselectionLists">
-            <div
-                className={leaderboard == "playtime" ? "lselected llist" : "llist"}
-                onClick={() => {
-                    handleClick("playtime");
-                }}
-            >
-                <img className="llistIcon" src={clockPng}></img>
-                Playtime
-            </div>
-            <div className={leaderboard == "balance" ? "lselected llist" : "llist"} onClick={() => handleClick("balance")}>
-                <img className="llistIcon" src={goldIcon}></img>
-                Balance
-            </div>
-            <div className={leaderboard == "mobkills" ? "lselected llist" : "llist"} onClick={() => handleClick("mobkills")}>
-                <img className="llistIcon" src={mobicon}></img>
-                Mob Kills
-            </div>
-            <div className={leaderboard == "playerkills" ? "lselected llist" : "llist"} onClick={() => handleClick("playerkills")}>
-                <img className="llistIcon" src={killicon}></img>
-                Player Kills
-            </div>
-            <div className={leaderboard == "deaths" ? "lselected llist" : "llist"} onClick={() => handleClick("deaths")}>
-                <img className="llistIcon" src={deathicon}></img>
-                Deaths
-            </div>
-            <div className={leaderboard == "slept" ? "lselected llist" : "llist"} onClick={() => handleClick("slept")}>
-                <img className="llistIcon" src={bedicon}></img>
-                Sleepers
-            </div>
-            <div className={leaderboard == "hungry" ? "lselected llist" : "llist"} onClick={() => handleClick("hungry")}>
-                <img className="llistIcon" src={foodicon}></img>
-                Hungry Players
-            </div>
-            <div className={leaderboard == "damage" ? "lselected llist" : "llist"} onClick={() => handleClick("damage")}>
-                <img className="llistIcon" src={damageicon}></img>
-                Damage Taken
-            </div>
-            <div className={leaderboard == "trades" ? "lselected llist" : "llist"} onClick={() => handleClick("trades")}>
-                <img className="llistIcon" src={tradeicon}></img>
-                Traders
-            </div>
+        <div className="podium" data-aos="zoom-in">
+            <PodiumSlot entry={second} unit={unit} place={2} />
+            <PodiumSlot entry={first} unit={unit} place={1} />
+            <PodiumSlot entry={third} unit={unit} place={3} />
         </div>
     );
 };
-const LeaderboardPlayer = ({ rank, name, value, convert, highlight }) => {
+
+const PodiumSlot = ({ entry, unit, place }) => {
+    const cls = place === 1 ? "podFirst" : place === 2 ? "podSecond" : "podThird";
+    const badge = place === 1 ? "podGold" : place === 2 ? "podSilver" : "podBronze";
     return (
-        <div className={highlight ? "leaderboardPlayer lhighlight" : "leaderboardPlayer"}>
-            <div className="rank">{rank}</div>
-            <div className="name">{name}</div>
-            <div className="value endvalue">
-                {convert ? (value / 60).toFixed(2).toLocaleString("en", { useGrouping: true }) : value.toLocaleString("en", { useGrouping: true })}
-            </div>
-        </div>
+        <Link to={`/stats/${entry.name}`} className={`podSlot ${cls}`}>
+            <img className="podSkin" src={`${BASE}/skin/body/${entry.uuid}`} alt={entry.name} />
+            <span className={`podBadge ${badge}`}>{place}</span>
+            <span className="podName">{entry.name}</span>
+            <span className="podVal">{formatValue(entry.value, unit)}</span>
+        </Link>
     );
 };
+
 export default LeaderboardComponent;

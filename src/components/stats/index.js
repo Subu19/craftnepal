@@ -1,301 +1,214 @@
-import React, { useEffect, useState } from "react";
-import clock from "../../assets/images/clock.png";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import "./main.css";
 import "./mobile.css";
-
-import player from "../../assets/images/player.png";
-import grasspng from "../../assets/images/grass.png";
-import netherpng from "../../assets/images/nether.png";
-import endpng from "../../assets/images/end.png";
-import swordpng from "../../assets/images/sword.png";
-import deathpng from "../../assets/images/death.png";
-import mobpng from "../../assets/images/mob.png";
+import "aos/dist/aos.css";
+import clock from "../../assets/images/clock.png";
 import Aos from "aos";
 import CountUp from "react-countup";
 import ScrollTrigger from "react-scroll-trigger";
-import ReactECharts from "echarts-for-react";
-import BubblesBack from "./bubbles";
-import { useFetchstatz } from "../../hooks/useFetchstatz";
+import { useFetchPlayer, useSearchPlayers } from "../../hooks/useStatsApi";
 import { useNavigate, useParams } from "react-router-dom";
 import CreeperLoading from "../extra/CreeperLoading";
 
+const BASE = process.env.REACT_APP_BASE_URL + process.env.REACT_APP_API;
+
+const formatMinecraftId = (id) => {
+    if (!id) return "";
+    return id.replace("minecraft:", "").replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+};
+
+const OVERVIEW_STATS = [
+    { key: "playTime", label: "Play Time", transform: (v) => (v || 0) / 72000, decimals: 1, suffix: " hrs" },
+    { key: "mobKills", label: "Mob Kills" },
+    { key: "deaths", label: "Deaths" },
+    { key: "totalBlocksMined", label: "Blocks Mined" },
+    { key: "distanceWalked", label: "Distance", transform: (v) => (v || 0) / 100000, decimals: 2, suffix: " km" },
+    { key: "jumps", label: "Jumps" },
+    { key: "damageDealt", label: "Damage" },
+    { key: "distanceFlown", label: "Flown", transform: (v) => (v || 0) / 100000, decimals: 2, suffix: " km" },
+    { key: "timesLoggedOut", label: "Logins" },
+];
+
+const STAT_CATEGORIES = [
+    { key: "custom", label: "Custom" },
+    { key: "mined", label: "Mined" },
+    { key: "used", label: "Used" },
+    { key: "picked_up", label: "Picked Up" },
+    { key: "dropped", label: "Dropped" },
+    { key: "killed", label: "Killed" },
+    { key: "killed_by", label: "Killed By" },
+    { key: "crafted", label: "Crafted" },
+    { key: "broken", label: "Broken" },
+];
+
 const StatsComponent = () => {
     const { username } = useParams();
-    const [count, setCount] = useState(false);
-    const [showchart, setchart] = useState(false);
-    const { loading, statz } = useFetchstatz(username);
-    const nevigate = useNavigate();
+    const { loading, player: playerData, error } = useFetchPlayer(username);
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState("custom");
+    const [searchTerm, setSearchTerm] = useState("");
+
+    const [inputValue, setInputValue] = useState("");
+    const [showDropdown, setShowDropdown] = useState(false);
+    const { loading: searchLoading, players: searchResults } = useSearchPlayers(inputValue);
+    const dropdownRef = useRef(null);
+    const inputRef = useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        var value = document.getElementById("userInput").value;
-        nevigate("/stats/" + value);
+        const value = inputValue.trim();
+        if (value) { navigate("/stats/" + value); setShowDropdown(false); }
     };
+
+    const handleSelectPlayer = useCallback((name) => {
+        setInputValue(name);
+        setShowDropdown(false);
+        navigate("/stats/" + name);
+    }, [navigate]);
+
+    const handleInputChange = (e) => { setInputValue(e.target.value); setShowDropdown(true); };
+
     useEffect(() => {
-        Aos.init({ duration: 1000 });
+        const handler = (e) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target) &&
+                inputRef.current && !inputRef.current.contains(e.target)) setShowDropdown(false);
+        };
+        document.addEventListener("mousedown", handler);
+        return () => document.removeEventListener("mousedown", handler);
     }, []);
+
+    useEffect(() => { Aos.init({ duration: 1000 }); }, []);
+
     return (
         <>
+            {/* ── Hero ── */}
             <div className="rowflex statMainPage">
                 <div className="statLeftMain">
-                    <img
-                        className="clockImage "
-                        src={clock}
-                        data-aos="fade-up"
-                        data-aos-anchor-placement="bottom-bottom"
-                        data-aos-easing="ease-out-back"
-                    ></img>
+                    <img className="clockImage" src={clock} alt="Clock"
+                        data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back" />
                 </div>
-
                 <div className="columnflex statRightMain">
-                    <div
-                        className="contentTitle whitetext textcenter "
-                        data-aos="fade-up"
-                        data-aos-anchor-placement="bottom-bottom"
-                        data-aos-easing="ease-out-back"
-                    >
-                        Wanna know how <br></br> many hours you wasted?
+                    <div className="contentTitle whitetext textcenter"
+                        data-aos="fade-up" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back">
+                        Player<br /> Statistics
                     </div>
-                    <div
-                        className="normaltext statSubText textcenter"
-                        data-aos="zoom-in"
-                        data-aos-anchor-placement="bottom-bottom"
-                        data-aos-easing="ease-out"
-                    >
-                        We provide all stats of players in game including kills, playtime, death..etc.
+                    <div className="normaltext statSubText textcenter"
+                        data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out">
+                        Search any player to view their complete in-game statistics.
                     </div>
-                    <form className="statForm" onSubmit={(e) => handleSubmit(e)}>
-                        <input
-                            required="true"
-                            id="userInput"
-                            className="statInput"
-                            placeholder="Enter in-game username"
-                            data-aos="flip-left"
-                            data-aos-anchor-placement="bottom-bottom"
-                            data-aos-easing="ease-out-back"
-                        ></input>
+                    <form autoComplete="off" className="statForm" onSubmit={handleSubmit}>
+                        <div className="statInputWrapper" data-aos="flip-left"
+                            data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back">
+                            <input name="playername" required ref={inputRef} id="userInput"
+                                className="statInput" placeholder="Enter in-game username"
+                                value={inputValue} onChange={handleInputChange}
+                                onFocus={() => inputValue.trim() && setShowDropdown(true)}
+                                autoComplete="off" />
+                            {showDropdown && inputValue.trim().length > 0 && (
+                                <div className="playerDropdown" ref={dropdownRef}>
+                                    {searchLoading ? (
+                                        <div className="ddItem ddMuted">Searching…</div>
+                                    ) : searchResults.length > 0 ? (
+                                        searchResults.map((p) => (
+                                            <div key={p.uuid} className="ddItem" onClick={() => handleSelectPlayer(p.name)}>
+                                                <img className="ddHead" src={`${BASE}/skin/head/${p.uuid}`} alt="" />
+                                                <span>{p.name}</span>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <div className="ddItem ddMuted">No players found</div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
                     </form>
                 </div>
             </div>
-            {!username ? (
-                ""
-            ) : loading ? (
-                <div className="loadingContainner">
-                    <CreeperLoading></CreeperLoading>
-                </div>
-            ) : statz.data == null || statz.err ? (
-                <div className="normaltext textcenter">
+
+            {/* ── Player Content ── */}
+            {!username ? null : loading ? (
+                <div className="loadingContainner"><CreeperLoading /></div>
+            ) : error || !playerData ? (
+                <div className="statsError">
                     <div className="contentTitle whitetext textcenter">Something went wrong!</div>
-                    <p>Make sure that the username is Correct</p>
+                    <p className="normaltext textcenter">Make sure the username is correct</p>
                 </div>
             ) : (
                 <>
-                    <div className="rowflex player-containner">
-                        <div className="columnflex player-details">
-                            <div className="contentTitle whitetext playername">{username}</div>
-
-                            <Playtime playtime={statz.data.playtime}></Playtime>
-                            <ScrollTrigger onEnter={() => setCount(true)} onExit={() => setCount(false)}>
-                                <div className="contentTitle whitetext totalplaytime">
-                                    Total:
-                                    {count ? <CountUp end={statz.data.totalPlaytime / 60}></CountUp> : 0}
-                                    <div className="hr contentTitle">hr</div>
-                                </div>
-                                <i className="normaltext">{"(Note: It also includes other world playtime such as HUB, PvP and so on)"}</i>
-                            </ScrollTrigger>
+                    {/* Profile */}
+                    <div className="profile" data-aos="fade-up">
+                        <div className="profileSkin">
+                            <img className="bodySkin" src={`${BASE}/skin/body/${playerData.uuid}`} alt={playerData.name} />
                         </div>
-                        <div className="playerImage-box">
-                            <img
-                                className="playerImage"
-                                src={username ? "https://craftnepal-skin-api.vercel.app/skin/body/" + username : player}
-                            ></img>
+                        <div className="profileInfo">
+                            <h1 className="profileName">{playerData.name}</h1>
+                            <span className="profileUuid">{playerData.uuid}</span>
+                            <div className="profileLine"></div>
+                            <OverviewStats overview={playerData.overview} />
                         </div>
                     </div>
-                    <HostileStat kills={statz.data.kills}></HostileStat>
-                    <ScrollTrigger onEnter={() => setchart(true)} onExit={() => setchart(false)}>
-                        <BlockChart show={showchart} blocks={statz.data.blocks}></BlockChart>
-                    </ScrollTrigger>
+
+                    {/* Detailed Stats */}
+                    <div className="detailed" data-aos="fade-up">
+                        <h2 className="detailedHeading">Detailed Stats</h2>
+                        <div className="pills">
+                            {STAT_CATEGORIES.map((c) => (
+                                <button key={c.key}
+                                    className={`pill ${activeTab === c.key ? "pillOn" : ""}`}
+                                    onClick={() => { setActiveTab(c.key); setSearchTerm(""); }}>
+                                    {c.label}
+                                </button>
+                            ))}
+                        </div>
+                        <input className="detailedFilter" placeholder="Filter stats…"
+                            value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                        <StatTable stats={playerData.stats[activeTab] || {}} searchTerm={searchTerm} />
+                    </div>
                 </>
             )}
         </>
     );
 };
 
-const BlockChart = ({ show, blocks }) => {
-    const option = {
-        title: {
-            left: "center",
-            top: 20,
-            textStyle: {
-                color: "#ccc",
-            },
-        },
-        tooltip: {
-            trigger: "item",
-            textStyle: {
-                color: "#ffff",
-            },
-            extraCssText: "background: linear-gradient(313deg,rgba(139, 139, 139, 1) 0%,rgba(255, 255, 255, 0) 100%);backdrop-filter: blur(10px);",
-        },
-
-        series: [
-            {
-                name: "Blocks",
-                type: "pie",
-                radius: "55%",
-                center: ["50%", "50%"],
-                data: [
-                    { value: blocks.broken, name: "Broken" },
-                    { value: blocks.placed, name: "Placed" },
-                ].sort(function (a, b) {
-                    return a.value - b.value;
-                }),
-                roseType: "radius",
-                label: {
-                    color: "rgba(255, 255, 255, 0.3)",
-                },
-                labelLine: {
-                    lineStyle: {
-                        color: "rgba(255, 255, 255, 0.3)",
-                    },
-                    smooth: 0.2,
-                    length: 10,
-                    length2: 20,
-                },
-                itemStyle: {
-                    shadowBlur: 200,
-                    shadowColor: "rgba(0, 0, 0, 0.2)",
-                },
-                color: ["#2997C6", "#95DA9C"],
-
-                animationEasing: "cubicInOut",
-                animationDelay: function (idx) {
-                    return Math.random() * 200;
-                },
-            },
-        ],
-    };
+/* ─── Overview ─── */
+const OverviewStats = ({ overview }) => {
+    const [counting, setCounting] = useState(false);
     return (
-        <div className="pieChart">
-            {show && <ReactECharts option={option} style={{ height: "500px" }}></ReactECharts>}
-
-            <BubblesBack></BubblesBack>
-        </div>
-    );
-};
-const Playtime = ({ playtime }) => {
-    const [count, setCount] = useState(false);
-
-    return (
-        <div className="rowflex playtime-containner">
-            <div
-                className="playtime-box columnflex"
-                data-aos="zoom-in"
-                data-aos-anchor-placement="bottom-bottom"
-                data-aos-easing="ease-out-back"
-                data-aos-id="count"
-            >
-                <div className="rowflex wrold">
-                    <i class={"fa fa-circle worldIcon"}></i>
-                    <div className="normaltext worldtext">Overworld</div>
-                </div>
-                <img className="worldImage" src={grasspng}></img>
-                <ScrollTrigger onEnter={() => setCount(true)} onExit={() => setCount(false)}>
-                    <div className="playtime rowflex">
-                        {count && (
-                            <CountUp
-                                delay={0.2}
-                                className="playtime-num whitetext contentTitle"
-                                end={playtime == null ? 0 : playtime.find((world) => world.world == "world").value / 60}
-                            ></CountUp>
-                        )}
-                        <div className="hr contentTitle">hr</div>
+        <ScrollTrigger onEnter={() => setCounting(true)} onExit={() => setCounting(false)}>
+            <div className="oGrid">
+                {OVERVIEW_STATS.map((s) => (
+                    <div className="oCell" key={s.key}>
+                        <span className="oLabel">{s.label}</span>
+                        <span className="oVal">
+                            {counting ? (
+                                <CountUp end={s.transform ? s.transform(overview[s.key]) : (overview[s.key] || 0)}
+                                    duration={2} separator="," decimals={s.decimals || 0} suffix={s.suffix || ""} />
+                            ) : "0"}
+                        </span>
                     </div>
-                </ScrollTrigger>
-            </div>
-            <div className="playtime-box columnflex" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back">
-                <div className="rowflex wrold">
-                    <i class={"fa fa-circle netherIcon"}></i>
-                    <div className="normaltext worldtext">Nether</div>
-                </div>
-                <img className="worldImage" src={netherpng}></img>
-                <div className="playtime rowflex">
-                    {count && (
-                        <CountUp
-                            delay={0.2}
-                            className="playtime-num whitetext contentTitle"
-                            end={playtime == null ? 0 : playtime.find((world) => world.world == "world_nether").value / 60}
-                        ></CountUp>
-                    )}
-
-                    <div className="hr contentTitle">hr</div>
-                </div>
-            </div>
-
-            <div className="playtime-box columnflex" data-aos="zoom-in" data-aos-anchor-placement="bottom-bottom" data-aos-easing="ease-out-back">
-                <div className="rowflex wrold">
-                    <i class={"fa fa-circle endIcon"}></i>
-                    <div className="normaltext worldtext">End</div>
-                </div>
-                <img className="worldImage" src={endpng}></img>
-                <div className="playtime rowflex">
-                    {count && (
-                        <CountUp
-                            delay={0.2}
-                            className="playtime-num whitetext contentTitle"
-                            end={playtime == null ? 0 : playtime.find((world) => world.world == "world_the_end").value / 60}
-                        ></CountUp>
-                    )}
-                    <div className="hr contentTitle">hr</div>
-                </div>
-            </div>
-        </div>
-    );
-};
-const HostileStat = ({ kills }) => {
-    const [count, setCount] = useState(false);
-    return (
-        <ScrollTrigger onEnter={() => setCount(true)} onExit={() => setCount(false)}>
-            <div className="hostileStats rowflex">
-                <div className="rowflex hStat">
-                    <div className="columnflex">
-                        <div className="rowflex wrold">
-                            <i class={"fa fa-circle killIcon"}></i>
-                            <div className="normaltext">Player Kills</div>
-                        </div>
-                        <img className="worldImage" src={swordpng}></img>
-                    </div>
-                    <div className="hostile-num contentTitle whitetext">
-                        <CountUp delay={0.2} className="hostile-num whitetext contentTitle" end={!kills || !count ? 0 : kills.player}></CountUp>
-                    </div>
-                </div>
-
-                <div className="rowflex hStat">
-                    <div className="columnflex">
-                        <div className="rowflex wrold">
-                            <i class={"fa fa-circle deathIcon"}></i>
-                            <div className="normaltext">Death</div>
-                        </div>
-                        <img className="worldImage" src={deathpng}></img>
-                    </div>
-
-                    <div className="hostile-num contentTitle whitetext">
-                        <CountUp delay={0.2} className="hostile-num whitetext contentTitle" end={!kills || !count ? 0 : kills.deaths}></CountUp>
-                    </div>
-                </div>
-
-                <div className="rowflex hStat">
-                    <div className="columnflex">
-                        <div className="rowflex wrold">
-                            <i class={"fa fa-circle mobIcon"}></i>
-                            <div className="normaltext">Mob Kills</div>
-                        </div>
-                        <img className="worldImage" src={mobpng}></img>
-                    </div>
-                    <CountUp delay={0.2} className="hostile-num whitetext contentTitle" end={!kills || !count ? 0 : kills.mob}></CountUp>
-                </div>
+                ))}
             </div>
         </ScrollTrigger>
+    );
+};
+
+/* ─── Stat Table ─── */
+const StatTable = ({ stats, searchTerm }) => {
+    const rows = Object.entries(stats)
+        .filter(([k]) => formatMinecraftId(k).toLowerCase().includes(searchTerm.toLowerCase()))
+        .sort((a, b) => b[1] - a[1]);
+
+    if (!rows.length) return <div className="tableEmpty">No stats found</div>;
+
+    return (
+        <div className="sTable">
+            {rows.map(([k, v], i) => (
+                <div className={`sRow ${i % 2 === 0 ? "sRowAlt" : ""}`} key={k}>
+                    <span className="sName">{formatMinecraftId(k)}</span>
+                    <span className="sVal">{v.toLocaleString()}</span>
+                </div>
+            ))}
+        </div>
     );
 };
 

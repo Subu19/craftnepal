@@ -1,57 +1,56 @@
+/* ============================================================
+   Stats Page Mobile — mobile.css
+   Breakpoint: 800px
+   ============================================================ */
+
 @media screen and (max-width: 800px) {
-  .statMainPage {
-    flex-direction: column;
-    gap: 50px;
-    height: fit-content;
-  }
-  .statLeftMain {
-    display: flex;
-  }
-  .clockImage {
-    width: 50%;
-    margin-left: 15%;
-  }
-  .player-containner {
-    flex-direction: column;
-  }
-  .statRightMain {
-    display: flex;
-    flex-direction: column;
-  }
-  .statInput {
-    margin: 0px;
-    margin-top: 60px;
-    flex: 1;
-  }
-  .statForm {
-    width: 100%;
-    display: flex;
-  }
-  .playtime-containner {
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .playtime-box {
-    height: fit-content;
-    justify-content: center;
-    align-items: center;
-  }
-  .hostileStats {
-    flex-wrap: wrap;
-    gap: 20px;
-    height: fit-content;
-    width: calc(100% - 60px);
-    padding: 30px;
-  }
-  .hStat {
-    flex-direction: column;
-    border-bottom: solid;
-    border-color: rgba(255, 255, 255, 0.163);
-    display: flex;
-    padding-bottom: 5px;
-  }
-  .hStat:last-child {
-    border: none;
-  }
+    /* Hero */
+    .statMainPage {
+        flex-direction: column;
+        gap: 50px;
+        height: fit-content;
+    }
+    .statLeftMain { display: flex; }
+    .clockImage { width: 50%; margin-left: 15%; }
+    .statRightMain { display: flex; flex-direction: column; }
+    .statInput { margin-top: 40px; width: 100% !important; }
+    .statForm { width: 100%; display: flex; }
+    .playerDropdown { width: 100%; left: 0; transform: none; }
+
+    /* Profile */
+    .profile {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px;
+        align-items: center;
+        text-align: center;
+    }
+    .bodySkin { height: 200px; }
+    .profileName { font-size: 24px; }
+    .profileUuid { font-size: 10px; }
+    .profileLine { margin: 16px auto 20px; }
+    .profileInfo { align-items: center; }
+
+    /* Overview grid */
+    .oGrid { grid-template-columns: repeat(2, 1fr); }
+    .oCell:nth-child(3n+2) {
+        padding-left: 0;
+        padding-right: 0;
+        border-left: none;
+        border-right: none;
+    }
+    .oCell:nth-child(odd) {
+        padding-right: 16px;
+        border-right: 1px solid rgba(255,255,255,0.05);
+    }
+    .oCell:nth-child(even) { padding-left: 16px; }
+    .oVal { font-size: 17px; }
+
+    /* Detailed */
+    .detailedHeading { font-size: 18px; }
+    .pills { gap: 4px; }
+    .pill { padding: 6px 12px; font-size: 12px; }
+    .detailedFilter { width: calc(100% - 28px); }
+    .sName, .sVal { font-size: 13px; }
+    .sTable { max-height: 380px; }
 }
