@@ -63,3 +63,8 @@ jobs:
             REACT_APP_LOGIN=${{ secrets.REACT_APP_LOGIN || '/auth/login' }}
             REACT_APP_CHECK_AUTH=${{ secrets.REACT_APP_CHECK_AUTH || '/auth/verify' }}
             REACT_APP_AVATAR=${{ secrets.REACT_APP_AVATAR || 'https://cdn.discordapp.com/avatars/' }}
+
+      - name: Trigger Dokploy Deployment
+        if: github.event_name != 'pull_request'
+        run: |
+          curl -X POST "${{ secrets.DOKPLOY_WEBHOOK_URL }}"
