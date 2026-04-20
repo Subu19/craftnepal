@@ -44,7 +44,9 @@
     width: 70%;
     max-height: 280px;
     overflow-y: auto;
-    background: #0e0c1e;
+    background: rgba(14, 12, 30, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
@@ -86,6 +88,10 @@
     margin-top: 60px;
     padding: 32px;
     border-left: 3px solid var(--lightred);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 8px;
 }
 .statsError p { margin-top: 8px; }
 
@@ -95,7 +101,10 @@
     gap: 48px;
     margin-top: 80px;
     padding: 40px;
-    background: rgba(255, 255, 255, 0.025);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
 }
 .profileSkin {
@@ -140,37 +149,67 @@
 .oGrid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 .oCell {
-    padding: 14px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
+    transition: transform 0.2s, background 0.2s;
 }
-/* middle column dividers */
-.oCell:nth-child(3n+2) {
-    padding-left: 20px;
-    padding-right: 20px;
-    border-left: 1px solid rgba(255, 255, 255, 0.05);
-    border-right: 1px solid rgba(255, 255, 255, 0.05);
+.oCell:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.06);
+}
+.oCell:hover {
+    transform: translateY(-2px);
+    background: rgba(255, 255, 255, 0.06);
 }
 .oLabel {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.45);
     text-transform: uppercase;
     letter-spacing: 1px;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+.oIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--lightred);
 }
 .oVal {
     font-family: "Rubik Mono One", sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     color: white;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+.oSuffix {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    font-family: monospace;
+    font-weight: normal;
 }
 
 /* ── Detailed Stats ── */
 .detailed {
     margin-top: 60px;
     margin-bottom: 80px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 40px;
 }
 .detailedHeading {
     font-family: "Rubik Mono One", sans-serif;

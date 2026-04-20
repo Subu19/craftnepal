@@ -5,7 +5,6 @@ import "aos/dist/aos.css";
 import clock from "../../assets/images/clock.png";
 import Aos from "aos";
 import CountUp from "react-countup";
-import ScrollTrigger from "react-scroll-trigger";
 import { useFetchPlayer, useSearchPlayers } from "../../hooks/useStatsApi";
 import { useNavigate, useParams } from "react-router-dom";
 import CreeperLoading from "../extra/CreeperLoading";
@@ -18,15 +17,15 @@ const formatMinecraftId = (id) => {
 };
 
 const OVERVIEW_STATS = [
-    { key: "playTime", label: "Play Time", transform: (v) => (v || 0) / 72000, decimals: 1, suffix: " hrs" },
-    { key: "mobKills", label: "Mob Kills" },
-    { key: "deaths", label: "Deaths" },
-    { key: "totalBlocksMined", label: "Blocks Mined" },
-    { key: "distanceWalked", label: "Distance", transform: (v) => (v || 0) / 100000, decimals: 2, suffix: " km" },
-    { key: "jumps", label: "Jumps" },
-    { key: "damageDealt", label: "Damage" },
-    { key: "distanceFlown", label: "Flown", transform: (v) => (v || 0) / 100000, decimals: 2, suffix: " km" },
-    { key: "timesLoggedOut", label: "Logins" },
+    { key: "playTime", label: "Play Time", transform: (v) => (v || 0) / 72000, decimals: 1, suffix: " hrs", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg> },
+    { key: "mobKills", label: "Mob Kills", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.5 4h5v5l-10 10-5-5 10-10z"></path><path d="M6 14l4 4"></path></svg> },
+    { key: "deaths", label: "Deaths", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="12" r="1"></circle><circle cx="15" cy="12" r="1"></circle><path d="M8 20v2h8v-2"></path><path d="M12.5 17l-.5-1-.5 1h11.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20"></path></svg> },
+    { key: "totalBlocksMined", label: "Blocks Mined", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg> },
+    { key: "distanceWalked", label: "Distance", transform: (v) => (v || 0) / 100000, decimals: 2, suffix: " km", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg> },
+    { key: "jumps", label: "Jumps", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 5v14"></path><path d="M19 12l-7-7-7 7"></path></svg> },
+    { key: "damageDealt", label: "Damage", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg> },
+    { key: "distanceFlown", label: "Flown", transform: (v) => (v || 0) / 100000, decimals: 2, suffix: " km", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13"></path><path d="M22 2l-7 20-4-9-9-4 20-7z"></path></svg> },
+    { key: "timesLoggedOut", label: "Logins", icon: <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> },
 ];
 
 const STAT_CATEGORIES = [
@@ -172,23 +171,31 @@ const StatsComponent = () => {
 
 /* ─── Overview ─── */
 const OverviewStats = ({ overview }) => {
-    const [counting, setCounting] = useState(false);
     return (
-        <ScrollTrigger onEnter={() => setCounting(true)} onExit={() => setCounting(false)}>
-            <div className="oGrid">
-                {OVERVIEW_STATS.map((s) => (
-                    <div className="oCell" key={s.key}>
-                        <span className="oLabel">{s.label}</span>
-                        <span className="oVal">
-                            {counting ? (
-                                <CountUp end={s.transform ? s.transform(overview[s.key]) : (overview[s.key] || 0)}
-                                    duration={2} separator="," decimals={s.decimals || 0} suffix={s.suffix || ""} />
-                            ) : "0"}
-                        </span>
+        <div className="oGrid">
+            {OVERVIEW_STATS.map((stat, i) => {
+                const rawVal = overview[stat.key] || 0;
+                const val = stat.transform ? stat.transform(rawVal) : rawVal;
+                
+                return (
+                    <div className="oCell" key={stat.key} data-aos="fade-up" data-aos-delay={i * 50}>
+                        <div className="oLabel">
+                            <span className="oIcon">{stat.icon}</span>
+                            {stat.label}
+                        </div>
+                        <div className="oVal">
+                            <CountUp 
+                                end={val} 
+                                decimals={stat.decimals || 0} 
+                                duration={2.5} 
+                                separator="," 
+                            />
+                            {stat.suffix && <span className="oSuffix">{stat.suffix}</span>}
+                        </div>
                     </div>
-                ))}
-            </div>
-        </ScrollTrigger>
+                );
+            })}
+        </div>
     );
 };
 
