@@ -58,11 +58,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           build-args: |
-            REACT_APP_BASE_URL=${{ secrets.REACT_APP_BASE_URL || 'https://backend.craftnepal.net' }}
-            REACT_APP_API=${{ secrets.REACT_APP_API || '/api/' }}
-            REACT_APP_LOGIN=${{ secrets.REACT_APP_LOGIN || '/auth/login' }}
-            REACT_APP_CHECK_AUTH=${{ secrets.REACT_APP_CHECK_AUTH || '/auth/verify' }}
-            REACT_APP_AVATAR=${{ secrets.REACT_APP_AVATAR || 'https://cdn.discordapp.com/avatars/' }}
+            VITE_API_URL=${{ secrets.VITE_API_URL || 'https://backend.craftnepal.net/api' }}
 
       - name: Trigger Dokploy Deployment
         if: github.event_name != 'pull_request'
