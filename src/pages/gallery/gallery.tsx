@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
@@ -18,7 +18,7 @@ const Gallery = () => {
   const { season: seasonParam } = useParams();
   const navigate = useNavigate();
   const { data: galleryData, isLoading, error } = useGallery();
-  
+
   const selectedIndex = useMemo(() => {
     if (!galleryData || !seasonParam) return 0;
     const index = galleryData.findIndex(s => s.title.toLowerCase() === seasonParam.toLowerCase());
@@ -222,8 +222,8 @@ const Gallery = () => {
                 key={i}
                 onClick={() => navigate(`/gallery/${galleryData![i].title}`)}
                 className={`transition-all duration-300 rounded-full ${i === selectedIndex
-                    ? 'w-6 h-2 bg-accent-500'
-                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                  ? 'w-6 h-2 bg-accent-500'
+                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                   }`}
                 aria-label={`Go to season ${i + 1}`}
               />
