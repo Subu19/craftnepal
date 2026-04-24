@@ -14,6 +14,7 @@ import Leaderboard from "../pages/leaderboard/leaderboard";
 import Stats from "../pages/stats/stats";
 import Feed from "../pages/feed/feed";
 import Gallery from "../pages/gallery/gallery";
+import Map from "../pages/map/map";
 import { GalleryManager } from "../features/cms-gallery/ui/gallery-manager";
 import { GuideManager } from "../features/cms-guide/ui/guide-manager";
 
@@ -32,6 +33,7 @@ function App() {
                   <Route path="/stats" element={<Stats />} />
                   <Route path="/feed" element={<Feed />} />
                   <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/map" element={<Map />} />
                 </Route>
                 <Route path="/admin" element={<CmsLayout />}>
                   <Route index element={<Navigate to="gallery" replace />} />
