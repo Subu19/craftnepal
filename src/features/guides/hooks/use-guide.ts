@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import type { UseQueryResult } from '@tanstack/react-query';
 import { api } from '../../../shared/api/client';
-import type { GuidesData } from '../../../shared/types';
+import type { GuideSection } from '../../../shared/types';
 
 interface GuideResponse {
   err: boolean;
@@ -19,27 +19,12 @@ interface GuideResponse {
   }>;
 }
 
-export const useGuides = (): UseQueryResult<GuidesData, Error> => {
+export const useGuides = (): UseQueryResult<GuideSection[], Error> => {
   return useQuery({
     queryKey: ['guides'],
     queryFn: async () => {
       const { data } = await api.get<GuideResponse>('/guides');
-      
-      // Transform the array response into organized sections
-      const guidesMap: Partial<GuidesData> = {};
-      
-      data.data.forEach((section) => {
-        const key = section.id as keyof GuidesData;
-        guidesMap[key] = {
-          _id: section._id,
-          id: section.id,
-          header: section.header,
-          data: section.data,
-          image: section.image,
-        };
-      });
-      
-      return guidesMap as GuidesData;
+      return data.data as GuideSection[];
     },
   });
 };

@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PhotoProvider, PhotoView } from 'react-photo-view';
 import 'react-photo-view/dist/react-photo-view.css';
@@ -12,16 +12,25 @@ import {
 } from '../../shared/ui';
 import { stagger, fadeUp, scaleIn } from '../../shared/lib/framer-motion/variants';
 
-const Gallery = () => {
-  const { data: galleryData, isLoading, error } = useGallery();
-  const [selectedIndex, setSelectedIndex] = useState(0);
+import { useParams, useNavigate } from 'react-router-dom';
 
-  // Set initial selected season when data loads
+const Gallery = () => {
+  const { season: seasonParam } = useParams();
+  const navigate = useNavigate();
+  const { data: galleryData, isLoading, error } = useGallery();
+
+  const selectedIndex = useMemo(() => {
+    if (!galleryData || !seasonParam) return 0;
+    const index = galleryData.findIndex(s => s.title.toLowerCase() === seasonParam.toLowerCase());
+    return index === -1 ? 0 : index;
+  }, [galleryData, seasonParam]);
+
+  // Handle initial redirect to the first season's URL if no season in URL
   React.useEffect(() => {
-    if (galleryData && galleryData.length > 0) {
-      setSelectedIndex(0);
+    if (galleryData && galleryData.length > 0 && !seasonParam) {
+      navigate(`/gallery/${galleryData[0].title}`, { replace: true });
     }
-  }, [galleryData]);
+  }, [galleryData, seasonParam, navigate]);
 
   const currentSeason = useMemo(() => {
     return galleryData?.[selectedIndex] || null;
@@ -29,13 +38,15 @@ const Gallery = () => {
 
   const goToPrev = useCallback(() => {
     if (!galleryData) return;
-    setSelectedIndex(i => (i - 1 + galleryData.length) % galleryData.length);
-  }, [galleryData]);
+    const prevIndex = (selectedIndex - 1 + galleryData.length) % galleryData.length;
+    navigate(`/gallery/${galleryData[prevIndex].title}`);
+  }, [galleryData, selectedIndex, navigate]);
 
   const goToNext = useCallback(() => {
     if (!galleryData) return;
-    setSelectedIndex(i => (i + 1) % galleryData.length);
-  }, [galleryData]);
+    const nextIndex = (selectedIndex + 1) % galleryData.length;
+    navigate(`/gallery/${galleryData[nextIndex].title}`);
+  }, [galleryData, selectedIndex, navigate]);
 
   if (isLoading) return <GalleryLoadingState />;
   if (error) return <GalleryErrorState />;
@@ -145,7 +156,7 @@ const Gallery = () => {
                     }}
                     exit={{ opacity: 0, scale: 0.85 }}
                     transition={{ type: 'spring', stiffness: 340, damping: 30 }}
-                    onClick={() => setSelectedIndex(idx)}
+                    onClick={() => navigate(`/gallery/${galleryData![idx].title}`)}
                     className={`
                       relative overflow-hidden rounded-[2.5rem] border-2 shadow-2xl
                       transition-[border-color,box-shadow,filter] duration-500 group
@@ -209,10 +220,10 @@ const Gallery = () => {
             {galleryData?.map((_, i) => (
               <button
                 key={i}
-                onClick={() => setSelectedIndex(i)}
+                onClick={() => navigate(`/gallery/${galleryData![i].title}`)}
                 className={`transition-all duration-300 rounded-full ${i === selectedIndex
-                    ? 'w-6 h-2 bg-accent-500'
-                    : 'w-2 h-2 bg-white/20 hover:bg-white/40'
+                  ? 'w-6 h-2 bg-accent-500'
+                  : 'w-2 h-2 bg-white/20 hover:bg-white/40'
                   }`}
                 aria-label={`Go to season ${i + 1}`}
               />

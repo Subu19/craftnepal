@@ -1,33 +1,25 @@
 import { motion } from "framer-motion";
 import { fadeUp, stagger } from "@/shared/lib/framer-motion/variants";
 
-const rulesIcon = "/assets/images/guide/rules.png";
-const rankIcon = "/assets/images/guide/rank.png";
-const marketIcon = "/assets/images/guide/market.png";
-const commandIcon = "/assets/images/guide/command.png";
-const faqIcon = "/assets/images/guide/faq.png";
-const othersIcon = "/assets/images/guide/others.png";
+import type { GuideSection } from "@/shared/types";
+import { Book } from "lucide-react";
 
-const sections = [
-  { id: "rules", title: "Rules", icon: rulesIcon, color: "text-green-400" },
-  { id: "ranks", title: "Ranks", icon: rankIcon, color: "text-orange-400" },
-  { id: "market", title: "Market", icon: marketIcon, color: "text-red-400" },
-  {
-    id: "commands",
-    title: "Commands",
-    icon: commandIcon,
-    color: "text-blue-400",
-  },
-  { id: "faq", title: "FAQ", icon: faqIcon, color: "text-purple-400" },
-  {
-    id: "others",
-    title: "Others",
-    icon: othersIcon,
-    color: "text-yellow-400",
-  },
+interface GuidesQuickNavProps {
+  guides: GuideSection[];
+}
+
+const colors = [
+  "text-green-400",
+  "text-orange-400",
+  "text-red-400",
+  "text-blue-400",
+  "text-purple-400",
+  "text-yellow-400",
+  "text-pink-400",
+  "text-cyan-400",
 ];
 
-export const GuidesQuickNav = () => {
+export const GuidesQuickNav = ({ guides }: GuidesQuickNavProps) => {
   const scrollIntoView = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -42,6 +34,8 @@ export const GuidesQuickNav = () => {
     }
   };
 
+  if (!guides || guides.length === 0) return null;
+
   return (
     <section className="max-w-7xl mx-auto px-6 -mt-10 mb-20 relative z-20">
       <motion.div
@@ -50,7 +44,7 @@ export const GuidesQuickNav = () => {
         animate="visible"
         className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4"
       >
-        {sections.map((sec) => (
+        {guides.map((sec, idx) => (
           <motion.button
             key={sec.id}
             variants={fadeUp}
@@ -58,15 +52,23 @@ export const GuidesQuickNav = () => {
             className="group relative p-6 rounded-2xl bg-white/5 border border-white/5 hover:border-accent-500/30 hover:bg-white/10 transition-all text-center flex flex-col items-center gap-3 overflow-hidden cursor-pointer"
           >
             <div className="absolute inset-0 bg-gradient-to-br from-accent-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            <img
-              src={sec.icon}
-              alt={sec.title}
-              className="h-12 drop-shadow-lg group-hover:scale-110 transition-transform"
-            />
+            
+            {sec.icon ? (
+              <img
+                src={sec.icon}
+                alt={sec.id}
+                className="h-12 drop-shadow-lg group-hover:scale-110 transition-transform object-contain"
+              />
+            ) : (
+              <div className="h-12 w-12 rounded-xl bg-white/5 flex items-center justify-center text-accent-400 group-hover:scale-110 transition-transform">
+                <Book size={24} />
+              </div>
+            )}
+
             <span
-              className={`text-sm font-bold uppercase tracking-widest ${sec.color}`}
+              className={`text-sm font-bold uppercase tracking-widest ${colors[idx % colors.length]}`}
             >
-              {sec.title}
+              {sec.id}
             </span>
           </motion.button>
         ))}

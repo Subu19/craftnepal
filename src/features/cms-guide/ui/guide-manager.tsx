@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useCmsGuide } from '../api/use-cms-guide';
 import {
   Button,
@@ -18,6 +18,11 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
 } from '../../../shared/ui';
 import { Plus, Trash2, Loader2, Save, FileImage } from 'lucide-react';
 import type { GuideSection, GuideItem } from '@/shared/types';
@@ -25,11 +30,25 @@ import MDEditor from '@uiw/react-md-editor';
 import { MarkdownContent } from '@/shared/ui/components/markdown-content';
 
 export const GuideManager = () => {
-  const { guides, isLoading, saveGuide, isSaving } = useCmsGuide();
+  const { guides, isLoading, saveGuide, isSaving, deleteGuide, isDeleting } = useCmsGuide();
   const [selectedGuideId, setSelectedGuideId] = useState<string>('');
   const [editingGuide, setEditingGuide] = useState<Partial<GuideSection> | null>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
+  const [selectedIcon, setSelectedIcon] = useState<File | null>(null);
+  const [iconPreview, setIconPreview] = useState<string | null>(null);
+
+  // File removal state
+  const [removeImage, setRemoveImage] = useState(false);
+  const [removeIcon, setRemoveIcon] = useState(false);
+
+  // File input refs for resetting
+  const imageInputRef = useRef<HTMLInputElement>(null);
+  const iconInputRef = useRef<HTMLInputElement>(null);
+
+  // Deletion state
+  const [isDeleteConfirmOpen, setIsDeleteConfirmOpen] = useState(false);
+  const [deleteConfirmInput, setDeleteConfirmInput] = useState('');
 
   // Set initial guide
   useEffect(() => {
@@ -53,6 +72,14 @@ export const GuideManager = () => {
       }
       setSelectedImage(null);
       setImagePreview(null);
+      setSelectedIcon(null);
+      setIconPreview(null);
+      setRemoveImage(false);
+      setRemoveIcon(false);
+      
+      // Reset file inputs
+      if (imageInputRef.current) imageInputRef.current.value = '';
+      if (iconInputRef.current) iconInputRef.current.value = '';
     }
   }, [selectedGuideId, guides]);
 
@@ -67,6 +94,17 @@ export const GuideManager = () => {
     }
   };
 
+  const handleIconChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedIcon(file);
+      setIconPreview(URL.createObjectURL(file));
+    } else {
+      setSelectedIcon(null);
+      setIconPreview(null);
+    }
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingGuide || !editingGuide.id || !editingGuide.header) return;
@@ -77,11 +115,29 @@ export const GuideManager = () => {
         header: editingGuide.header,
         data: editingGuide.data || [],
         image: selectedImage || undefined,
+        icon: selectedIcon || undefined,
+        removeImage,
+        removeIcon,
       });
+      
+      // Reset removal flags after save
+      setRemoveImage(false);
+      setRemoveIcon(false);
       // Error is handled by hook
     } catch (err) {
       // Error handled by hook
     }
+  };
+
+  const handleDelete = async () => {
+    if (!selectedGuideId || selectedGuideId === 'new' || deleteConfirmInput !== selectedGuideId) return;
+
+    try {
+      await deleteGuide(selectedGuideId);
+      setIsDeleteConfirmOpen(false);
+      setDeleteConfirmInput('');
+      setSelectedGuideId(guides?.[0]?.id || '');
+    } catch (err) { }
   };
 
   const addDataItem = () => {
@@ -116,7 +172,7 @@ export const GuideManager = () => {
     <div className="space-y-6 pb-20">
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <h2 className="text-3xl font-bold tracking-tight">Guide Management</h2>
-        
+
         <div className="flex items-center gap-4 w-full sm:w-auto">
           <Select value={selectedGuideId} onValueChange={setSelectedGuideId}>
             <SelectTrigger className="w-full sm:w-[250px]">
@@ -133,6 +189,50 @@ export const GuideManager = () => {
               </SelectItem>
             </SelectContent>
           </Select>
+
+          {selectedGuideId && selectedGuideId !== 'new' && (
+            <Dialog open={isDeleteConfirmOpen} onOpenChange={setIsDeleteConfirmOpen}>
+              <DialogTrigger asChild>
+                <Button variant="destructive" size="icon">
+                  <Trash2 size={18} />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="bg-[#0b1a1f] border-red-500/20 text-white sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle className="text-2xl font-bold text-red-500">Delete Guide?</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-6 py-4">
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-sm text-red-200">
+                    Are you sure you want to delete <span className="font-bold text-white uppercase">"{selectedGuideId}"</span>? This action can be undone by an admin in the database, but it will be hidden from everyone else.
+                  </div>
+
+                  <div className="space-y-3">
+                    <Label className="text-gray-300 text-sm">
+                      Please type <span className="text-white font-bold">{selectedGuideId}</span> to confirm:
+                    </Label>
+                    <Input
+                      placeholder="Enter guide ID"
+                      value={deleteConfirmInput}
+                      onChange={(e) => setDeleteConfirmInput(e.target.value)}
+                      className="bg-white/5 border-white/10 text-white focus:border-red-500/50"
+                    />
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button variant="outline" className="flex-1 bg-white/5 border-white/10" onClick={() => setIsDeleteConfirmOpen(false)}>Cancel</Button>
+                    <Button
+                      variant="destructive"
+                      className="flex-1 bg-red-600 hover:bg-red-700"
+                      disabled={deleteConfirmInput !== selectedGuideId || isDeleting}
+                      onClick={handleDelete}
+                    >
+                      {isDeleting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Delete Guide'}
+                    </Button>
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
+          )}
         </div>
       </div>
 
@@ -176,12 +276,66 @@ export const GuideManager = () => {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="guide-image">Cover Image (Optional)</Label>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="guide-image">Cover Image (Optional)</Label>
+                      {(selectedImage || (editingGuide.image && !removeImage)) && (
+                        <Button 
+                          type="button" 
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-6 text-xs text-red-400 hover:text-red-500 hover:bg-red-500/10"
+                          onClick={() => {
+                            if (selectedImage) {
+                              setSelectedImage(null);
+                              setImagePreview(null);
+                              if (imageInputRef.current) imageInputRef.current.value = '';
+                            } else {
+                              setRemoveImage(true);
+                            }
+                          }}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
                     <Input
                       id="guide-image"
                       type="file"
                       accept="image/*"
+                      ref={imageInputRef}
                       onChange={handleImageChange}
+                      className="cursor-pointer file:text-accent-500"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="guide-icon">Icon (Optional)</Label>
+                      {(selectedIcon || (editingGuide.icon && !removeIcon)) && (
+                        <Button 
+                          type="button" 
+                          variant="ghost" 
+                          size="sm" 
+                          className="h-6 text-xs text-red-400 hover:text-red-500 hover:bg-red-500/10"
+                          onClick={() => {
+                            if (selectedIcon) {
+                              setSelectedIcon(null);
+                              setIconPreview(null);
+                              if (iconInputRef.current) iconInputRef.current.value = '';
+                            } else {
+                              setRemoveIcon(true);
+                            }
+                          }}
+                        >
+                          Remove
+                        </Button>
+                      )}
+                    </div>
+                    <Input
+                      id="guide-icon"
+                      type="file"
+                      accept="image/*"
+                      ref={iconInputRef}
+                      onChange={handleIconChange}
                       className="cursor-pointer file:text-accent-500"
                     />
                   </div>
@@ -220,7 +374,7 @@ export const GuideManager = () => {
                         >
                           <Trash2 size={14} />
                         </Button>
-                        
+
                         <div className="space-y-2 pr-12">
                           <Label>Title</Label>
                           <Input
@@ -260,29 +414,38 @@ export const GuideManager = () => {
               <CardHeader className="border-b border-white/5 p-6 bg-white/5">
                 <CardTitle className="text-xl flex items-center justify-between">
                   <span>Live Preview</span>
-                  <span className="text-xs font-normal text-muted-foreground bg-black/40 px-2 py-1 rounded-md">
-                    Read-only
-                  </span>
+                  <div className="flex items-center gap-2">
+                    {(iconPreview || (editingGuide.icon && !removeIcon)) ? (
+                      <img
+                        src={iconPreview || editingGuide.icon || ''}
+                        alt="Icon"
+                        className="w-6 h-6 object-contain"
+                      />
+                    ) : null}
+                    <span className="text-xs font-normal text-muted-foreground bg-black/40 px-2 py-1 rounded-md">
+                      Read-only
+                    </span>
+                  </div>
                 </CardTitle>
               </CardHeader>
-              
+
               {/* This mimics the frontend guides-content.tsx layout styling */}
               <CardContent className="p-0 overflow-y-auto max-h-[calc(100vh-12rem)] custom-scrollbar">
                 {/* Simulated frontend background/container */}
                 <div className="bg-[#0b1a1f] p-6 sm:p-8 min-h-full">
                   <div className="bg-white/5 backdrop-blur-xl rounded-[32px] border border-white/5 p-6 sm:p-8">
-                    
+
                     {/* Header Preview */}
-                    {(editingGuide.header || imagePreview || editingGuide.image) && (
+                    {(editingGuide.header || imagePreview || (editingGuide.image && !removeImage)) && (
                       <div className="mb-8 space-y-6">
                         {editingGuide.header && (
                           <MarkdownContent content={editingGuide.header} />
                         )}
-                        
-                        {(imagePreview || editingGuide.image) && (
-                          <img 
-                            src={imagePreview || (editingGuide.image ? `${import.meta.env.VITE_API_URL?.replace('/api', '')}/uploads/${editingGuide.image}` : '')} 
-                            alt="Cover" 
+
+                        {(imagePreview || (editingGuide.image && !removeImage)) && (
+                          <img
+                            src={imagePreview || editingGuide.image || ''}
+                            alt="Cover"
                             className="rounded-xl border border-white/10 max-w-full h-auto shadow-lg"
                           />
                         )}
