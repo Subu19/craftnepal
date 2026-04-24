@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { MessageCircle, Trophy, BarChart3, BookOpen, Rss } from 'lucide-react';
+import { MessageCircle, Trophy, BarChart3, BookOpen, Rss, Map as MapIcon } from 'lucide-react';
 const logo = '/assets/images/craftnepal.svg';
 
 // Custom Facebook SVG since lucide version might be missing it
@@ -27,6 +27,7 @@ const Footer = () => {
     { title: 'Leaderboard', desc: 'Top 100 players and more', icon: Trophy, color: 'text-accent-500' },
     { title: 'Feed', desc: 'Share your in-game memories', icon: Rss, color: 'text-accent-500' },
     { title: 'Guide', desc: 'All the help you need', icon: BookOpen, color: 'text-accent-500' },
+    { title: 'Map', desc: 'Live world map', icon: MapIcon, color: 'text-accent-500' },
   ];
 
   return (

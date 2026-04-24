@@ -28,6 +28,7 @@ const Navigation = () => {
     { href: "/feed", label: "Feed" },
     { href: "/gallery", label: "Gallery" },
     { href: "/leaderboard", label: "Leaderboard" },
+    { href: "/map", label: "Map" },
   ];
 
   const isActive = (href: string) => location.pathname === href;
