@@ -3,7 +3,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "../shared/config/queryClient";
 import { SocketProvider } from "../shared/providers/socket-provider";
 import { AuthProvider } from "../shared/providers/auth-provider";
-import { TooltipProvider } from "../shared/ui";
+import { TooltipProvider, Toaster } from "../shared/ui";
 import "./styles/index.css";
 
 import MainLayout from "../widgets/layout/main-layout";
@@ -24,6 +24,7 @@ function App() {
       <AuthProvider>
         <SocketProvider>
           <TooltipProvider>
+            <Toaster />
             <Router>
               <Routes>
                 <Route element={<MainLayout />}>
@@ -33,6 +34,7 @@ function App() {
                   <Route path="/stats" element={<Stats />} />
                   <Route path="/feed" element={<Feed />} />
                   <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/gallery/:season" element={<Gallery />} />
                   <Route path="/map" element={<Map />} />
                 </Route>
                 <Route path="/admin" element={<CmsLayout />}>

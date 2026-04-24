@@ -10,9 +10,9 @@ const Guides = () => {
     <div className="min-h-screen pt-24 pb-20 relative overflow-x-hidden">
       <GuidesHero />
 
-      <GuidesQuickNav />
+      <GuidesQuickNav guides={guidesData || []} />
 
-      <GuidesContent guidesData={guidesData} isLoading={guidesLoading} />
+      <GuidesContent guides={guidesData || []} isLoading={guidesLoading} />
 
       {/* --- Footer CTA --- */}
       <section className="max-w-7xl mx-auto px-6 mt-32 text-center">

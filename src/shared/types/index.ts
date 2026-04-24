@@ -95,6 +95,7 @@ export interface GuideSection {
   header: string;
   data: GuideItem[];
   image?: string | null;
+  icon?: string | null;
 }
 
 export interface Guide {
@@ -116,14 +117,7 @@ export interface Command {
   category: string;
 }
 
-export interface GuidesData {
-  Rules: GuideSection;
-  Commands: GuideSection;
-  Ranks: GuideSection;
-  Market: GuideSection;
-  FAQ: GuideSection;
-  Others: GuideSection;
-}
+export type GuidesData = Record<string, GuideSection>;
 
 // Server Event Types
 export interface ServerEvent {
