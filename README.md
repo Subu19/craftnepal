@@ -221,4 +221,4 @@ Experience the CraftNepal Minecraft server and join our community of 2000+ activ
 
 ---
 
-**Built with ❤️ for the CraftNepal Community**
+**Built with ❤️ for the CraftNepal Community!**
