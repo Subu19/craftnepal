@@ -10,7 +10,7 @@ export const Home = () => {
   return (
     <div className="main" id="main">
       <Helmet>
-        <title>CraftNepal-Ultimate Nepalese Minecraft Server</title>
+        <title>CraftNepal Nonprofit & Over a Decade Old</title>
         <meta property="og:title" content="CraftNepal" />
         <meta
           name="description"

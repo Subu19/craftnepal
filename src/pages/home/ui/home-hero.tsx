@@ -20,7 +20,7 @@ export const HomeHero = () => {
     >
       {/* Dharara background */}
       <div
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-25"
+        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat opacity-40"
         style={{ backgroundImage: `url(/assets/images/dharara.png)` }}
       />
       {/* Gradient overlay to blend into body */}

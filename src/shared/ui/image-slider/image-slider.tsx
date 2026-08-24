@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -8,34 +8,36 @@ interface ImageSliderProps {
 
 export const ImageSlider = ({ images }: ImageSliderProps) => {
   const [current, setCurrent] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const [direction, setDirection] = useState(1);
 
   const goTo = useCallback(
     (idx: number) => {
+      setDirection(idx >= current ? 1 : -1);
       setCurrent((idx + images.length) % images.length);
     },
-    [images.length]
+    [current, images.length]
   );
 
   useEffect(() => {
-    timerRef.current = setInterval(() => goTo(current + 1), 4000);
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
-    };
+    const timer = setInterval(() => goTo(current + 1), 4000);
+    return () => clearInterval(timer);
   }, [current, goTo]);
+
+  if (images.length === 0) return null;
 
   return (
     <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 shadow-2xl aspect-[16/10]">
-      <AnimatePresence mode="wait">
+      <AnimatePresence initial={false} custom={direction}>
         <motion.img
           key={current}
           src={images[current]}
           alt={`Slider screenshot ${current + 1}`}
-          className="absolute inset-0 w-full h-full object-cover"
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
-          transition={{ duration: 0.5 }}
+          className="absolute inset-0 w-full h-full object-cover object-center will-change-transform"
+          custom={direction}
+          initial={{ x: `${direction * 100}%` }}
+          animate={{ x: 0 }}
+          exit={{ x: `${direction * -100}%` }}
+          transition={{ duration: 0.75, ease: "easeInOut" }}
         />
       </AnimatePresence>
 

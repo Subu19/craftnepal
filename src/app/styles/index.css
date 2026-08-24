@@ -51,6 +51,33 @@
     }
   }
 
+    @keyframes minecraft-text-pan {
+      from {
+        background-position: 0% center;
+      }
+
+      to {
+        background-position: 200% center;
+      }
+    }
+
+    @keyframes minecraft-sparkle {
+      0%, 100% {
+        opacity: 0;
+        transform: translateY(4px) scale(0.35) rotate(0deg);
+      }
+
+      45% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(90deg);
+      }
+
+      70% {
+        opacity: 0.35;
+        transform: translateY(-2px) scale(0.65) rotate(135deg);
+      }
+    }
+
   @keyframes dialog-slide-up {
     0% {
       opacity: 0;
@@ -277,5 +304,57 @@ a {
 
   html {
     @apply font-sans;
+  }
+}
+
+.minecraft-magic {
+  background: linear-gradient(105deg, #75c043 10%, #c8e878 35%, #39a84a 55%, #9dd95b 75%, #75c043 90%);
+  background-size: 220% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+  position: relative;
+  text-shadow: 0 0 24px rgba(117, 192, 67, 0.28);
+  animation: minecraft-text-pan 3.2s linear infinite;
+}
+
+.minecraft-spark {
+  background: #c8e878;
+  clip-path: polygon(50% 0%, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0% 50%, 39% 39%);
+  display: block;
+  height: 0.46em;
+  opacity: 0;
+  position: absolute;
+  text-shadow: 0 0 12px rgba(200, 232, 120, 0.9);
+  width: 0.46em;
+  animation: minecraft-sparkle 1.9s ease-in-out infinite;
+}
+
+.minecraft-spark:nth-child(1) {
+  left: -0.15em;
+  top: 0.05em;
+}
+
+.minecraft-spark:nth-child(2) {
+  animation-delay: 0.55s;
+  right: -0.15em;
+  top: -0.38em;
+}
+
+.minecraft-spark:nth-child(3) {
+  animation-delay: 1.05s;
+  bottom: -0.1em;
+  right: 0.18em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .minecraft-magic,
+  .minecraft-spark {
+    animation: none;
+  }
+
+  .minecraft-spark {
+    opacity: 0.8;
   }
 }
