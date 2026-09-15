@@ -119,13 +119,21 @@
 
 html {
   @apply scroll-smooth;
+  background-color: #0b1a1f;
+  background-image: linear-gradient(90deg, rgba(31, 62, 71, 1) 0%, rgba(9, 5, 21, 1) 100%);
+  min-height: 100vh;
+  overscroll-behavior: none;
 }
 
 body {
-  @apply bg-secondary-900 text-gray-100;
+  @apply text-gray-100;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: linear-gradient(90deg, rgba(31, 62, 71, 1) 0%, rgba(9, 5, 21, 1) 100%);
+  background-color: #0b1a1f;
+  background-image: linear-gradient(90deg, rgba(31, 62, 71, 1) 0%, rgba(9, 5, 21, 1) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
   overflow-x: hidden;
+  overscroll-behavior: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -299,7 +307,7 @@ a {
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply text-foreground;
   }
 
   html {

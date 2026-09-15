@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Send, Trash2, MessageCircle } from "lucide-react";
+import { Send, Trash2, MessageCircle, LogIn } from "lucide-react";
 import { useSocket } from "../../../shared/providers/socket-provider";
+import { useAuth } from "../../../shared/providers/auth-provider";
 import type { Post as PostType, Comment } from "../../../shared/types";
 import { useAddComment, useDeleteComment } from "../hooks/use-feed";
+import { toast } from "sonner";
 
 // shadcn components
 import {
@@ -35,6 +37,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
   const [comments, setComments] = useState<Comment[]>(post.comments || []);
   const [newComment, setNewComment] = useState("");
   const { socket } = useSocket();
+  const { user, login } = useAuth();
 
   const addCommentMutation = useAddComment();
   const deleteCommentMutation = useDeleteComment();
@@ -46,12 +49,13 @@ const CommentModal: React.FC<CommentModalProps> = ({
   useEffect(() => {
     if (socket && postId) {
       const eventName = `updateComments:${postId}`;
-      socket.on(eventName, (data: { comments: Comment[] }) => {
+      const handleCommentsUpdate = (data: { comments: Comment[] }) => {
         setComments(data.comments);
-      });
+      };
+      socket.on(eventName, handleCommentsUpdate);
 
       return () => {
-        socket.off(eventName);
+        socket.off(eventName, handleCommentsUpdate);
       };
     }
   }, [socket, postId]);
@@ -70,11 +74,15 @@ const CommentModal: React.FC<CommentModalProps> = ({
       {
         onSuccess: () => {
           setNewComment("");
+          toast.success("Comment added");
           if (socket) {
             socket.emit("updateComments", {
               postId,
             });
           }
+        },
+        onError: () => {
+          toast.error("Failed to add comment");
         },
       },
     );
@@ -86,11 +94,15 @@ const CommentModal: React.FC<CommentModalProps> = ({
       { postId: postId as string, commentId },
       {
         onSuccess: () => {
+          toast.success("Comment deleted");
           if (socket) {
             socket.emit("updateComments", {
               postId,
             });
           }
+        },
+        onError: () => {
+          toast.error("Failed to delete comment");
         },
       },
     );
@@ -123,7 +135,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
               {comments.length > 0 ? (
                 comments.map((comment, index) => (
                   <motion.div
-                    key={comment.id || index}
+                    key={comment.id || comment._id || index}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, scale: 0.95 }}
@@ -161,6 +173,16 @@ const CommentModal: React.FC<CommentModalProps> = ({
                               comment.author?.name ||
                               "Unknown User"}
                           </p>
+                          {comment.createdAt && (
+                            <span className="text-xs text-gray-500 font-medium">
+                              {new Intl.DateTimeFormat('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                hour: 'numeric',
+                                minute: 'numeric'
+                              }).format(new Date(comment.createdAt))}
+                            </span>
+                          )}
                         </div>
                         {currentUserId ===
                           (comment.discordId ||
@@ -171,7 +193,7 @@ const CommentModal: React.FC<CommentModalProps> = ({
                             whileTap={{ scale: 0.9 }}
                             onClick={() =>
                               handleDeleteComment(
-                                comment.id || comment._id || "",
+                                comment._id || comment.id || "",
                               )
                             }
                             className="text-gray-500 transition-colors opacity-0 group-hover:opacity-100"
@@ -202,23 +224,34 @@ const CommentModal: React.FC<CommentModalProps> = ({
         </ScrollArea>
 
         <div className="p-6 bg-white/[0.02] border-t border-white/5">
-          <form onSubmit={handleAddComment} className="relative">
-            <Input
-              type="text"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              placeholder="Write a comment..."
-              className="pr-12 bg-secondary-900 border-white/10 text-white placeholder-gray-500 h-11 rounded-xl focus:border-accent-500/50 transition-all"
-            />
+          {user ? (
+            <form onSubmit={handleAddComment} className="relative">
+              <Input
+                type="text"
+                value={newComment}
+                onChange={(e) => setNewComment(e.target.value)}
+                placeholder="Write a comment..."
+                className="pr-12 bg-secondary-900 border-white/10 text-white placeholder-gray-500 h-11 rounded-xl focus:border-accent-500/50 transition-all"
+              />
+              <Button
+                type="submit"
+                disabled={!newComment.trim() || addCommentMutation.isPending}
+                size="icon"
+                className="absolute right-1 top-1 h-9 w-9 rounded-lg"
+              >
+                <Send size={18} />
+              </Button>
+            </form>
+          ) : (
             <Button
-              type="submit"
-              disabled={!newComment.trim() || addCommentMutation.isPending}
-              size="icon"
-              className="absolute right-1 top-1 h-9 w-9 rounded-lg"
+              onClick={login}
+              variant="outline"
+              className="w-full h-11 rounded-xl bg-white/5 border-white/10 hover:bg-white/10 text-white font-semibold gap-2"
             >
-              <Send size={18} />
+              <LogIn size={16} />
+              Log in with Discord to comment
             </Button>
-          </form>
+          )}
         </div>
       </DialogContent>
     </Dialog>

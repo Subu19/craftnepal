@@ -1,10 +1,9 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, keepPreviousData } from '@tanstack/react-query';
 import type { UseQueryResult, UseMutationResult } from '@tanstack/react-query';
 import { api } from '../../../shared/api/client';
 import type { Post, PaginatedResponse } from '../../../shared/types';
 import { queryClient } from '../../../shared/config/queryClient';
 
-// Using legacy API endpoints: feed/{limit}
 export const useFeed = (page = 1, limit = 20): UseQueryResult<PaginatedResponse<Post>, Error> => {
   return useQuery({
     queryKey: ['feed', page, limit],
@@ -12,7 +11,8 @@ export const useFeed = (page = 1, limit = 20): UseQueryResult<PaginatedResponse<
       const { data } = await api.get<PaginatedResponse<Post>>(`/feed/${limit}`);
       return data;
     },
-    staleTime: 30000, // 30 seconds
+    staleTime: 5000, // 5 seconds — keep feed relatively fresh
+    placeholderData: keepPreviousData,
   });
 };
 
@@ -40,7 +40,9 @@ export const useCreatePost = () => {
       return api.post('/post', content);
     },
     onSuccess: () => {
+      // Force refetch immediately, ignoring staleTime
       queryClient.invalidateQueries({ queryKey: ['feed'] });
+      queryClient.refetchQueries({ queryKey: ['feed'] });
     },
   });
 };
@@ -100,23 +102,7 @@ export const useDeleteComment = () => {
       postId: string;
       commentId: string;
     }) =>
-      api.post(`/post/delete/${postId}/${commentId}`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['feed'] });
-    },
-  });
-};
-
-export const useLikeComment = () => {
-  return useMutation({
-    mutationFn: ({
-      postId,
-      commentId,
-    }: {
-      postId: string;
-      commentId: string;
-    }) =>
-      api.post(`/post/like/${postId}/${commentId}`),
+      api.delete(`/post/comment/${postId}/${commentId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['feed'] });
     },

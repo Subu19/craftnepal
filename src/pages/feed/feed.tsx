@@ -1,15 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import { useFeed, useLikePost, useUnlikePost } from "@/features/feed/hooks/use-feed";
 import type { Post as PostType } from "@/shared/types";
 import { useAuth } from "@/shared/providers/auth-provider";
+import { useSocket } from "@/shared/providers/socket-provider";
 import { Button } from "@/shared/ui/button";
 import PostCreationForm from "@/features/feed/ui/post-creation-form";
 import FeedSkeleton from "@/features/feed/ui/feed-skeleton";
 import Post from "@/features/feed/ui/post";
 import CommentModal from "@/features/feed/ui/comment-model";
 import { FeedSidebar, FeedEmptyState } from "./ui";
+import { queryClient } from "@/shared/config/queryClient";
+import { toast } from "sonner";
 
 const Feed = () => {
   const [limit, setLimit] = useState(20);
@@ -17,8 +20,9 @@ const Feed = () => {
   const [selectedPost, setSelectedPost] = useState<PostType | null>(null);
   const [commentModalOpen, setCommentModalOpen] = useState(false);
   const { user } = useAuth();
+  const { socket } = useSocket();
 
-  const { data: feedData, isLoading, isFetching, refetch } = useFeed(1, limit);
+  const { data: feedData, isLoading, isFetching } = useFeed(1, limit);
   const likePostMutation = useLikePost();
   const unlikePostMutation = useUnlikePost();
 
@@ -27,7 +31,7 @@ const Feed = () => {
   // Convert API response to array
   const posts = Array.isArray(feedData?.data) ? feedData.data : [];
 
-  // Initialize likedPosts from feed data only once per user session
+  // Initialize likedPosts from feed data
   const [hasInitializedLikes, setHasInitializedLikes] = useState(false);
   useEffect(() => {
     if (posts.length > 0 && currentUserId && !hasInitializedLikes) {
@@ -50,19 +54,90 @@ const Feed = () => {
     }
   }, [posts, currentUserId, hasInitializedLikes]);
 
-  const handleLikePost = (postId: string) => {
+  // Re-sync liked state when feed data changes (after refetch)
+  useEffect(() => {
+    if (posts.length > 0 && currentUserId && hasInitializedLikes) {
+      setLikedPosts(() => {
+        const newSet = new Set<string>();
+        posts.forEach((post) => {
+          const pid = post._id || post.id;
+          const isLiked =
+            Array.isArray(post.likes) &&
+            post.likes.some(
+              (l: any) => l.userId === currentUserId || l.id === currentUserId,
+            );
+          if (isLiked) {
+            newSet.add(pid as string);
+          }
+        });
+        return newSet;
+      });
+    }
+  }, [feedData]);
+
+  // Listen for real-time events via socket
+  useEffect(() => {
+    if (!socket) return;
+
+    const handleNewPost = () => {
+      // Force refetch feed when a new post is created by anyone
+      queryClient.invalidateQueries({ queryKey: ['feed'] });
+      queryClient.refetchQueries({ queryKey: ['feed'] });
+    };
+
+    const handlePostDeleted = () => {
+      queryClient.invalidateQueries({ queryKey: ['feed'] });
+      queryClient.refetchQueries({ queryKey: ['feed'] });
+    };
+
+    socket.on("newPost", handleNewPost);
+    socket.on("postDeleted", handlePostDeleted);
+
+    return () => {
+      socket.off("newPost", handleNewPost);
+      socket.off("postDeleted", handlePostDeleted);
+    };
+  }, [socket]);
+
+  const handleLikePost = useCallback((postId: string) => {
+    // Auth guard — must be logged in to like
+    if (!currentUserId) {
+      toast.error("Please log in to like posts");
+      return;
+    }
+
     const newLiked = new Set(likedPosts);
     if (newLiked.has(postId)) {
       newLiked.delete(postId);
-      unlikePostMutation.mutate(postId);
+      unlikePostMutation.mutate(postId, {
+        onError: () => {
+          // Revert on error
+          setLikedPosts((prev) => new Set(prev).add(postId));
+          toast.error("Failed to unlike post");
+        },
+      });
     } else {
       newLiked.add(postId);
-      likePostMutation.mutate(postId);
+      likePostMutation.mutate(postId, {
+        onError: () => {
+          // Revert on error
+          setLikedPosts((prev) => {
+            const reverted = new Set(prev);
+            reverted.delete(postId);
+            return reverted;
+          });
+          toast.error("Failed to like post");
+        },
+      });
     }
     setLikedPosts(newLiked);
-  };
+  }, [currentUserId, likedPosts, likePostMutation, unlikePostMutation]);
 
   const handleCommentClick = (postId: string) => {
+    if (!currentUserId) {
+      toast.error("Please log in to comment");
+      return;
+    }
     const post = posts.find((p) => (p._id || p.id) === postId);
     if (post) {
       setSelectedPost(post);
@@ -89,7 +164,10 @@ const Feed = () => {
           {/* Create Post Form */}
           <PostCreationForm
             onSuccess={() => {
-              refetch();
+              // Force immediate refetch
+              queryClient.invalidateQueries({ queryKey: ['feed'] });
+              queryClient.refetchQueries({ queryKey: ['feed'] });
+              toast.success("Post created successfully!");
             }}
           />
 

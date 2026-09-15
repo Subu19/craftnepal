@@ -3,15 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Heart,
   MessageCircle,
-  Share2,
   MoreHorizontal,
   Trash2,
   Clock,
+  Link2,
 } from "lucide-react";
 import { useSocket } from "../../../shared/providers/socket-provider";
 import { timeAgo } from "../../../shared/utils/helpers";
 import type { Post as PostType } from "../../../shared/types";
 import { useDeletePost } from "../hooks/use-feed";
+import { toast } from "sonner";
 
 // shadcn components
 import { Card, CardContent, CardFooter, CardHeader } from "@/shared/ui/card";
@@ -46,23 +47,36 @@ const Post: React.FC<PostProps> = ({
   // Get post ID (handle both _id and id)
   const postId = post._id || post.id;
 
+  // Sync local post when parent prop changes (e.g., after feed refetch)
+  useEffect(() => {
+    setLocalPost(post);
+  }, [post]);
+
   // Listen for post updates via socket
   useEffect(() => {
     if (socket && postId) {
       const eventName = `updatePost:${postId}`;
-      socket.on(eventName, (data: { post: PostType }) => {
+      const handlePostUpdate = (data: { post: PostType }) => {
         setLocalPost(data.post);
-      });
+      };
+      socket.on(eventName, handlePostUpdate);
 
       return () => {
-        socket.off(eventName);
+        socket.off(eventName, handlePostUpdate);
       };
     }
   }, [socket, postId]);
 
   const handleDelete = () => {
     if (postId) {
-      deletePostMutation.mutate(postId as string);
+      deletePostMutation.mutate(postId as string, {
+        onSuccess: () => {
+          toast.success("Post deleted");
+        },
+        onError: () => {
+          toast.error("Failed to delete post");
+        },
+      });
     }
   };
 
@@ -97,6 +111,16 @@ const Post: React.FC<PostProps> = ({
   const handleLikeClick = () => {
     if (!postId) return;
     onLike(postId as string);
+  };
+
+  const handleShare = async () => {
+    const url = `${window.location.origin}/feed#${postId}`;
+    try {
+      await navigator.clipboard.writeText(url);
+      toast.success("Link copied to clipboard!");
+    } catch {
+      toast.error("Failed to copy link");
+    }
   };
 
   return (
@@ -233,11 +257,12 @@ const Post: React.FC<PostProps> = ({
           <Button
             variant="ghost"
             size="sm"
+            onClick={handleShare}
             className="flex items-center gap-2 px-4 py-2 h-10 text-gray-500 hover:text-white hover:bg-white/10 transition-all rounded-xl"
           >
-            <Share2 size={18} strokeWidth={2.5} />
+            <Link2 size={18} strokeWidth={2.5} />
             <span className="hidden sm:inline text-xs font-bold uppercase tracking-wider">
-              Share
+              Copy Link
             </span>
           </Button>
         </CardFooter>
